@@ -13,20 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jadwals', function (Blueprint $table) {
+        Schema::create('improvements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pop_id')->nullable()->unsigned();
             $table->string('plan');
-            $table->string('wo_fsm');
-            $table->string('realisasi');
             $table->string('wilayah');
             $table->string('area');
-            $table->string('jenis_pm');
-            $table->string('kategori_pm');
-            // $table->string('nama_pop');
-            $table->string('cluster')->default('-');
+            $table->string('dasar_improvement');
+            $table->string('jenis_improvement');
+            $table->string('kategori_improvement');
+            $table->foreignId('pop_id')->nullable()->unsigned();
+            $table->string('nam_cpe_pln');
+            $table->string('cluster');
             $table->string('status');
-            $table->text('link_sharepoint');
+            $table->string('realisasi');
+            $table->string('link_sharepoint');
             $table->timestamps();
         });
     }
@@ -38,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jadwals');
+        Schema::dropIfExists('improvements');
     }
 };
