@@ -14,6 +14,8 @@
             <input type="hidden" value="Plan" name="status">
             <input type="hidden" value="-" name="realisasi">
             <input type="hidden" value="-" name="link_sharepoint">
+            <input type="hidden" value="-" name="improvement">
+            <input type="hidden" value="-" name="temuan">
             <div class="form-group mb-4">
                 <label for="plan">Plan PM</label>
                 <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
@@ -98,10 +100,13 @@
                     <select class="form-control select2 @error('kategori_pm') is-invalid @enderror" style="width: 100%;"
                         value="{{ old('kategori_pm') }}" name="kategori_pm">
                         <option selected="selected" hidden disabled></option>
-                        <option value="Batre">Batre</option>
+                        <option value="Uji Batre">Uji Batre</option>
+                        <option value="OLT">OLT</option>
                         <option value="AC (Air Conditioner)">AC (Air Conditioner)</option>
-                        <option value="AC Dan Environment">AC Dan Environment</option>
-                        <option value="All">All</option>
+                        <option value="AC - Environment">AC - Environment</option>
+                        <option value="Environment">Environment</option>
+                        <option value="AC - Environment - Uji Batre">AC - Environment - Uji Batre</option>
+                        {{-- <option value="All">All</option> --}}
                     </select>
                     @error('kategori_pm')
                     <div class="invalid-feedback">
@@ -137,9 +142,11 @@
                     <select class="form-control select2 @error('kategori_pm') is-invalid @enderror" style="width: 100%;"
                         value="{{ old('kategori_pm') }}" name="kategori_pm">
                         <option selected="selected" hidden disabled></option>
-                        <option value="Jalur Kabel">Jalur Kabel</option>
-                        <option value="Utilitas (FDT,FAT,JB,dll)">Utilitas (FDT,FAT,JB,dll)</option>
-                        <option value="All">All</option>
+                        <option value="IKR - Kabel DW">IKR - Kabel DW</option>
+                        <option value="IKR - Kabel DW dan FAT">IKR - Kabel DW dan FAT</option>
+                        <option value="IKR - FAT">IKR - FAT</option>
+                        <option value="Jalur Feeder">Jalur Feeder</option>
+                        <option value="Jalur Kabel TR/TM">Jalur Kabel TR/TM</option>
                     </select>
                     @error('kategori_pm')
                     <div class="invalid-feedback">

@@ -26,6 +26,9 @@ return new class extends Migration
             // $table->string('nama_pop');
             $table->string('cluster')->default('-');
             $table->string('status');
+            $table->string('segmen');
+            $table->string('temuan');
+            $table->string('improvement');
             $table->text('link_sharepoint');
             $table->timestamps();
         });

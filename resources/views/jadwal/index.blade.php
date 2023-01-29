@@ -1,11 +1,9 @@
 @extends('layout.adminlte')
 
 @section('style')
-    <style>
-        .bg-warning{
-            color: white !important;
-        }
-    </style>
+<style>
+
+</style>
 @endsection
 
 @section('content')
@@ -25,13 +23,17 @@
                     <th>Plan</th>
                     <th>Realisasi</th>
                     <th>Jenis PM</th>
+                    <th class="hidden">Kategori PM</th>
+                    <th class="hidden">Segmen</th>
                     <th>Wilayah</th>
                     <th>Area</th>
                     <th>Lokasi / POP</th>
+                    <th class="hidden">Tipe POP</th>
                     <th>Nama Jalan / Cluster</th>
-                    <th class="hidden">Kategori PM</th>
                     <th class="hidden">WO FSM+</th>
                     <th class="hidden">Link Sharepoint</th>
+                    <th class="hidden">Temuan</th>
+                    <th class="hidden">Temuan Improvement</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
@@ -60,7 +62,7 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li class="my-1">
-                                        @if ($row->status == 'Plan')    
+                                        @if ($row->status == 'Plan')
                                         <a href="/jadwal/{{ $row->id }}/edit" class="dropdown-item">
                                             <span style="display: flex; align-items: center;">
                                                 <ion-icon name="create-outline" class="mr-2"></ion-icon>
@@ -90,24 +92,33 @@
                                 </ul>
                             </div>
                         </td>
-                        <td style="color: white"><span class="badge {{ $color }} px-3" style="color: white">{{ $row->status }}</span></td>
+                        <td style="color: white"><span class="badge {{ $color }} px-3"
+                                style="color: white">{{ $row->status }}</span></td>
                         <td>{{ $row->plan }}</td>
                         <td>{{ $row->realisasi }}</td>
                         <td>{{ $row->jenis_pm }}</td>
+                        <td>{{ $row->kategori_pm }}</td>
+                        <td>{{ $row->segmen }}</td>
                         <td>{{ $row->wilayah }}</td>
                         <td>{{ $row->area }}</td>
                         {{-- @php
                          ddd($row->pop)   
                         @endphp --}}
                         @if ($row->pop_id == null)
-                            <td>-</td>
+                        <td>-</td>
                         @else
-                            <td>{{ $row->pop->nama_pop }}</td>
+                        <td>{{ $row->pop->nama_pop }}</td>
+                        @endif
+                        @if ($row->pop_id == null)
+                        <td>-</td>
+                        @else
+                        <td>{{ $row->pop->tipe_pop }}</td>
                         @endif
                         <td>{{ $row->cluster }}</td>
-                        <td>{{ $row->kategori_pm }}</td>
                         <td>{{ $row->wo_fsm }}</td>
                         <td>{{ $row->link_sharepoint }}</td>
+                        <td>{{ $row->temuan }}</td>
+                        <td>{{ $row->improvement }}</td>
 
                         {{-- <td>
                         <a href="/jadwal/{{ $row->id }}/edit">
@@ -178,15 +189,24 @@ $color = 'bg-warning text-white';
                         <div class="col-6 my-3">Area : {{ $row->area }}</div>
                         <div class="col-6 my-3">Jenis PM : {{ $row->jenis_pm }}</div>
                         <div class="col-6 my-3">Kategori PM : {{ $row->kategori_pm }}</div>
-                        <div class="col-6 my-3">Lokasi / POP : {{ $row->nama_pop }}</div>
-                        <div class="col-6 my-3">Nama Jalan / Cluster : {{ $row->cluster }}</div>
+                        <div class="col-6 my-3">Segmen PM : {{ $row->segmen }}</div>
+                        <div class="col-6 my-3">Lokasi / POP : @if ($row->pop_id == null) - @else
+                            {{ $row->pop->nama_pop }} @endif</div>
+                        <div class="col-6 my-3">Tipe POP : @if ($row->pop_id == null) - @else {{ $row->pop->tipe_pop }}
+                            @endif</div>
+                        <div class="col-6 my-3">Nama Jalan / Cluster Perumahan : {{ $row->cluster }}</div>
                         <div class="col-6 my-3">Link Sharepoint Laporan : <a href="{{ $row->link_sharepoint }}"
                                 target="_blank">{{ $row->link_sharepoint }}</a></div>
+                        <div class="col-6 my-3">Temuan : {{ $row->temuan }}</div>
+                        <div class="col-6 my-3">Temuan Improvement : {{ $row->improvement }}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    @endforeach
+    @foreach ($jadwal as $row)
     <div class="modal fade" id="modal-default-{{ $row->id }}">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -199,10 +219,11 @@ $color = 'bg-warning text-white';
                 <div class="modal-body">
                     <form action="/jadwal/{{ $row->id }}/realisasi" method="POST">
                         @csrf
-                        <div class="form-group mt-2 mb-4">
-                            <label for="link_sharepoint">Tanggal Realisasi</label>
+                        <div class="form-group mt-1 mb-4">
+                            <label for="realisasi">Tanggal Realisasi</label>
                             <input type="date" class="form-control" id="realisasi" name="realisasi" required
-                                value="{{ old('realisasi') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                value="{{ old('realisasi') }}" autocomplete="off"
+                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                             @error('realisasi')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -211,10 +232,38 @@ $color = 'bg-warning text-white';
                         </div>
                         <div class="form-group mb-4">
                             <label for="link_sharepoint">Link Sharepoint Laporan</label>
-                            <textarea class="form-control @error('link_sharepoint') is-invalid @enderror" rows="5"
+                            <textarea class="form-control @error('link_sharepoint') is-invalid @enderror" rows="3"
                                 id="link_sharepoint" name="link_sharepoint" required
                                 value="{{ old('link_sharepoint') }}" autocomplete="off"></textarea>
                             @error('link_sharepoint')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="link_sharepoint">Temuan untuk di improve</label>
+                            <div class="bungkus d-flex align-items-center">
+                                <div class="form-check mr-3">
+                                    <input class="form-check-input @error("temuan") is-invalid @enderror ada" type="radio" name="temuan" id="ada-{{ $row->id }}" value="Ada">
+                                    <label class="form-check-label" for="ada-{{ $row->id }}">Ada</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input @error("temuan") is-invalid @enderror tidakada" type="radio" name="temuan" id="tidakada-{{ $row->id }}" value="Tidak ada">
+                                    <label class="form-check-label" for="tidakada-{{ $row->id }}">Tidak ada</label>
+                                </div>
+                            </div>
+                            @error('temuan')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group mt-2 mb-2 formImprovement" id="formImprovement" style="display: none">
+                            <label for="improvement">Isikan temuan</label>
+                            <input type="text" class="form-control" id="improvement" name="improvement"
+                                value="-" autocomplete="off">
+                            @error('improvement')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -235,7 +284,33 @@ $color = 'bg-warning text-white';
 
     @section('script')
 
-    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script>
+
+        let rada = document.querySelectorAll('.ada');
+        let rtidak = document.querySelectorAll('.tidakada');
+        let improvement = document.querySelectorAll('.formImprovement')
+
+        for( let i = 0; i < rada.length; i++){
+            rada[i].addEventListener('click',function(){
+                improvement[i].style.display = 'block'
+            })
+        }
+
+        for( let j = 0; j < rtidak.length; j++){
+            rtidak[j].addEventListener('click',function(){
+                improvement[j].style.display = 'none'
+            })
+        }
+
+        // rada.addEventListener("click",function(){
+        //     improvement.style.display = "block";
+        // });
+
+        // rtidak.addEventListener("click",function(){
+        //     improvement.style.display = "none";
+        // })
+    </script>
+
     @endsection
     @section('title')
     <h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center">Plan & Realisasi PM</h1>

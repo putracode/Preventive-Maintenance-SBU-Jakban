@@ -37,6 +37,10 @@
     color: #03c3ec !important;
   }
 
-  .page-item.active .page-link{
+.page-item.active .page-link{
     background-color: #17a2b8;
-  }
+}
+
+.bg-warning{
+    color: white !important;
+}

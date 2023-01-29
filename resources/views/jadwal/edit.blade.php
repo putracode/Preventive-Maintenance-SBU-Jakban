@@ -105,10 +105,12 @@
                     {{-- <input type="hidden" name="cluster" value="-"> --}}
                     <label for="kategori_pm">Kategori PM</label>
                     <select class="form-control select2 @error('kategori_pm') is-invalid @enderror" style="width: 100%;" value="{{ old('kategori_pm') }}" name="kategori_pm">
-                        <option value="Batre" {{ $jadwal->area == 'Batre' ? 'selected' : '' }}>Batre</option>
+                        <option value="Uji Batre" {{ $jadwal->kategori_pm == 'Uji Batre' ? 'selected' : '' }}>Uji Batre</option>
+                        <option value="OLT" {{ $jadwal->kategori_pm == 'OLT' ? 'selected' : '' }}>OLT</option>
                         <option value="AC (Air Conditioner)" {{ $jadwal->kategori_pm == 'AC (Air Conditioner)' ? 'selected' : '' }}>AC (Air Conditioner)</option>
-                        <option value="AC Dan Environment" {{ $jadwal->kategori_pm == 'AC Dan Environment' ? 'selected' : '' }}>AC Dan Environment</option>
-                        <option value="All" {{ $jadwal->kategori_pm == 'All' ? 'selected' : '' }}>All</option>
+                        <option value="AC - Environment" {{ $jadwal->kategori_pm == 'AC - Environment' ? 'selected' : '' }}>AC - Environment</option>
+                        <option value="Environment" {{ $jadwal->kategori_pm == 'Environment' ? 'selected' : '' }}>Environment</option>
+                        <option value="AC - Environment - Uji Batre" {{ $jadwal->kategori_pm == 'AC - Environment - Uji Batre' ? 'selected' : '' }}>AC - Environment - Uji Batre</option>
                     </select>
                     @error('kategori_pm')
                     <div class="invalid-feedback">
@@ -141,11 +143,12 @@
                 <div class="form-group mb-4">
                     {{-- <input type="hidden" name="nama_pop" value="-"> --}}
                     <label for="kategori_pm">Kategori PM</label>
-                    <select class="form-control select2 @error('kategori_pm') is-invalid @enderror" style="width: 100%;"
-                        value="{{ old('kategori_pm') }}" name="kategori_pm">
-                        <option value="Jalur Kabel" {{ $jadwal->kategori_pm == 'Jalur Kabel' ? 'selected' : '' }}>Jalur Kabel</option>
-                        <option value="Utilitas (FDT,FAT,JB,dll)" {{ $jadwal->kategori_pm == 'Utilitas (FDT,FAT,JB,dll)' ? 'selected' : '' }}>Utilitas (FDT,FAT,JB,dll)</option>
-                        <option value="All" {{ $jadwal->kategori_pm == 'All' ? 'selected' : '' }}>All</option>
+                    <select class="form-control select2 @error('kategori_pm') is-invalid @enderror" style="width: 100%;" value="{{ old('kategori_pm') }}" name="kategori_pm">
+                        <option value="IKR - Kabel DW" {{ $jadwal->kategori_pm == 'IKR - Kabel DW' ? 'selected' : '' }}>IKR - Kabel DW</option>
+                        <option value="IKR - Kabel DW dan FAT" {{ $jadwal->kategori_pm == 'IKR - Kabel DW dan FAT' ? 'selected' : '' }}>IKR - Kabel DW dan FAT</option>
+                        <option value="IKR - FAT" {{ $jadwal->kategori_pm == 'IKR - FAT' ? 'selected' : '' }}>IKR - FAT</option>
+                        <option value="Jalur Feeder" {{ $jadwal->kategori_pm == 'Jalur Feeder' ? 'selected' : '' }}>Jalur Feeder</option>
+                        <option value="Jalur Kabel TR/TM" {{ $jadwal->kategori_pm == 'Jalur Kabel TR/TM' ? 'selected' : '' }}>Jalur Kabel TR/TM</option>
                     </select>
                     @error('kategori_pm')
                     <div class="invalid-feedback">

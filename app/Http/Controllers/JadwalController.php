@@ -50,13 +50,33 @@ class JadwalController extends Controller
             'status' => ['required'],
             'link_sharepoint' => ['required'],
             'pop_id' => ['required'],
+            'temuan' => ['required'],
+            'improvement' => ['required'],
         ]);
 
-        // if( $request->cluster == ''){
-        //     $validasi['cluster'] = '-';
-        // }else{
-        //     $validasi['cluster'] = $request->cluster;
-        // }
+        if($request->kategori_pm == 'Uji Batre'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'OLT'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'AC (Air Conditioner)'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'AC - Environment'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'Environment'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'AC - Environment - Uji Batre'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'IKR - Kabel DW'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'IKR - Kabel DW dan FAT'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'IKR - FAT'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'Jalur Feeder'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'Jalur Kabel TR/TM'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }
 
         if( $request->pop_id == '-'){
             $validasi['pop_id'] = null;
@@ -111,8 +131,33 @@ class JadwalController extends Controller
             'status' => ['required'],
             'link_sharepoint' => ['required'],
             'pop_id' => ['required'],
+            'improvement' => ['required'],
         ]);
 
+        if($request->kateogri_pm == 'Uji Batre'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'OLT'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'AC (Air Conditioner)'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'AC - Environment'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'Environment'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'AC - Environment - Uji Batre'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'IKR - Kabel DW'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'IKR - Kabel DW dan FAT'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'IKR - FAT'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'Jalur Feeder'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'Jalur Kabel TR/TM'){
+            $validasi['segmen'] = 'Non Retail'; 
+        }
+        
         if( $request->jenis_pm == 'OSP'){
             $validasi['pop_id'] = null;
         }else{
@@ -145,9 +190,12 @@ class JadwalController extends Controller
         $validasi = $this->validate($request,[
             'realisasi' => ['required'],
             'link_sharepoint' => ['required'],
+            'improvement' => ['required'],
+            'temuan' => ['required'],
         ]);
-
+        
         $validasi['status'] = 'Realisasi';
+
         Jadwal::where('id',$id)->update($validasi);
         return redirect('/jadwal')->with('success','Data update successfully!');
     }
