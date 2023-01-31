@@ -23,7 +23,7 @@
           <div class="icon">
             <i class="ion ion-stats-bars"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="/jadwal" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 col-6">
@@ -37,7 +37,7 @@
           <div class="icon">
             <i class="ion ion-stats-bars"></i>
           </div>
-          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          <a href="/jadwal" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
     <div class="col-lg-3 offset-3 float-right">
@@ -62,7 +62,7 @@
 </div>
 
 <figure class="highcharts-figure">
-    <div id="chart" style="height: 1200px"></div>
+    <div id="chart" style="height: 600px"></div>
 </figure>
 
 <div class="card p-4 mb-5">
@@ -79,7 +79,7 @@
         <table class="table table-hover  py-2" id="example1">
             <thead>
                 <tr class="text-nowrap">
-                    <th>#</th>
+                    <th>ID</th>
                     <th>Status</th>
                     <th>Plan</th>
                     {{-- <th>Realisasi</th> --}}

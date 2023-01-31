@@ -15,6 +15,8 @@
             <input type="hidden" value="Plan" name="status">
             <input type="hidden" value="-" name="realisasi">
             <input type="hidden" value="-" name="link_sharepoint">
+            <input type="hidden" value="-" name="improvement">
+            <input type="hidden" value="-" name="temuan">
             <div class="form-group mb-4">
                 <label for="plan">Plan PM</label>
                 <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan"
@@ -123,7 +125,7 @@
                     <label for="pop_id">Nama Pop</label>
                     <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                         value="{{ old('pop_id') }}" name="pop_id">
-                        <option value="" selected disabled hidden></option>
+                        <option selected hidden value="-"></option>
                         @foreach ($pop as $row)
                             @if(old('pop_id',$jadwal->pop_id) == $row->id)
                                 <option value="{{ $row->id }}" selected>{{ $row->nama_pop }}</option>

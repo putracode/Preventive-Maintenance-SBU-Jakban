@@ -17,7 +17,7 @@
         <table class="table table-hover  py-2" id="example1">
             <thead>
                 <tr class="text-nowrap">
-                    <th>#</th>
+                    <th>ID</th>
                     <th class="notexport">Action</th>
                     <th>Status</th>
                     <th>Plan</th>
@@ -53,7 +53,7 @@
                     @endphp
                     <tr>
 
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $row ->jadwal_id }}</td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-outline-info btn-sm dropdown-toggle"
@@ -81,7 +81,7 @@
                                         </button>
                                         @endif
                                     </li>
-                                    <li class="my-1">
+                                    <li class="{{ $row->status == 'Realisasi' ? 'my-0 p-0 m-0 mt-0' : 'my-1' }}">
                                         <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
                                             class="dropdown-item" style="display: flex; align-items: center;">
                                             <ion-icon name="eye-outline" class="mr-2"></ion-icon>
@@ -170,9 +170,9 @@ $color = 'bg-warning text-white';
     }
     @endphp
     <div class="modal fade" id="modal-lg-{{ $row->id }}">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header bg-secondary shadow-sm border-secondary">
+                <div class="modal-header bg-info shadow-sm border-info">
                     <h5 class="modal-title" style="font-size: 20px">Detail Jadwal</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -180,6 +180,7 @@ $color = 'bg-warning text-white';
                 </div>
                 <div class="modal-body">
                     <div class="row" style="font-size: 16px">
+                        <div class="col-6 my-3">ID : {{ $row->jadwal_id }}</div>
                         <div class="col-6 my-3">Plan : {{ $row->plan }}</div>
                         <div class="col-6 my-3">Realisasi : {{ $row->realisasi }}</div>
                         <div class="col-6 my-3">Status : <span class="badge {{ $color }} px-3">{{ $row->status }}</span>

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
+            $table->string('jadwal_id')->unique();
             $table->foreignId('pop_id')->nullable()->unsigned();
             $table->string('plan');
             $table->string('wo_fsm');
@@ -23,7 +24,6 @@ return new class extends Migration
             $table->string('area');
             $table->string('jenis_pm');
             $table->string('kategori_pm');
-            // $table->string('nama_pop');
             $table->string('cluster')->default('-');
             $table->string('status');
             $table->string('segmen');

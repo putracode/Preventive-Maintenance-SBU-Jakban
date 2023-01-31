@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-
+        // dd(jadwal::all());
         $totalData = Jadwal::all()->count(); 
         $totalReal = Jadwal::where('status','Realisasi')->count(); 
 
@@ -77,6 +77,7 @@ class DashboardController extends Controller
         if (request()->from || request()->to) {
             $to = explode('-', request('to'));
             $to = $to[0]. '-' . $to[1] . '-' . intval($to[2]);
+            dd($to);
             $jadwal = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->latest()->get();
             $totalData = Jadwal::whereBetween('plan',[request('from'), $to])->count(); 
             $totalReal = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->count(); 
