@@ -24,6 +24,8 @@ return new class extends Migration
             $table->string('area');
             $table->string('jenis_pm');
             $table->string('kategori_pm');
+            $table->string('hostname');
+            $table->string('id_fat');
             $table->string('cluster')->default('-');
             $table->string('status');
             $table->string('segmen');

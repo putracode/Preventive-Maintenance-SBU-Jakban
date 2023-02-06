@@ -20,10 +20,11 @@
   @yield('style')
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  
   <style>
     *{
-      /* font-family: 'Public Sans', sans-serif; */
+      font-family: 'Roboto', sans-serif;
       
     }
     @media print{@page {size: auto},}
@@ -39,6 +40,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul> --}}
+    <img src="/img/logo.png" alt="" width="100px">
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -49,6 +51,34 @@
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
+      </li>
+      <li class="nav-item dropdown user-menu">
+        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+          {{-- <span class="d-none d-md-inline mr-2" style="font-size: 14px">{{ Auth()->user()->name }}</span> --}}
+          <img src="/img/avatar.jpg" class="user-image img-circle elevation-2" alt="User Image">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <!-- User image -->
+          <li class="user-header bg-primary">
+            <img src="/img/avatar.jpg" class="img-circle elevation-2" alt="User Image">
+
+            <p>
+              {{-- Alexander Pierce - Web Developer --}}
+              {{-- {{ auth()->user()->name }} --}}
+              {{-- <small>Member since Nov. 2012</small> --}}
+            </p>
+          </li>
+          <!-- Menu Footer-->
+          <li class="user-footer">
+            {{-- <a href="#" class="btn btn-default btn-flat">Profile</a> --}}
+            {{-- <a href="#" class="btn btn-danger btn-flat float-right p-auto" style="font-size: 14px">Sign out</a> --}}
+            <form action="/logout" method="post" class="form-class m-0">
+              @csrf
+              
+              <button type="submit" class="btn btn-danger btn-flat float-right p-auto btn-sm px-3" style="font-size: 12px"><i class="bx bx-power-off me-2"></i><span class="align-middle">Logout</span></button>
+            </form>
+          </li>
+        </ul>
       </li>
     </ul>
   </nav>
@@ -84,7 +114,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="/" class="nav-link {{ Request::is('/') ? 'active' : '' }}" >
+            <a href="/dashboard" class="nav-link {{ Request::is('/dashboard') ? 'active' : '' }}" >
                 <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -106,6 +136,16 @@
                 <ion-icon name="cellular-outline" class="nav-icon mr-2"></ion-icon>
                 <p>
                   Improvement
+                </p>
+              </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/user" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+              <span class="d-flex align-items-center">
+                <ion-icon name="people-outline" class="nav-icon mr-2"></ion-icon>
+                <p>
+                  User
                 </p>
               </span>
             </a>
@@ -176,6 +216,8 @@
 <!-- AdminLTE App -->
 <script src="/adminlte/dist/js/adminlte.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+{{-- Sweet Alert --}}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- AdminLTE for demo purposes -->
 {{-- <script src="/adminlte/dist/js/demo.js"></script> --}}
@@ -201,7 +243,49 @@
       "responsive": true,
     });
     
+    $('#submitButton').on('click', function (e) {
+    e.preventDefault();
+    var form = $(this).parents('form');
+    swal({
+        icon: "warning",
+        title: "Are you sure?",
+        text: "Apakah Anda yakin ingin menyimpan data ini?",
+        buttons: true,
+        dangerMode: true
+    }).then((isConfirm) => {
+        if (isConfirm) {
+            form.submit();
+            swal({
+                icon: "success",
+                title: 'successfully created!',
+            });
+            }
+        });
+    });
   });
+  const buttonConfirmResource = document.querySelectorAll('.confirmdelete');
+          for( let i = 0; i < buttonConfirmResource.length; i++){
+            $(buttonConfirmResource[i]).on('click', function (e) {
+                e.preventDefault();
+                let data = $('#confirmbutton').attr('data-name')
+                var form = $(this).parents('form');
+                swal({
+                    icon: "warning",
+                    title: "Are you sure?",
+                    text: "Apakah Anda yakin ingin menghapus data ini?",
+                    buttons: true,
+                    dangerMode: true
+                }).then((isConfirm) => {
+                    if (isConfirm) {
+                        form.submit();
+                        swal({
+                            icon: "success",
+                            title: data + ' successfully deleted!',
+                        });
+                    }
+                });
+            });
+          }
 </script>
 @yield('script')
 </body>

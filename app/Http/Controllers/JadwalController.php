@@ -43,18 +43,20 @@ class JadwalController extends Controller
         $validasi = $this->validate($request,[
             'plan' => ['required'],
             'wo_fsm' => ['required'],
-            'realisasi' => ['required'],
+            'realisasi' => ['max:255'],
             'wilayah' => ['required'],
             'area' => ['required'],
             'jenis_pm' => ['required'],
             'kategori_pm' => ['required'],
             'cluster' => ['required'],
-            'status' => ['required'],
-            'link_sharepoint' => ['required'],
+            'status' => ['max:255'],
+            'link_sharepoint' => ['max:255'],
             'pop_id' => ['required'],
-            'temuan' => ['required'],
-            'improvement' => ['required'],
+            'temuan' => ['max:255'],
+            'improvement' => ['max:255'],
             'jadwal_id' => ['max:255'],
+            'hostname' => ['max:255'],
+            'id_fat' => ['max:255'],
         ]);
 
         if($request->kategori_pm == 'Uji Batre'){
@@ -88,8 +90,24 @@ class JadwalController extends Controller
         }
 
         $validasi['jadwal_id'] = $this->createId($validasi['jenis_pm']);
+
+        if($validasi['hostname'] == null){
+            $validasi['hostname'] = '-';
+        }else{
+            $validasi['hostname'] = $request->hostname;
+        }
+
+        if($validasi['id_fat'] == null){
+            $validasi['id_fat'] = '-';
+        }else{
+            $validasi['id_fat'] = $request->id_fat;
+        }
         
-        // dd($validasi);
+        $validasi['realisasi'] = '-';
+        $validasi['improvement'] = '-';
+        $validasi['temuan'] = '-';
+        $validasi['link_sharepoint'] = '-';
+        $validasi['status'] = 'Plan';
 
         Jadwal::create($validasi);
         return redirect('/jadwal')->with('success','Data added successfully!');
@@ -129,18 +147,14 @@ class JadwalController extends Controller
         $validasi = $this->validate($request,[
             'plan' => ['required'],
             'wo_fsm' => ['required'],
-            'realisasi' => ['required'],
             'wilayah' => ['required'],
             'area' => ['required'],
             'jenis_pm' => ['required'],
             'kategori_pm' => ['required'],
             'cluster' => ['required'],
-            'status' => ['required'],
-            'link_sharepoint' => ['required'],
             'pop_id' => ['required'],
-            'temuan' => ['required'],
-            'improvement' => ['required'],
-            'jadwal_id' => ['max:255'],
+            'hostname' => ['required'],
+            'id_fat' => ['required'],
         ]);
 
         if($request->kategori_pm == 'Uji Batre'){
@@ -168,21 +182,42 @@ class JadwalController extends Controller
         }
         
         if( $request->jenis_pm == 'OSP'){
+            if($validasi['kategori_pm'] != 'IKR - FAT'){
+                $validasi['id_fat'] = '-';
+            }
             $validasi['pop_id'] = null;
         }else{
             $validasi['pop_id'] = $request->pop_id;
         }
 
         if( $request->jenis_pm == 'ISP'){
+            if($validasi['kategori_pm'] != 'OLT'){
+                $validasi['hostname'] = '-';
+            }
             $validasi['cluster'] = '-';
         }else{
             $validasi['cluster'] = $request->cluster;
         }
 
-        if($request->jenis_pm){
-            $validasi['jadwal_id'] = $this->createId($validasi['jenis_pm']);
+        if($validasi['hostname'] == '-'){
+            $validasi['hostname'] = '-';
+        }else{
+            $validasi['hostname'] = $request->hostname;
         }
-        
+
+        if($validasi['id_fat'] == '-'){
+            $validasi['id_fat'] = '-';
+        }else{
+            $validasi['id_fat'] = $request->id_fat;
+        }
+
+        $validasi['realisasi'] = '-';
+        $validasi['improvement'] = '-';
+        $validasi['temuan'] = '-';
+        $validasi['link_sharepoint'] = '-';
+        $validasi['status'] = 'Plan';
+
+        // dd($validasi);
         jadwal::where('id',$jadwal->id)->update($validasi);
         return redirect('/jadwal')->with('success','Data update successfully!');
     }

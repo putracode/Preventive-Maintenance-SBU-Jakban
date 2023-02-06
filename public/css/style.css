@@ -38,9 +38,20 @@
   }
 
 .page-item.active .page-link{
-    background-color: #17a2b8;
+    background-color: #17a2b7;
+    border-color: #17a2b7;
 }
 
 .bg-warning{
     color: white !important;
+}
+
+.detail-title{
+    color: #17a2b7;
+    font-weight: bold;
+}
+
+.detail-value{
+    font-size: 14px;
+    margin-left: 5px;
 }

@@ -24,6 +24,8 @@
                     <th>Realisasi</th>
                     <th>Jenis PM</th>
                     <th class="hidden">Kategori PM</th>
+                    <th class="hidden">Hostname</th>
+                    <th class="hidden">ID FAT</th>
                     <th class="hidden">Segmen</th>
                     <th>Wilayah</th>
                     <th>Area</th>
@@ -61,26 +63,26 @@
                                     Action
                                 </button>
                                 <ul class="dropdown-menu">
+                                    @if ($row->status == 'Plan')
                                     <li class="my-1">
-                                        @if ($row->status == 'Plan')
                                         <a href="/jadwal/{{ $row->id }}/edit" class="dropdown-item">
                                             <span style="display: flex; align-items: center;">
                                                 <ion-icon name="create-outline" class="mr-2"></ion-icon>
                                                 </i>Edit
                                             </span>
                                         </a>
-                                        @endif
                                     </li>
+                                    @endif
+                                    @if ($row->status == 'Plan')
                                     <li class="my-2">
 
-                                        @if ($row->status == 'Plan')
                                         <button type="button" data-toggle="modal"
                                             data-target="#modal-default-{{ $row->id }}" class="dropdown-item"
                                             style="display: flex; align-items: center;">
                                             <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>Realisasi
                                         </button>
-                                        @endif
                                     </li>
+                                    @endif
                                     <li class="{{ $row->status == 'Realisasi' ? 'my-0 p-0 m-0 mt-0' : 'my-1' }}">
                                         <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
                                             class="dropdown-item" style="display: flex; align-items: center;">
@@ -98,6 +100,8 @@
                         <td>{{ $row->realisasi }}</td>
                         <td>{{ $row->jenis_pm }}</td>
                         <td>{{ $row->kategori_pm }}</td>
+                        <td>{{ $row->hostname }}</td>
+                        <td>{{ $row->id_fat }}</td>
                         <td>{{ $row->segmen }}</td>
                         <td>{{ $row->wilayah }}</td>
                         <td>{{ $row->area }}</td>
@@ -119,35 +123,6 @@
                         <td>{{ $row->link_sharepoint }}</td>
                         <td>{{ $row->temuan }}</td>
                         <td>{{ $row->improvement }}</td>
-
-                        {{-- <td>
-                        <a href="/jadwal/{{ $row->id }}/edit">
-                        <button type="button" class="btn btn-icon  btn-warning ">
-                            <svg xmlns="http://www.w3.org/2000/svg" role="img" width="1em" height="1em"
-                                viewBox="0 0 24 24">
-                                <path
-                                    d="M5 20h14a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2zm-1-5L14 5l3 3L7 18H4v-3zM15 4l2-2l3 3l-2.001 2.001L15 4z"
-                                    fill="#ffffff" fill-rule="evenodd" />
-                            </svg>
-                        </button>
-                        </a>
-                        <form action="/jadwal/{{ $row->id }}" method="POST" style="display: inline">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-icon btn-danger confirmdelete" data-name="User"
-                                id="confirmbutton">
-                                <svg xmlns="http://www.w3.org/2000/svg" role="img" width="1em" height="1em"
-                                    viewBox="0 0 24 24">
-                                    <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path d="M3 6h18" />
-                                        <path
-                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                                    </g>
-                                </svg>
-                            </button>
-                        </form>
-                        </td> --}}
                     </tr>
                     @endforeach
             </tbody>
@@ -180,26 +155,25 @@ $color = 'bg-warning text-white';
                 </div>
                 <div class="modal-body">
                     <div class="row" style="font-size: 16px">
-                        <div class="col-6 my-3">ID : {{ $row->jadwal_id }}</div>
-                        <div class="col-6 my-3">Plan : {{ $row->plan }}</div>
-                        <div class="col-6 my-3">Realisasi : {{ $row->realisasi }}</div>
-                        <div class="col-6 my-3">Status : <span class="badge {{ $color }} px-3">{{ $row->status }}</span>
+                        <div class="col-4 my-3"><span class="detail-title">ID :</span><span class="detail-value">{{ $row->jadwal_id }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Plan :</span><span class="detail-value">{{ $row->plan }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Realisasi :</span><span class="detail-value">{{ $row->realisasi }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Status :</span><span class="badge {{ $color }} px-3" style="margin-left: 5px">{{ $row->status }}</span>
                         </div>
-                        <div class="col-6 my-3">WO FSM+ / IFast : {{ $row->wo_fsm }}</div>
-                        <div class="col-6 my-3">Wilayah : {{ $row->wilayah }}</div>
-                        <div class="col-6 my-3">Area : {{ $row->area }}</div>
-                        <div class="col-6 my-3">Jenis PM : {{ $row->jenis_pm }}</div>
-                        <div class="col-6 my-3">Kategori PM : {{ $row->kategori_pm }}</div>
-                        <div class="col-6 my-3">Segmen PM : {{ $row->segmen }}</div>
-                        <div class="col-6 my-3">Lokasi / POP : @if ($row->pop_id == null) - @else
-                            {{ $row->pop->nama_pop }} @endif</div>
-                        <div class="col-6 my-3">Tipe POP : @if ($row->pop_id == null) - @else {{ $row->pop->tipe_pop }}
-                            @endif</div>
-                        <div class="col-6 my-3">Nama Jalan / Cluster Perumahan : {{ $row->cluster }}</div>
-                        <div class="col-6 my-3">Link Sharepoint Laporan : <a href="{{ $row->link_sharepoint }}"
-                                target="_blank">{{ $row->link_sharepoint }}</a></div>
-                        <div class="col-6 my-3">Temuan : {{ $row->temuan }}</div>
-                        <div class="col-6 my-3">Temuan Improvement : {{ $row->improvement }}</div>
+                        <div class="col-4 my-3"><span class="detail-title">WO FSM+ / IFast :</span><span class="detail-value">{{ $row->wo_fsm }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Wilayah :</span><span class="detail-value">{{ $row->wilayah }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Area :</span><span class="detail-value">{{ $row->area }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Jenis PM :</span><span class="detail-value">{{ $row->jenis_pm }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Kategori PM :</span><span class="detail-value">{{ $row->kategori_pm }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Segmen PM :</span><span class="detail-value">{{ $row->segmen }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Hostname :</span><span class="detail-value">{{ $row->hostname }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">ID FAT :</span><span class="detail-value">{{ $row->id_fat }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Lokasi / POP :</span><br><span class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else {{ $row->pop->nama_pop }} @endif</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Tipe POP :</span><span class="detail-value">@if ($row->pop_id == null) - @else {{ $row->pop->tipe_pop }} @endif</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Nama Jalan / Cluster Perumahan :</span><span class="detail-value" style="margin-left: 0px">{{ $row->cluster }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Link Sharepoint Laporan :</span><br><span class="detail-value" style="margin-left: 0px"><a href="{{ $row->link_sharepoint }}" target="_blank">{{ $row->link_sharepoint }}</a></span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Temuan :</span><span class="detail-value">{{ $row->temuan }}</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Temuan Improvement :</span><span class="detail-value">{{ $row->improvement }}</span></div>
                     </div>
                 </div>
             </div>

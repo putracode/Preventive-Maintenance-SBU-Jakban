@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImprovementController;
-use App\Http\Controllers\JadwalController;
-use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -21,9 +23,17 @@ Route::get('/test', function () {
     return view('layout.adminlte');
 });
 
-route::get('/',[DashboardController::class,'index']);
-route::resource('/jadwal',JadwalController::class);
-route::post('/jadwal/{id}/realisasi',[JadwalController::class,'realisasi']);
-route::resource('/improvement',ImprovementController::class);
-route::post('/improvement/{id}/realisasi',[ImprovementController::class,'realisasi']);
-route::get('/filter',[DashboardController::class,'filter']);
+Route::get('/dashboard',[DashboardController::class,'index']);
+Route::get('/filter',[DashboardController::class,'filter']);
+
+Route::resource('/jadwal',JadwalController::class);
+Route::post('/jadwal/{id}/realisasi',[JadwalController::class,'realisasi']);
+
+Route::resource('/improvement',ImprovementController::class);
+Route::post('/improvement/{id}/realisasi',[ImprovementController::class,'realisasi']);
+
+Route::resource('/user', UserController::class);
+
+Route::get('/',[AuthController::class,'index']);
+Route::post('/',[AuthController::class,'authenticate']);
+Route::post('/logout',[AuthController::class,'logout']);

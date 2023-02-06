@@ -107,7 +107,7 @@
                     @endphp
                     <tr>
 
-                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $row->jadwal_id }}</td>
                         <td><span class="badge {{ $color }} px-3">{{ $row->status }}</span></td>
                         <td>{{ $row->plan }}</td>
                         {{-- <td>{{ $row->realisasi }}</td> --}}
@@ -343,10 +343,10 @@ $color = 'bg-label-success';
 @section('title')
 @if(!request('from'))
 
-<h1 style="font-weight: 600; letter-spacing: 2px" class="text-info text-center mb-5">DASHBOARD</h1>
+<h1 style="font-weight: 600; letter-spacing: 2px" class="text-info text-center mb-2">DASHBOARD</h1>
 @endif
 @if (request('from'))
 <h1 style="font-weight: 600; letter-spacing: 2px" class="text-info text-center">DASHBOARD</h1>
-<h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center mb-5">{{ request('from') }} / {{ request('to') }}</h1>
+<h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center mb-2">{{ request('from') }} / {{ request('to') }}</h1>
 @endif
 @endsection
