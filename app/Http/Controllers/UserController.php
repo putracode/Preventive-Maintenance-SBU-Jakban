@@ -99,4 +99,14 @@ class UserController extends Controller
         User::destroy($user->id);
         return redirect('/user')->with('success','Data succesfully deleted!');
     }
+
+    public function password(Request $request, $id){
+        $validasi = $this->validate($request,[
+            'password' => ['required']
+        ]);
+
+        $validasi['password'] = bcrypt($validasi['password']);
+        User::where('id',$id)->update($validasi);
+        return redirect('/user')->with('success','Password update successfully!');
+    }
 }

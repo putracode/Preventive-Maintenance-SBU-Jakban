@@ -15,6 +15,7 @@
                     <th class="notexport">Action</th>
                     <th>Name</th>
                     <th>Username</th>
+                    <th>Role</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
@@ -80,6 +81,7 @@
                     </td>
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->username }}</td>
+                    <td>{{ $row->role }}</td>
                 </tr>
                 @endforeach
             </tbody>

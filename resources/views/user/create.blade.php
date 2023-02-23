@@ -39,6 +39,20 @@
                 @enderror
             </div>
 
+            <div class="form-group mb-5">
+                <label for="role">Role</label>
+                <select class="form-control select2 @error('role') is-invalid @enderror" required id="role" name="role">
+                    <option selected hidden></option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                </select>
+                @error('role')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary btn-sm px-4 float-right ml-3" id="submitButton">Submit</button>
                 <a href="/user" class="btn btn-danger btn-sm px-4 float-right">Cancel</a>
@@ -47,8 +61,8 @@
 </div>
 @endsection
 @section('script')
-<script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
+{{-- <script src="/asset/plugins/select2/js/select2.full.min.js"></script>
 <script>
     $('.select2').select2()
-</script>
+</script> --}}
 @endsection

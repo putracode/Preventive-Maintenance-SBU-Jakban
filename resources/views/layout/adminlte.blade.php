@@ -141,15 +141,27 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/user" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+            <a href="/pop" class="nav-link {{ Request::is('pop*') ? 'active' : '' }}">
               <span class="d-flex align-items-center">
-                <ion-icon name="people-outline" class="nav-icon mr-2"></ion-icon>
+                <ion-icon name="cellular-outline" class="nav-icon mr-2"></ion-icon>
                 <p>
-                  User
+                  POP
                 </p>
               </span>
             </a>
           </li>
+          @can('admin')              
+            <li class="nav-item">
+              <a href="/user" class="nav-link {{ Request::is('user*') ? 'active' : '' }}">
+                <span class="d-flex align-items-center">
+                  <ion-icon name="people-outline" class="nav-icon mr-2"></ion-icon>
+                  <p>
+                    User
+                  </p>
+                </span>
+              </a>
+            </li>
+          @endcan
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
