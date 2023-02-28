@@ -19,4 +19,8 @@ class Pop extends Model
     protected function improvement(){
         return $this->hasMany(Improvement::class);
     }
+
+    protected function temuan(){
+        return $this->hasMany(Temuan::class);
+    }
 }

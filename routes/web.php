@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PopController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\TemuanController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ImprovementController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -43,4 +45,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::resource('/pop', PopController::class);
     Route::resource('/user', UserController::class)->middleware('admin');
+    Route::get('/temuan',[TemuanController::class,'index']);
+    Route::post('/temuan',[TemuanController::class,'store']);
+    Route::get('/temuan/improve/{id}',[TemuanController::class,'improve']);
+    // Route::get('/get-data',[ImprovementController::class,'temuan'])->name('getData');
 });

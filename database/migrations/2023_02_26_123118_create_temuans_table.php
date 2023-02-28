@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jadwals', function (Blueprint $table) {
+        Schema::create('temuans', function (Blueprint $table) {
             $table->id();
             $table->string('jadwal_id')->unique();
             $table->foreignId('pop_id')->nullable()->unsigned();
@@ -44,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jadwals');
+        Schema::dropIfExists('temuans');
     }
 };

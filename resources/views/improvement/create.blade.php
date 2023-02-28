@@ -4,17 +4,14 @@
 <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
 @endsection
 @section('content')
-<div class="card card-secondary" style="margin-top: -20px; margin-bottom: 50px;">
+<div class="card card-info" style="margin-top: -20px; margin-bottom: 50px;">
     <div class="card-header">
         <h3 class="card-title">Create Improvement</h3>
     </div>
     <form action="/improvement" method="POST">
         @csrf
         <div class="card-body">
-            <input type="hidden" value="Plan" name="status">
-            <input type="hidden" value="-" name="realisasi">
-            <input type="hidden" value="-" name="link_sharepoint">
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="plan">Plan Improvement</label>
                 <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                 @error('plan')
@@ -23,7 +20,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="wilayah">Wilayah</label>
                 <select class="form-control select2 @error('wilayah') is-invalid @enderror" required
                     value="{{ old('wilayah') }}" id="wilayah" name="wilayah">
@@ -37,7 +34,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="area">Area</label>
                 <select class="form-control select2 @error('area') is-invalid @enderror" required value="{{ old('area') }}"
                     id="area" name="area">
@@ -67,7 +64,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="dasar_improvement">Dasar Improvement</label>
                 <select class="form-control select2 @error('dasar_improvement') is-invalid @enderror" required
                     value="{{ old('dasar_improvement') }}" id="dasar_improvement" name="dasar_improvement">
@@ -82,7 +79,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="jenis_improvement">Jenis Improvement</label>
                 <select class="form-control select2 @error('jenis_improvement') is-invalid @enderror" required
                     value="{{ old('jenis_improvement') }}" id="jenis_improvement" name="jenis_improvement">
@@ -97,7 +94,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="kategori_improvement">Kategori Improvement</label>
                 <select class="form-control select2 @error('kategori_improvement') is-invalid @enderror" required
                     value="{{ old('kategori_improvement') }}" id="kategori_improvement" name="kategori_improvement">
@@ -115,8 +112,8 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
-                <label for="pop_id">Nama Pop</label>
+            <div class="form-group mb-5">
+                <label for="pop_id">Nama POP / Nam CPE PLN </label>
                 <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                     value="{{ old('pop_id') }}" name="pop_id">
                     <option selected hidden disabled></option>
@@ -134,16 +131,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
-                <label for="nam_cpe_pln">Nam CPE PLN</label>
-                <input type="text" class="form-control @error('nam_cpe_pln') is-invalid @enderror" id="nam_cpe_pln" name="nam_cpe_pln" required value="{{ old('nam_cpe_pln') }}" autocomplete="off">
-                @error('nam_cpe_pln')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="cluster">Cluster</label>
                 <input type="text" class="form-control @error('cluster') is-invalid @enderror" id="cluster" name="cluster" required value="{{ old('cluster') }}" autocomplete="off">
                 @error('cluster')
@@ -164,5 +152,27 @@
 <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
 <script>
     $('.select2').select2()
+
+    function isiData() {
+    var temuan = document.getElementById("temuan").value;
+    var plan = document.getElementById("plan");
+    var wilayah = document.getElementById("wilayah");
+
+        console.log(temuan)
+        $.ajax({
+        type: "GET",
+        url: "{{ url('get-data') }}",
+        data: { id: temuan },
+        success: function(data) {
+            plan.value = data.plan;
+            wilayah.value = data.wilayah;
+
+        },
+        error: function(data) {
+            console.log(data);
+        }});
+
+    }
+
 </script>
 @endsection

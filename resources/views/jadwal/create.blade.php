@@ -85,6 +85,7 @@
                     value="{{ old('jenis_pm') }}" id="jenis_pm" name="jenis_pm">
                     <option selected hidden disabled></option>
                     <option value="ISP">ISP</option>
+                    <option value="ISP CPE">ISP CPE</option>
                     <option value="OSP">OSP</option>
                 </select>
                 @error('jenis_pm')
@@ -202,7 +203,7 @@
 
         $('#jenis_pm').on('change',function(){
             let selected = $(this).val();
-            if(selected == "ISP"){
+            if(selected == "ISP" || selected == "ISP CPE"){
                 $('#jenis_isp').css('display','block');
                 $('#jenis_osp').css('display','none');
             }else if(selected == "OSP"){

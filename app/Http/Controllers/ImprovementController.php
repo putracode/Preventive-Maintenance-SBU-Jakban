@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Improvement;
+use App\Models\Jadwal;
 use App\Models\Pop;
+use App\Models\Temuan;
 use Illuminate\Http\Request;
 
 class ImprovementController extends Controller
@@ -25,7 +27,7 @@ class ImprovementController extends Controller
      */
     public function create()
     {
-        return view('improvement.create',['improvement' => Improvement::all(), 'pop' => Pop::all()]);
+        return view('improvement.create',['improvement' => Improvement::all(), 'pop' => Pop::all(), 'jadwal' => Jadwal::where('temuan','Ada')->get()]);
     }
 
     /**
@@ -44,12 +46,14 @@ class ImprovementController extends Controller
             'jenis_improvement' => ['required'],
             'kategori_improvement' => ['required'],
             'pop_id' => ['required'],
-            'nam_cpe_pln' => ['required'],
             'cluster' => ['required'],
-            'status' => ['required'],
-            'realisasi' => ['required'],
-            'link_sharepoint' => ['required'],
         ]);
+
+        $validasi['status'] = "Plan Improve";
+        $validasi['realisasi'] = "-";
+        $validasi['link_sharepoint'] = "-";
+        $validasi['jadwal_id'] = "-";
+
 
         Improvement::create($validasi);
         return redirect('/improvement')->with('success','Data added successfully!');
@@ -124,7 +128,9 @@ class ImprovementController extends Controller
         ]);
 
         $validasi['status'] = 'Realisasi';
+        $status = ['status' => $validasi['status']];
         Improvement::where('id',$id)->update($validasi);
+        Temuan::where('id',$id)->update($status);
         return redirect('/improvement')->with('success','Data update successfully!');
     }
 }

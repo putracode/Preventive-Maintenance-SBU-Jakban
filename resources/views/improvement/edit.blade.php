@@ -113,7 +113,7 @@
                 @enderror
             </div>
             <div class="form-group mb-4">
-                <label for="pop_id">Nama Pop</label>
+                <label for="pop_id">Nama POP / Nam CPE PLN</label>
                 <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                     value="{{ old('pop_id') }}" name="pop_id">
                     <option selected hidden disabled></option>
@@ -126,15 +126,6 @@
                     @endforeach
                 </select>
                 @error('pop_id')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
-            </div>
-            <div class="form-group mb-4">
-                <label for="nam_cpe_pln">Nam CPE PLN</label>
-                <input type="text" class="form-control @error('nam_cpe_pln') is-invalid @enderror" id="nam_cpe_pln" name="nam_cpe_pln" required value="{{ old('nam_cpe_pln',$improvement->nam_cpe_pln) }}" autocomplete="off">
-                @error('nam_cpe_pln')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Temuan;
 
 class JadwalController extends Controller
 {
@@ -105,6 +106,7 @@ class JadwalController extends Controller
         
         $validasi['realisasi'] = '-';
         $validasi['improvement'] = '-';
+        $validasi['kategori_improvement'] = '-';
         $validasi['temuan'] = '-';
         $validasi['link_sharepoint'] = '-';
         $validasi['status'] = 'Plan';
@@ -215,6 +217,7 @@ class JadwalController extends Controller
         $validasi['improvement'] = '-';
         $validasi['temuan'] = '-';
         $validasi['link_sharepoint'] = '-';
+        $validasi['kategori_improvement'] = '-';
         $validasi['status'] = 'Plan';
 
         // dd($validasi);
@@ -239,19 +242,61 @@ class JadwalController extends Controller
             'realisasi' => ['required'],
             'link_sharepoint' => ['required'],
             'improvement' => ['required'],
+            'kategori_improvement' => ['required'],
             'temuan' => ['required'],
         ]);
-        
-        $validasi['status'] = 'Realisasi';
 
+        if($validasi['kategori_improvement'] == '-'){
+            $validasi['kategori_improvement'] = '-';
+        }else{
+            $validasi['kategori_improvement'] = $request->kategori_improvement;
+        }
+
+        $validasi['status'] = 'Realisasi';
         Jadwal::where('id',$id)->update($validasi);
+        if($request->temuan == "Ada"){
+
+    
+            $jadwal = Jadwal::Where('id',$id)->first();
+            $temuan = [
+                'jadwal_id' => $jadwal->jadwal_id,
+                'pop_id' => $jadwal->pop_id,
+                'plan' => $jadwal->plan,
+                'wo_fsm' => $jadwal->wo_fsm,
+                'realisasi' => $jadwal->realisasi,
+                'wilayah' => $jadwal->wilayah,
+                'area' => $jadwal->area,
+                'jenis_pm' => $jadwal->jenis_pm,
+                'kategori_pm' => $jadwal->kategori_pm,
+                'hostname' => $jadwal->hostname,
+                'id_fat' => $jadwal->id_fat,
+                'cluster' => $jadwal->cluster,
+                'status' => 'Check',
+                'segmen' => $jadwal->segmen,
+                'temuan' => $jadwal->temuan,
+                'improvement' => $jadwal->improvement,
+                'kategori_improvement' =>$jadwal->kategori_improvement,
+                'link_sharepoint' => $jadwal->link_sharepoint,
+            ];
+    
+            Temuan::create($temuan);
+        }
+
         return redirect('/jadwal')->with('success','Data update successfully!');
     }
 
     public function createId($jenisPM){
-        $last = Jadwal::where('jenis_pm',$jenisPM)->orderBy('jadwal_id','desc')->first();
+        // if($jenisPM == 'ISP' || 'ISP CPE'){
+        //     $jenisPM = 'ISP';
+        // }elseif($jenisPM == 'OSP'){
+        //     $jenisPM = 'OSP';
+        // }
+        $jenis = explode(' ',$jenisPM);
+        $pm = $jenis[0];
+
+        $last = Jadwal::where('jenis_pm','LIKE','%'.$pm.'%')->orderBy('jadwal_id','desc')->first();
         
-        // dd($jenisPM);
+        // dd($last);
         if($jenisPM == 'OSP'){
 
             if(!$last or date('Y', strtotime($last->created_at)) != date('Y')) {
@@ -265,7 +310,7 @@ class JadwalController extends Controller
                 return $part[0] . '/' . $part[1] . '/' . $result;
             }
 
-        }else if($jenisPM == 'ISP'){
+        }else if($jenisPM == 'ISP' || $jenisPM == 'ISP CPE'){
             
             if(!$last or date('Y', strtotime($last->created_at)) != date('Y')) {
                 return 'ISP/' . date('Y') . '/0001';
@@ -278,7 +323,5 @@ class JadwalController extends Controller
                 return $part[0] . '/' . $part[1] . '/' . $result;
             } 
         }
-
-       
     }
 }

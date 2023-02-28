@@ -19,10 +19,11 @@ return new class extends Migration
             $table->string('wilayah');
             $table->string('area');
             $table->string('dasar_improvement');
+            $table->string('jadwal_id');
             $table->string('jenis_improvement');
             $table->string('kategori_improvement');
             $table->foreignId('pop_id')->nullable()->unsigned();
-            $table->string('nam_cpe_pln');
+            // $table->string('nam_cpe_pln');
             $table->string('cluster');
             $table->string('status');
             $table->string('realisasi');

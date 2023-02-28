@@ -31,6 +31,19 @@
   </style>
 </head>
 <body class="hold-transition sidebar-collapse  layout-top-nav">
+
+  <div class="preloader flex-column justify-content-center align-items-center">
+
+    {{-- <img class="animation__shake" src="/img/logo.png" alt="PM" height="75" width="175"> --}}
+    <div class="spinner-border text-info" role="status" style="width: 3rem
+    ;height: 3rem;">
+      {{-- <span class="visually-hidden">Loading...</span> --}}
+      {{-- <img class="animation__shake" src="/img/logo.png" alt="PM" height="75" width="175"> --}}
+    </div>  
+    {{-- <ion-icon name="build-outline" style="opacity: .8"></ion-icon> --}}
+
+  </div>
+  
 <div class="wrapper">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -128,6 +141,16 @@
               <p>
                 Jadwal
               </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/temuan" class="nav-link {{ Request::is('temuan*') ? 'active' : '' }}">
+              <span class="d-flex align-items-center">
+                <ion-icon name="cellular-outline" class="nav-icon mr-2"></ion-icon>
+                <p>
+                  Temuan Improvement
+                </p>
+              </span>
             </a>
           </li>
           <li class="nav-item">

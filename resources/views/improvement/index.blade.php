@@ -27,6 +27,7 @@
                     <th>Wilayah</th>
                     <th>Area</th>
                     <th>Dasar Improvement</th>
+                    <th>ID Jadwal</th>
                     <th>Jenis Improvement</th>
                     <th>Kategori Improvement</th>
                     <th>Lokasi / POP</th>
@@ -40,11 +41,11 @@
                 @php
                 $color = '';
 
-                if($row->status == 'Plan' && $row->plan > now()->format('Y-m-d')) {
+                if($row->status == 'Plan Improve' && $row->plan > now()->format('Y-m-d')) {
                 $color = 'bg-primary text-white';
-                }elseif($row->status == 'Plan' && $row->plan == now()->format('Y-m-d')) {
+                }elseif($row->status == 'Plan Improve' && $row->plan == now()->format('Y-m-d')) {
                 $color = 'bg-warning text-white';
-                }elseif($row->status == 'Plan' && $row->plan < now()->format('Y-m-d')) {
+                }elseif($row->status == 'Plan Improve' && $row->plan < now()->format('Y-m-d')) {
                 $color = 'bg-danger text-white';
                 }elseif($row->status == 'Realisasi'){
                 $color = 'bg-success text-white';
@@ -61,7 +62,7 @@
                                 </button>
                                 <ul class="dropdown-menu ">
                                     <li class="">
-                                        @if ($row->status == 'Plan')    
+                                        @if ($row->status == 'Plan Improve')    
                                         <a href="/improvement/{{ $row->id }}/edit" class="dropdown-item">
                                             <span style="display: flex; align-items: center;">
                                                 <ion-icon name="create-outline" class="mr-2"></ion-icon>
@@ -72,7 +73,7 @@
                                     </li>
                                     <li class="my-2">
 
-                                        @if ($row->status == 'Plan')
+                                        @if ($row->status == 'Plan Improve')
                                         <button type="button" data-toggle="modal"
                                             data-target="#modal-default-{{ $row->id }}" class="dropdown-item"
                                             style="display: flex; align-items: center;">
@@ -97,6 +98,7 @@
                         <td>{{ $row->wilayah }}</td>
                         <td>{{ $row->area }}</td>
                         <td>{{ $row->dasar_improvement }}</td>
+                        <td>{{ $row->jadwal_id }}</td>
                         <td>{{ $row->jenis_improvement }}</td>
                         <td>{{ $row->kategori_improvement }}</td>
                         @if ($row->pop_id == null)
@@ -118,11 +120,11 @@
 @php
 $color = '';
 
-if($row->status == 'Plan' && $row->plan > now()->format('Y-m-d')) {
+if($row->status == 'Plan Improve' && $row->plan > now()->format('Y-m-d')) {
 $color = 'bg-primary text-white';
-}elseif($row->status == 'Plan' && $row->plan == now()->format('Y-m-d')) {
+}elseif($row->status == 'Plan Improve' && $row->plan == now()->format('Y-m-d')) {
 $color = 'bg-warning text-white';
-}elseif($row->status == 'Plan' && $row->plan < now()->format('Y-m-d')) {
+}elseif($row->status == 'Plan Improve' && $row->plan < now()->format('Y-m-d')) {
     $color = 'bg-danger text-white';
     }elseif($row->status == 'Realisasi'){
     $color = 'bg-success text-white';
@@ -148,7 +150,11 @@ $color = 'bg-warning text-white';
                         <div class="col-6 my-3">Dasar Improvement : {{ $row->dasar_improvement }}</div>
                         <div class="col-6 my-3">Jenis Improvement : {{ $row->jenis_improvement }}</div>
                         <div class="col-6 my-3">Kategori Improvement : {{ $row->kategori_improvement }}</div>
-                        <div class="col-6 my-3">Lokasi / POP : {{ $row->pop->nama_pop }}</div>
+                        <div class="col-6 my-3">Lokasi / POP : @if ($row->pop_id == null)
+                            <td>-</td>
+                        @else
+                            <td>{{ $row->pop->nama_pop }}</td>
+                        @endif</div>
                         <div class="col-6 my-3">Nama Jalan / Cluster : {{ $row->cluster }}</div>
                         <div class="col-6 my-3">Link Sharepoint Laporan : <a href="{{ $row->link_sharepoint }}"
                                 target="_blank">{{ $row->link_sharepoint }}</a></div>
