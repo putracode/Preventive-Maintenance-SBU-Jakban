@@ -18,7 +18,7 @@
                     <th class="notexport">Action</th>
                     @endcan
                     <th>ID POP</th>
-                    <th>Nama POP</th>
+                    <th>Nama POP / CPE PLN</th>
                     <th>Koordinat</th>
                     <th>Alamat</th>
                     <th>Kelurahan</th>
@@ -115,6 +115,6 @@
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 @endsection
 @section('title')
-<h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center">Daftar POP</h1>
+<h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center">Daftar POP & CPE PLN</h1>
 
 @endsection

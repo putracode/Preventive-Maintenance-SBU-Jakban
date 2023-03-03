@@ -39,6 +39,7 @@ class UserController extends Controller
             'name' => ['required'],
             'username' => ['required'],
             'password' => ['required'],
+            'role' => ['required'],
         ]);
 
         $validasi['password'] = bcrypt($validasi['password']);
@@ -81,6 +82,7 @@ class UserController extends Controller
         $validasi = $this->validate($request,[
             'name' => ['required'],
             'username' => ['required'],
+            'role' => ['required'],
             // 'password' => ['required'],
         ]);
 

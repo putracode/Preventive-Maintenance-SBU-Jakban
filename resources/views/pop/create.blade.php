@@ -20,7 +20,7 @@
             </div>
 
             <div class="form-group mb-4">
-                <label for="nama_pop">Nama POP</label>
+                <label for="nama_pop">Nama POP / CPE PLN</label>
                 <input type="text" class="form-control @error('nama_pop') is-invalid @enderror" id="nama_pop" name="nama_pop" required value="{{ old('nama_pop') }}" autocomplete="off">
                 @error('nama_pop')
                 <div class="invalid-feedback">
@@ -69,9 +69,30 @@
                 @enderror
             </div>
 
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="kota">Kota</label>
-                <input type="text" class="form-control @error('kota') is-invalid @enderror" id="kota" name="kota" required value="{{ old('kota') }}" autocomplete="off">
+                <select class="form-control select2 @error('kota') is-invalid @enderror" required value="{{ old('kota') }}"
+                    id="kota" name="kota">
+                    <option selected hidden disabled></option>
+                    <option value="Bekasi Kabupaten">Bekasi Kabupaten</option>
+                    <option value="Bekasi Kota">Bekasi Kota</option>
+                    <option value="Bogor Kabupaten">Bogor Kabupaten</option>
+                    <option value="Bogor Kota">Bogor Kota</option>
+                    <option value="Depok Kota">Depok Kota</option>
+                    <option value="Jakarta Barat">Jakarta Barat</option>
+                    <option value="Jakarta Pusat">Jakarta Pusat</option>
+                    <option value="Jakarta Selatan">Jakarta Selatan</option>
+                    <option value="Jakarta Timur">Jakarta Timur</option>
+                    <option value="Jakarta Utara">Jakarta Utara</option>
+                    <option value="Tangerang Kabupaten">Tangerang Kabupaten</option>
+                    <option value="Tangerang Kota">Tangerang Kota</option>
+                    <option value="Tangerang Selatan">Tangerang Selatan</option>
+                    <option value="Pandeglang Kabupaten">Pandeglang Kabupaten</option>
+                    <option value="Serang Kabupaten">Serang Kabupaten</option>
+                    <option value="Serang Kota">Serang Kota</option>
+                    <option value="Cilegon Kota">Cilegon Kota</option>
+                    <option value="Lebak Kabupaten">Lebak Kabupaten</option>
+                </select>
                 @error('kota')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -79,9 +100,21 @@
                 @enderror
             </div>
 
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="building">Building</label>
-                <input type="text" class="form-control @error('building') is-invalid @enderror" id="building" name="building" required value="{{ old('building') }}" autocomplete="off">
+                <select class="form-control select2 @error('building') is-invalid @enderror" required value="{{ old('building') }}"
+                    id="building" name="building">
+                    <option selected hidden disabled></option>
+                    <option value="Data Center">Data Center</option>
+                    <option value="Mikro POP">Mikro POP</option>
+                    <option value="Mini POP">Mini POP</option>
+                    <option value="ODC">ODC</option>
+                    <option value="OLT Gantung">OLT Gantung</option>
+                    <option value="PLC">PLC</option>
+                    <option value="Ruang Kantor">Ruang Kantor</option>
+                    <option value="Shelter CKD">Shelter CKD</option>
+                    <option value="Shelter Permanen">Shelter Permanen</option>
+                </select>
                 @error('building')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -89,9 +122,17 @@
                 @enderror
             </div>
 
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="tipe_pop">Tipe POP</label>
-                <input type="text" class="form-control @error('tipe_pop') is-invalid @enderror" id="tipe_pop" name="tipe_pop" required value="{{ old('tipe_pop') }}" autocomplete="off">
+                <select class="form-control select2 @error('tipe_pop') is-invalid @enderror" required value="{{ old('tipe_pop') }}"
+                    id="tipe_pop" name="tipe_pop">
+                    <option selected hidden disabled></option>
+                    <option value="POP-A">POP-A</option>
+                    <option value="POP-B">POP-B</option>
+                    <option value="POP-D">POP-D</option>
+                    <option value="POP-SB">POP-SB</option>
+                    <option value="CPE-PLN">CPE-PLN</option>
+                </select>
                 @error('tipe_pop')
                 <div class="invalid-feedback">
                     {{ $message }}

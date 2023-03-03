@@ -9,7 +9,7 @@
     <div class="card-header">
         <h3 class="card-title">Edit Jadwal</h3>
     </div>
-    <form action="/jadwal/{{ $jadwal->id }}" method="POST">
+    <form action="/jadwal/{{ $jadwal->id }}/edit" method="POST">
         @csrf
         @method('put')
         <div class="card-body">
@@ -18,16 +18,27 @@
             <input type="hidden" value="-" name="link_sharepoint">
             <input type="hidden" value="-" name="improvement">
             <input type="hidden" value="-" name="temuan"> --}}
+            @if (auth()->user()->role == 'admin')
             <div class="form-group mb-5">
                 <label for="plan">Plan PM</label>
-                <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan"
-                    required value="{{ old('plan',$jadwal->plan) }}" autocomplete="off">
-                @error('plan') 
+                <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan',$jadwal->plan) }}" autocomplete="off">
+                @error('plan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
                 @enderror
             </div>
+            @else
+                <div class="form-group mb-5">
+                    <label for="plan">Plan PM</label>
+                    <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan',$jadwal->plan) }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                    @error('plan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            @endif
             <div class="form-group mb-5">
                 <label for="wo_fsm">WO FSM+ / IFast</label>
                 <input type="text" class="form-control @error('wo_fsm') is-invalid @enderror" id="wo_fsm" name="wo_fsm" required value="{{ old('wo_fsm',$jadwal->wo_fsm) }}" autocomplete="off">
@@ -88,6 +99,7 @@
                 <select class="form-control @error('jenis_pm') is-invalid @enderror" style="width: 100%;" required
                     value="{{ old('jenis_pm') }}" id="jenis_pm" name="jenis_pm" disabled>
                     <option value="ISP" {{ $jadwal->jenis_pm == 'ISP' ? 'selected' : '' }}>ISP</option>
+                    <option value="ISP CPE" {{ $jadwal->jenis_pm == 'ISP CPE' ? 'selected' : '' }}>ISP CPE</option>
                     <option value="OSP" {{ $jadwal->jenis_pm == 'OSP' ? 'selected' : '' }}>OSP</option>
                 </select>
                 <input type="hidden" name="jenis_pm" value="{{ $jadwal->jenis_pm }}">
@@ -97,9 +109,15 @@
                 </div>
                 @enderror
             </div>
-
-            <div class="jenis_isp" style="display: {{ $jadwal->jenis_pm == 'ISP' ? 'block' : 'none' }}" id="jenis_isp">
-                @if($jadwal->jenis_pm == "ISP")
+            @php
+                if ($jadwal->jenis_pm == 'ISP' || $jadwal->jenis_pm == "ISP CPE") {
+                    $isp = 'block';
+                }else{
+                    $isp = 'none';
+                }
+            @endphp
+            <div class="jenis_isp" style="display: {{ $isp }}" id="jenis_isp">
+                @if($jadwal->jenis_pm == "ISP" || $jadwal->jenis_pm == "ISP CPE")
                     <div class="form-group mb-5">
                         <label for="kategori_pm">Kategori PM</label>
                         <select class="form-control select2 @error('kategori_pm') is-invalid @enderror kategori_isp" style="width: 100%;" value="{{ old('kategori_pm') }}" name="kategori_pm">
@@ -118,7 +136,7 @@
                     </div>
                 @endif
                 <div class="form-group mb-5">
-                    <label for="pop_id">Nama Pop</label>
+                    <label for="pop_id">Nama POP / Nam CPE PLN</label>
                     <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                         value="{{ old('pop_id') }}" name="pop_id">
                         <option selected hidden value="-"></option>

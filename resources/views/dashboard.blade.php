@@ -328,11 +328,12 @@ $color = 'bg-label-success';
     },
     series: [{
         name: 'Plan',
-        data: [plan1,plan2,plan3,plan4,plan5,plan6,plan7,plan8,plan9,plan10,plan11,plan12,plan13,plan14,plan15,plan16,plan17,plan18]
-
+        data: [plan1,plan2,plan3,plan4,plan5,plan6,plan7,plan8,plan9,plan10,plan11,plan12,plan13,plan14,plan15,plan16,plan17,plan18],
+        color: '#007bff',
     }, {
         name: 'Realisasi',
-        data: [realisasi1,realisasi2,realisasi3,realisasi4,realisasi5,realisasi6,realisasi7,realisasi8,realisasi9,realisasi10,realisasi11,realisasi12,realisasi13,realisasi14,realisasi15,realisasi16,realisasi17,realisasi18]
+        data: [realisasi1,realisasi2,realisasi3,realisasi4,realisasi5,realisasi6,realisasi7,realisasi8,realisasi9,realisasi10,realisasi11,realisasi12,realisasi13,realisasi14,realisasi15,realisasi16,realisasi17,realisasi18],
+        color: '#28a745',
     }]
 });
 

@@ -77,7 +77,7 @@
 
             <p>
               {{-- Alexander Pierce - Web Developer --}}
-              {{-- {{ auth()->user()->name }} --}}
+              {{ auth()->user()->name }}
               {{-- <small>Member since Nov. 2012</small> --}}
             </p>
           </li>

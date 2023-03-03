@@ -16,15 +16,27 @@
             <input type="hidden" value="-" name="link_sharepoint">
             <input type="hidden" value="-" name="improvement">
             <input type="hidden" value="-" name="temuan"> --}}
-            <div class="form-group mb-5">
-                <label for="plan">Plan PM</label>
-                <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
-                @error('plan')
-                <div class="invalid-feedback">
-                    {{ $message }}
+            @if (auth()->user()->role == 'admin')
+                <div class="form-group mb-5">
+                    <label for="plan">Plan PM</label>
+                    <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off">
+                    @error('plan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
-                @enderror
-            </div>
+            @else
+                <div class="form-group mb-5">
+                    <label for="plan">Plan PM</label>
+                    <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->subDays(2)->format('Y-m-d') }}">
+                    @error('plan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            @endif
             <div class="form-group mb-5">
                 <label for="wo_fsm">WO FSM+ / IFast</label>
                 <input type="text" class="form-control @error('wo_fsm') is-invalid @enderror" id="wo_fsm" name="wo_fsm" required value="{{ old('wo_fsm') }}" autocomplete="off">
@@ -114,7 +126,7 @@
                     @enderror
                 </div>
                 <div class="form-group mb-5">
-                    <label for="pop_id">Nama Pop</label>
+                    <label for="pop_id">Nama POP / Nam CPE PLN</label>
                     <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                         value="{{ old('pop_id') }}" name="pop_id">
                         <option selected hidden value="-"></option>

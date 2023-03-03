@@ -11,15 +11,27 @@
     <form action="/improvement" method="POST">
         @csrf
         <div class="card-body">
-            <div class="form-group mb-5">
-                <label for="plan">Plan Improvement</label>
-                <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
-                @error('plan')
-                <div class="invalid-feedback">
-                    {{ $message }}
+            @if (auth()->user()->role == 'admin')
+                <div class="form-group mb-5">
+                    <label for="plan">Plan PM</label>
+                    <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off">
+                    @error('plan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
-                @enderror
-            </div>
+            @else
+                <div class="form-group mb-5">
+                    <label for="plan">Plan PM</label>
+                    <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->subDays(2)->format('Y-m-d') }}">
+                    @error('plan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            @endif
             <div class="form-group mb-5">
                 <label for="wilayah">Wilayah</label>
                 <select class="form-control select2 @error('wilayah') is-invalid @enderror" required

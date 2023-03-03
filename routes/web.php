@@ -48,5 +48,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/temuan',[TemuanController::class,'index']);
     Route::post('/temuan',[TemuanController::class,'store']);
     Route::get('/temuan/improve/{id}',[TemuanController::class,'improve']);
+    Route::get('/temuan/{id}/edit',[TemuanController::class,'edit']);
+    Route::post('/temuan/{id}/edit',[TemuanController::class,'update']);
     // Route::get('/get-data',[ImprovementController::class,'temuan'])->name('getData');
 });

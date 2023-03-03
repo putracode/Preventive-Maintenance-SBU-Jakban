@@ -61,17 +61,19 @@
                                     Action
                                 </button>
                                 <ul class="dropdown-menu ">
-                                    <li class="">
+                                    @can('admin')                                        
                                         @if ($row->status == 'Plan Improve')    
-                                        <a href="/improvement/{{ $row->id }}/edit" class="dropdown-item">
-                                            <span style="display: flex; align-items: center;">
-                                                <ion-icon name="create-outline" class="mr-2"></ion-icon>
-                                                </i>Edit
-                                            </span>
-                                        </a>
+                                        <li class="">
+                                            <a href="/improvement/{{ $row->id }}/edit" class="dropdown-item">
+                                                <span style="display: flex; align-items: center;">
+                                                    <ion-icon name="create-outline" class="mr-2"></ion-icon>
+                                                    </i>Edit
+                                                </span>
+                                            </a>
+                                        </li>
                                         @endif
-                                    </li>
-                                    <li class="my-2">
+                                    @endcan
+                                    <li class="mt-1">
 
                                         @if ($row->status == 'Plan Improve')
                                         <button type="button" data-toggle="modal"
@@ -131,9 +133,9 @@ $color = 'bg-warning text-white';
     }
     @endphp
     <div class="modal fade" id="modal-lg-{{ $row->id }}">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header bg-secondary shadow-sm border-secondary">
+                <div class="modal-header bg-info shadow-sm border-info">
                     <h5 class="modal-title" style="font-size: 20px">Detail Improvement</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -141,7 +143,19 @@ $color = 'bg-warning text-white';
                 </div>
                 <div class="modal-body">
                     <div class="row" style="font-size: 16px">
-                        <div class="col-6 my-3">Plan : {{ $row->plan }}</div>
+                        <div class="col-6 my-3"><span class="detail-title">Plan :</span><span class="detail-value">{{ $row->plan }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Realisasi :</span><span class="detail-value">{{ $row->realisasi }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Status :</span><span class="badge {{ $color }} px-3" style="margin-left: 5px">{{ $row->status }}</span>
+                        </div>
+                        <div class="col-6 my-3"><span class="detail-title">Wilayah :</span><span class="detail-value">{{ $row->wilayah }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Area :</span><span class="detail-value">{{ $row->area }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Dasar Improvement :</span><span class="detail-value">{{ $row->dasar_improvement }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Jenis Improvement :</span><span class="detail-value">{{ $row->jenis_improvement }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Kategori Improvement :</span><span class="detail-value">{{ $row->kategori_improvement }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Nama POP / CPE PLN :</span><br><span class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else {{ $row->pop->nama_pop }} @endif</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Nama Jalan / Cluster :</span><span class="detail-value">{{ $row->cluster }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Link Sharepoint Laporan :</span><span class="detail-value">{{ $row->link_sharepoint }}</span></div>
+                        {{-- <div class="col-6 my-3">Plan : {{ $row->plan }}</div>
                         <div class="col-6 my-3">Realisasi : {{ $row->realisasi }}</div>
                         <div class="col-6 my-3">Status : <span class="badge {{ $color }} px-3">{{ $row->status }}</span>
                         </div>
@@ -157,14 +171,14 @@ $color = 'bg-warning text-white';
                         @endif</div>
                         <div class="col-6 my-3">Nama Jalan / Cluster : {{ $row->cluster }}</div>
                         <div class="col-6 my-3">Link Sharepoint Laporan : <a href="{{ $row->link_sharepoint }}"
-                                target="_blank">{{ $row->link_sharepoint }}</a></div>
+                                target="_blank">{{ $row->link_sharepoint }}</a></div> --}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="modal fade" id="modal-default-{{ $row->id }}">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" style="font-size: 20px">Realisasi</h4>
@@ -175,16 +189,30 @@ $color = 'bg-warning text-white';
                 <div class="modal-body">
                     <form action="/improvement/{{ $row->id }}/realisasi" method="POST">
                         @csrf
-                        <div class="form-group mt-2 mb-4">
-                            <label for="link_sharepoint">Tanggal Realisasi</label>
+                        @if (auth()->user()->role == 'admin')
+                        <div class="form-group mt-1 mb-5">
+                            <label for="realisasi">Tanggal Realisasi</label>
                             <input type="date" class="form-control" id="realisasi" name="realisasi" required
-                                value="{{ old('realisasi') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                value="{{ old('realisasi') }}" autocomplete="off">
                             @error('realisasi')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
+                        @else
+                        <div class="form-group mt-1 mb-5">
+                            <label for="realisasi">Tanggal Realisasi</label>
+                            <input type="date" class="form-control" id="realisasi" name="realisasi" required
+                                value="{{ old('realisasi') }}" autocomplete="off"
+                                min="{{ \Carbon\Carbon::now()->subDays(2)->format('Y-m-d') }}">
+                            @error('realisasi')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        @endif
                         <div class="form-group mb-4">
                             <label for="link_sharepoint">Link Sharepoint Laporan</label>
                             <textarea class="form-control @error('link_sharepoint') is-invalid @enderror" rows="5"
@@ -214,6 +242,6 @@ $color = 'bg-warning text-white';
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
     @endsection
     @section('title')
-    <h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center">Improvement Plan & Realisasi PM</h1>
+    <h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center">Improvement Plan & Realisasi</h1>
 
     @endsection

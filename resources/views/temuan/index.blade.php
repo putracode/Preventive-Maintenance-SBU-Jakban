@@ -19,9 +19,9 @@
                 <tr class="text-nowrap">
                     <th>ID</th>
                     <th class="notexport">Action</th>
-                    <th>Status</th>
-                    <th>Plan</th>
-                    <th>Realisasi</th>
+                    <th>Status Improvement</th>
+                    <th>Plan PM</th>
+                    <th>Realisasi PM</th>
                     <th>Jenis PM</th>
                     <th class="hidden">Kategori PM</th>
                     <th class="hidden">Hostname</th>
@@ -29,7 +29,7 @@
                     <th class="hidden">Segmen</th>
                     <th>Wilayah</th>
                     <th>Area</th>
-                    <th>Lokasi / POP</th>
+                    <th>Nama POP / CPE PLN</th>
                     <th class="hidden">Tipe POP</th>
                     <th>Nama Jalan / Cluster</th>
                     <th class="hidden">WO FSM+</th>
@@ -69,13 +69,13 @@
                                     <li class="my-1">
                                         <a href="/temuan/improve/{{ $row->id }}" class="dropdown-item">
                                             <span style="display: flex; align-items: center;">
-                                                <ion-icon name="create-outline" class="mr-2"></ion-icon>
+                                                <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>
                                                 </i>Improvement
                                             </span>
                                         </a>
                                     </li>
 
-                                    @if ($row->status == 'Plan')
+                                    {{-- @if ($row->status == 'Plan')
                                     <li class="my-2">
 
                                         <button type="button" data-toggle="modal"
@@ -84,6 +84,16 @@
                                             <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>Realisasi
                                         </button>
                                     </li>
+                                    @endif --}}
+                                    @if ($row->status == 'Check')   
+                                        <li class="my-1">
+                                            <a href="/temuan/{{ $row->id }}/edit" class="dropdown-item">
+                                                <span style="display: flex; align-items: center;">
+                                                    <ion-icon name="create-outline" class="mr-2"></ion-icon>
+                                                    </i>Edit
+                                                </span>
+                                            </a>
+                                        </li>
                                     @endif
                                     <li class="{{ $row->status == 'Realisasi' ? 'my-0 p-0 m-0 mt-0' : 'my-1' }}">
                                         <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
@@ -138,21 +148,23 @@
 @php
 $color = '';
 
-if($row->status == 'Plan' && $row->plan > now()->format('Y-m-d')) {
+if($row->status == 'Plan Improve' && $row->plan > now()->format('Y-m-d')) {
 $color = 'bg-primary text-white';
-}elseif($row->status == 'Plan' && $row->plan == now()->format('Y-m-d')) {
+}elseif($row->status == 'Plan Improve' && $row->plan == now()->format('Y-m-d')) {
 $color = 'bg-warning text-white';
-}elseif($row->status == 'Plan' && $row->plan < now()->format('Y-m-d')) {
+}elseif($row->status == 'Plan Improve' && $row->plan < now()->format('Y-m-d')) {
     $color = 'bg-danger text-white';
     }elseif($row->status == 'Realisasi'){
     $color = 'bg-success text-white';
+    }elseif($row->status == 'Check'){
+    $color = 'bg-info text-white';
     }
     @endphp
     <div class="modal fade" id="modal-lg-{{ $row->id }}">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header bg-info shadow-sm border-info">
-                    <h5 class="modal-title" style="font-size: 20px">Detail Jadwal</h5>
+                    <h5 class="modal-title" style="font-size: 20px">Detail Temuan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -184,7 +196,7 @@ $color = 'bg-warning text-white';
                                 class="detail-value">{{ $row->hostname }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">ID FAT :</span><span
                                 class="detail-value">{{ $row->id_fat }}</span></div>
-                        <div class="col-4 my-3"><span class="detail-title">Lokasi / POP :</span><br><span
+                        <div class="col-4 my-3"><span class="detail-title">Nama POP / CPE PLN :</span><br><span
                                 class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else
                                 {{ $row->pop->nama_pop }} @endif</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Tipe POP :</span><span

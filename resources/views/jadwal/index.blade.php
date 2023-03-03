@@ -29,7 +29,7 @@
                     <th class="hidden">Segmen</th>
                     <th>Wilayah</th>
                     <th>Area</th>
-                    <th>Lokasi / POP</th>
+                    <th>Nama POP / CPE PLN</th>
                     <th class="hidden">Tipe POP</th>
                     <th>Nama Jalan / Cluster</th>
                     <th class="hidden">WO FSM+</th>
@@ -63,6 +63,25 @@
                                     Action
                                 </button>
                                 <ul class="dropdown-menu">
+
+                                    @if ($row->status == 'Plan')
+                                    <li class="my-1">
+
+                                        <button type="button" data-toggle="modal"
+                                            data-target="#modal-default-{{ $row->id }}" class="dropdown-item"
+                                            style="display: flex; align-items: center;">
+                                            <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>Realisasi
+                                        </button>
+                                    </li>
+                                    @endif
+                                        <li class="{{ $row->status == 'Realisasi' ? 'my-1 p-0 m-0 mt-0' : 'my-1' }}">
+                                        <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
+                                            class="dropdown-item" style="display: flex; align-items: center;">
+                                            <ion-icon name="eye-outline" class="mr-2"></ion-icon>
+                                            Detail
+                                        </button>
+                                    </li>
+                                    @can('admin')
                                     @if ($row->status == 'Plan')
                                     <li class="my-1">
                                         <a href="/jadwal/{{ $row->id }}/edit" class="dropdown-item">
@@ -73,24 +92,18 @@
                                         </a>
                                     </li>
                                     @endif
-                                    @if ($row->status == 'Plan')
-                                    <li class="my-2">
-
-                                        <button type="button" data-toggle="modal"
-                                            data-target="#modal-default-{{ $row->id }}" class="dropdown-item"
-                                            style="display: flex; align-items: center;">
-                                            <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>Realisasi
-                                        </button>
-                                    </li>
-                                    @endif
-                                    <li class="{{ $row->status == 'Realisasi' ? 'my-0 p-0 m-0 mt-0' : 'my-1' }}">
-                                        <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
-                                            class="dropdown-item" style="display: flex; align-items: center;">
-                                            <ion-icon name="eye-outline" class="mr-2"></ion-icon>
-                                            Detail
-                                        </button>
-                                    </li>
-
+                                        <li class="{{ $row->status == 'Realisasi' ? 'my-1 p-0 m-0 mt-0' : 'my-1' }}">
+                                            <form action="/jadwal/{{ $row->id }}" method="POST" style="display: inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="dropdown-item confirmdelete" data-name="Data" id="confirmbutton">
+                                                    <span style="display: flex; align-items: center;">
+                                                        <ion-icon name="trash-outline" class="mr-2"></ion-icon>Delete
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endcan
                                 </ul>
                             </div>
                         </td>
@@ -168,7 +181,7 @@ $color = 'bg-warning text-white';
                         <div class="col-4 my-3"><span class="detail-title">Segmen PM :</span><span class="detail-value">{{ $row->segmen }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Hostname :</span><span class="detail-value">{{ $row->hostname }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">ID FAT :</span><span class="detail-value">{{ $row->id_fat }}</span></div>
-                        <div class="col-4 my-3"><span class="detail-title">Lokasi / POP :</span><br><span class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else {{ $row->pop->nama_pop }} @endif</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Nama POP / CPE PLN :</span><br><span class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else {{ $row->pop->nama_pop }} @endif</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Tipe POP :</span><span class="detail-value">@if ($row->pop_id == null) - @else {{ $row->pop->tipe_pop }} @endif</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Nama Jalan / Cluster Perumahan :</span><span class="detail-value" style="margin-left: 0px">{{ $row->cluster }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Link Sharepoint Laporan :</span><br><span class="detail-value" style="margin-left: 0px"><a href="{{ $row->link_sharepoint }}" target="_blank">{{ $row->link_sharepoint }}</a></span></div>
@@ -194,17 +207,30 @@ $color = 'bg-warning text-white';
                 <div class="modal-body">
                     <form action="/jadwal/{{ $row->id }}/realisasi" method="POST">
                         @csrf
+                        @if (auth()->user()->role == 'admin')
                         <div class="form-group mt-1 mb-5">
                             <label for="realisasi">Tanggal Realisasi</label>
                             <input type="date" class="form-control" id="realisasi" name="realisasi" required
-                                value="{{ old('realisasi') }}" autocomplete="off"
-                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                value="{{ old('realisasi') }}" autocomplete="off">
                             @error('realisasi')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                             @enderror
                         </div>
+                        @else
+                        <div class="form-group mt-1 mb-5">
+                            <label for="realisasi">Tanggal Realisasi</label>
+                            <input type="date" class="form-control" id="realisasi" name="realisasi" required
+                                value="{{ old('realisasi') }}" autocomplete="off"
+                                min="{{ \Carbon\Carbon::now()->subDays(2)->format('Y-m-d') }}">
+                            @error('realisasi')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        @endif
                         <div class="form-group mb-5">
                             <label for="link_sharepoint">Link Sharepoint Laporan</label>
                             <textarea class="form-control @error('link_sharepoint') is-invalid @enderror" rows="3"

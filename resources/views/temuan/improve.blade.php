@@ -11,7 +11,6 @@
     </div>
     <form action="/temuan" method="POST">
         @csrf
-
         <div class="card-body">
             <input type="hidden" name="id" value="{{ $temuan->id }}">
             <div class="form-group mb-5">
@@ -24,16 +23,27 @@
                 </div>
                 @enderror
             </div>
+            @if (auth()->user()->role == 'admin')
             <div class="form-group mb-5">
-                <label for="plan">Plan Improvement</label>
-                <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan"
-                    required value="{{ old('plan',$temuan->plan) }}" autocomplete="off" readonly>
-                @error('plan') 
+                <label for="plan">Plan Improve</label>
+                <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan',$temuan->plan) }}" autocomplete="off">
+                @error('plan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
                 @enderror
             </div>
+            @else
+                <div class="form-group mb-5">
+                    <label for="plan">Plan Improve</label>
+                    <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan',$temuan->plan) }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                    @error('plan')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div>
+            @endif
             {{-- <div class="form-group mb-5">
                 <label for="wo_fsm">WO FSM+ / IFast</label>
                 <input type="text" class="form-control @error('wo_fsm') is-invalid @enderror" id="wo_fsm" name="wo_fsm" required value="{{ old('wo_fsm',$temuan->wo_fsm) }}" autocomplete="off">
