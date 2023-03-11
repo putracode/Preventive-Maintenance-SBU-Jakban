@@ -61,6 +61,22 @@
                                     Action
                                 </button>
                                 <ul class="dropdown-menu ">
+                                    @if ($row->status == 'Plan Improve')
+                                    <li class="mt-1">
+                                        <button type="button" data-toggle="modal"
+                                            data-target="#modal-default-{{ $row->id }}" class="dropdown-item"
+                                            style="display: flex; align-items: center;">
+                                            <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>Realisasi
+                                        </button>
+                                    </li>
+                                    @endif
+                                    <li class="my-1">
+                                        <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
+                                            class="dropdown-item" style="display: flex; align-items: center;">
+                                            <ion-icon name="eye-outline" class="mr-2"></ion-icon>
+                                            Detail
+                                        </button>
+                                    </li>
                                     @can('admin')                                        
                                         @if ($row->status == 'Plan Improve')    
                                         <li class="">
@@ -72,25 +88,18 @@
                                             </a>
                                         </li>
                                         @endif
+                                        <li class="{{ $row->status == 'Realisasi' ? 'my-1 p-0 m-0 mt-0' : 'my-1' }}">
+                                            <form action="/improvement/{{ $row->id }}" method="POST" style="display: inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="dropdown-item confirmdelete" data-name="Data" id="confirmbutton">
+                                                    <span style="display: flex; align-items: center;">
+                                                        <ion-icon name="trash-outline" class="mr-2"></ion-icon>Delete
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
                                     @endcan
-                                    <li class="mt-1">
-
-                                        @if ($row->status == 'Plan Improve')
-                                        <button type="button" data-toggle="modal"
-                                            data-target="#modal-default-{{ $row->id }}" class="dropdown-item"
-                                            style="display: flex; align-items: center;">
-                                            <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>Realisasi
-                                        </button>
-                                        @endif
-                                    </li>
-                                    <li class="my-1">
-                                        <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
-                                            class="dropdown-item" style="display: flex; align-items: center;">
-                                            <ion-icon name="eye-outline" class="mr-2"></ion-icon>
-                                            Detail
-                                        </button>
-                                    </li>
-
                                 </ul>
                             </div>
                         </td>

@@ -132,4 +132,11 @@ class TemuanController extends Controller
         Temuan::where('id',$id)->update($validasi);
         return redirect('/temuan')->with('success','Data update successfully!');
     }
+
+    public function destroy($id){
+        $temuan = Temuan::findOrFail($id);
+        // dd($temuan);
+        $temuan->delete();
+        return redirect('/temuan')->with('success','Data successfully deleted!');
+    }
 }

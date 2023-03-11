@@ -9,7 +9,7 @@
     <div class="card-header">
         <h3 class="card-title">Edit Jadwal</h3>
     </div>
-    <form action="/jadwal/{{ $jadwal->id }}/edit" method="POST">
+    <form action="/jadwal/{{ $jadwal->id }}" method="POST">
         @csrf
         @method('put')
         <div class="card-body">

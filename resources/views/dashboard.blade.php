@@ -43,7 +43,7 @@
     <div class="col-lg-3 offset-3 float-right">
         <div class="row d-flex align-items-start justify-content-end mb-4">
 
-            <a href="/" class="btn btn-info btn-sm"><span class="d-flex justify-center align-items-center">Refresh
+            <a href="/dashboard" class="btn btn-info btn-sm"><span class="d-flex justify-center align-items-center">Refresh
             <ion-icon name="refresh-outline" class="ml-1"></ion-icon></span></a>
     
             <button type="button" class="btn btn-info btn-sm px-2 ml-2" data-toggle="modal"
@@ -228,12 +228,12 @@ $color = 'bg-label-success';
                         <div class="form-group">
                             <label for="exampleInputEmail1">From</label>
                             <input type="date" class="form-control date-picker" id="exampleInputEmail1"
-                                placeholder="Dari Tanggal" name="from" value="{{ date('Y-m-d') }}" required>
+                                placeholder="Dari Tanggal" name="from" value="{{ request('from') }}" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">To</label>
                             <input type="date" class="form-control datepicker" id="exampleInputPassword1"
-                                placeholder="Sampai Tanggal" name="to" value="{{ date('Y-m-d') }}" required>
+                                placeholder="Sampai Tanggal" name="to" value="{{ request('to') }}" required>
                         </div>
                     </div>
             </div>
@@ -344,10 +344,10 @@ $color = 'bg-label-success';
 @section('title')
 @if(!request('from'))
 
-<h1 style="font-weight: 600; letter-spacing: 2px" class="text-info text-center mb-2">DASHBOARD</h1>
+<h1 style="font-weight: 600; letter-spacing: 2px" class="text-info text-center mb-2">DASHBOARD PM SBU JAKBAN</h1>
 @endif
 @if (request('from'))
-<h1 style="font-weight: 600; letter-spacing: 2px" class="text-info text-center">DASHBOARD</h1>
+<h1 style="font-weight: 600; letter-spacing: 2px" class="text-info text-center">DASHBOARD PM SBU JAKBAN</h1>
 <h1 style="font-weight: 600; letter-spacing: 1px" class="text-info text-center mb-2">{{ request('from') }} / {{ request('to') }}</h1>
 @endif
 @endsection

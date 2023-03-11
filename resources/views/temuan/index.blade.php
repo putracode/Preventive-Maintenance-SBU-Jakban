@@ -74,17 +74,14 @@
                                             </span>
                                         </a>
                                     </li>
-
-                                    {{-- @if ($row->status == 'Plan')
-                                    <li class="my-2">
-
-                                        <button type="button" data-toggle="modal"
-                                            data-target="#modal-default-{{ $row->id }}" class="dropdown-item"
-                                            style="display: flex; align-items: center;">
-                                            <ion-icon name="checkmark-done-outline" class="mr-2"></ion-icon>Realisasi
+                                    <li class="{{ $row->status == 'Realisasi' ? 'my-0 p-0 m-0 mt-0' : 'my-1' }}">
+                                        <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
+                                            class="dropdown-item" style="display: flex; align-items: center;">
+                                            <ion-icon name="eye-outline" class="mr-2"></ion-icon>
+                                            Detail
                                         </button>
                                     </li>
-                                    @endif --}}
+                                    @can('admin')                                        
                                     @if ($row->status == 'Check')   
                                         <li class="my-1">
                                             <a href="/temuan/{{ $row->id }}/edit" class="dropdown-item">
@@ -95,14 +92,18 @@
                                             </a>
                                         </li>
                                     @endif
-                                    <li class="{{ $row->status == 'Realisasi' ? 'my-0 p-0 m-0 mt-0' : 'my-1' }}">
-                                        <button type="button" data-toggle="modal" data-target="#modal-lg-{{ $row->id }}"
-                                            class="dropdown-item" style="display: flex; align-items: center;">
-                                            <ion-icon name="eye-outline" class="mr-2"></ion-icon>
-                                            Detail
-                                        </button>
-                                    </li>
-
+                                        <li class="{{ $row->status == 'Realisasi' ? 'my-1 p-0 m-0 mt-0' : 'my-1' }}">
+                                            <form action="/temuan/{{ $row->id }}" method="POST" style="display: inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="dropdown-item confirmdelete" data-name="Data" id="confirmbutton">
+                                                    <span style="display: flex; align-items: center;">
+                                                        <ion-icon name="trash-outline" class="mr-2"></ion-icon>Delete
+                                                    </span>
+                                                </button>
+                                            </form>
+                                        </li>
+                                    @endcan
                                 </ul>
                             </div>
                         </td>

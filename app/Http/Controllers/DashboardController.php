@@ -78,63 +78,63 @@ class DashboardController extends Controller
             $to = explode('-', request('to'));
             $to = $to[0]. '-' . $to[1] . '-' . intval($to[2]);
             // dd($to);
-            $jadwal = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->latest()->get();
-            $totalData = Jadwal::whereBetween('plan',[request('from'), request('to')])->count(); 
-            $totalReal = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->count(); 
+            $jadwal = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->latest()->get();
+            $totalData = Jadwal::whereBetween('plan',[request('from'), $to])->count(); 
+            $totalReal = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->count(); 
 
-            $plan1 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Bekasi Kabupaten')->count();
-            $realisasi1 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Bekasi Kabupaten')->count();
+            $plan1 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Bekasi Kabupaten')->count();
+            $realisasi1 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Bekasi Kabupaten')->count();
 
-            $plan2 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Bekasi Kota')->count();
-            $realisasi2 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Bekasi Kota')->count();
+            $plan2 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Bekasi Kota')->count();
+            $realisasi2 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Bekasi Kota')->count();
 
-            $plan3 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Bogor Kabupaten')->count();
-            $realisasi3 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Bogor Kabupaten')->count();
+            $plan3 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Bogor Kabupaten')->count();
+            $realisasi3 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Bogor Kabupaten')->count();
 
-            $plan4 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Bogor Kota')->count();
-            $realisasi4 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Bogor Kota')->count();
+            $plan4 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Bogor Kota')->count();
+            $realisasi4 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Bogor Kota')->count();
 
-            $plan5 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Depok Kota')->count();
-            $realisasi5 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Depok Kota')->count();
+            $plan5 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Depok Kota')->count();
+            $realisasi5 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Depok Kota')->count();
 
-            $plan6 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Jakarta Barat')->count();
-            $realisasi6 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Jakarta Barat')->count();
+            $plan6 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Jakarta Barat')->count();
+            $realisasi6 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Jakarta Barat')->count();
 
-            $plan7 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Jakarta Pusat')->count();
-            $realisasi7 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Jakarta Pusat')->count();
+            $plan7 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Jakarta Pusat')->count();
+            $realisasi7 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Jakarta Pusat')->count();
 
-            $plan8 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Jakarta Selatan')->count();
-            $realisasi8 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Jakarta Selatan')->count();
+            $plan8 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Jakarta Selatan')->count();
+            $realisasi8 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Jakarta Selatan')->count();
 
-            $plan9 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Jakarta Timur')->count();
-            $realisasi9 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Jakarta Timur')->count();
+            $plan9 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Jakarta Timur')->count();
+            $realisasi9 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Jakarta Timur')->count();
 
-            $plan10 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Jakarta Utara')->count();
-            $realisasi10 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Jakarta Utara')->count();
+            $plan10 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Jakarta Utara')->count();
+            $realisasi10 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Jakarta Utara')->count();
 
-            $plan11 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Tangerang Kabupaten')->count();
-            $realisasi11 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Tangerang Kabupaten')->count();
+            $plan11 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Tangerang Kabupaten')->count();
+            $realisasi11 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Tangerang Kabupaten')->count();
 
-            $plan12 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Tangerang Kota')->count();
-            $realisasi12 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Tangerang Kota')->count();
+            $plan12 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Tangerang Kota')->count();
+            $realisasi12 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Tangerang Kota')->count();
 
-            $plan13 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Tangerang Selatan')->count();
-            $realisasi13 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Tangerang Selatan')->count();
+            $plan13 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Tangerang Selatan')->count();
+            $realisasi13 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Tangerang Selatan')->count();
 
-            $plan14 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Pandeglang Kabupaten')->count();
-            $realisasi14 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Pandeglang Kabupaten')->count();
+            $plan14 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Pandeglang Kabupaten')->count();
+            $realisasi14 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Pandeglang Kabupaten')->count();
 
-            $plan15 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Serang Kabupaten')->count();
-            $realisasi15 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Serang Kabupaten')->count();
+            $plan15 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Serang Kabupaten')->count();
+            $realisasi15 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Serang Kabupaten')->count();
 
-            $plan16 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Serang Kota')->count();
-            $realisasi16 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Serang Kota')->count();
+            $plan16 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Serang Kota')->count();
+            $realisasi16 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Serang Kota')->count();
 
-            $plan17 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Cilegon Kota')->count();
-            $realisasi17 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Cilegon Kota')->count();
+            $plan17 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Cilegon Kota')->count();
+            $realisasi17 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Cilegon Kota')->count();
 
-            $plan18 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Plan')->where('area','Lebak Kabupaten')->count();
-            $realisasi18 = Jadwal::whereBetween('plan',[request('from'), request('to')])->where('status','Realisasi')->where('area','Lebak Kabupaten')->count();
+            $plan18 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Lebak Kabupaten')->count();
+            $realisasi18 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Lebak Kabupaten')->count();
         } else {
             $totalData = Jadwal::all()->count(); 
             $totalReal = Jadwal::where('status','Realisasi')->count(); 

@@ -82,7 +82,7 @@
                                         </button>
                                     </li>
                                     @can('admin')
-                                    @if ($row->status == 'Plan')
+
                                     <li class="my-1">
                                         <a href="/jadwal/{{ $row->id }}/edit" class="dropdown-item">
                                             <span style="display: flex; align-items: center;">
@@ -91,7 +91,7 @@
                                             </span>
                                         </a>
                                     </li>
-                                    @endif
+
                                         <li class="{{ $row->status == 'Realisasi' ? 'my-1 p-0 m-0 mt-0' : 'my-1' }}">
                                             <form action="/jadwal/{{ $row->id }}" method="POST" style="display: inline">
                                                 @csrf
@@ -223,7 +223,7 @@ $color = 'bg-warning text-white';
                             <label for="realisasi">Tanggal Realisasi</label>
                             <input type="date" class="form-control" id="realisasi" name="realisasi" required
                                 value="{{ old('realisasi') }}" autocomplete="off"
-                                min="{{ \Carbon\Carbon::now()->subDays(2)->format('Y-m-d') }}">
+                                min="{{ \Carbon\Carbon::parse($row->plan)->subDays(30)->format('Y-m-d') }}">
                             @error('realisasi')
                             <div class="invalid-feedback">
                                 {{ $message }}

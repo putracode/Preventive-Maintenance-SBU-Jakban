@@ -213,12 +213,12 @@ class JadwalController extends Controller
             $validasi['id_fat'] = $request->id_fat;
         }
 
-        $validasi['realisasi'] = '-';
-        $validasi['improvement'] = '-';
-        $validasi['temuan'] = '-';
-        $validasi['link_sharepoint'] = '-';
-        $validasi['kategori_improvement'] = '-';
-        $validasi['status'] = 'Plan';
+        // $validasi['realisasi'] = '-';
+        // $validasi['improvement'] = '-';
+        // $validasi['temuan'] = '-';
+        // $validasi['link_sharepoint'] = '-';
+        // $validasi['kategori_improvement'] = '-';
+        // $validasi['status'] = 'Plan';
 
         // dd($validasi);
         jadwal::where('id',$jadwal->id)->update($validasi);
