@@ -97,7 +97,7 @@
                     value="{{ old('jenis_pm') }}" id="jenis_pm" name="jenis_pm">
                     <option selected hidden disabled></option>
                     <option value="ISP">ISP</option>
-                    <option value="ISP CPE">ISP CPE</option>
+                    <option value="CPE PLN">CPE PLN</option>
                     <option value="OSP">OSP</option>
                 </select>
                 @error('jenis_pm')
@@ -126,7 +126,7 @@
                     @enderror
                 </div>
                 <div class="form-group mb-5">
-                    <label for="pop_id">Nama POP / Nam CPE PLN</label>
+                    <label for="pop_id">Nama POP / Nama CPE PLN</label>
                     <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                         value="{{ old('pop_id') }}" name="pop_id">
                         <option selected hidden value="-"></option>
@@ -166,6 +166,8 @@
                         <option value="IKR - FAT" id="ikr_fat">IKR - FAT</option>
                         <option value="Jalur Feeder">Jalur Feeder</option>
                         <option value="Jalur Kabel TR/TM">Jalur Kabel TR/TM</option>
+                        <option value="Cluster Perumahan">Cluster Perumahan</option>
+                        <option value="ADSS LS">ADSS LS</option>
                     </select>
                     @error('kategori_pm')
                     <div class="invalid-feedback">
@@ -175,7 +177,7 @@
                 </div>
 
                 <div class="form-group mb-5 form_osp_2" id="form_osp_2">
-                    <label for="cluster">Nama Jalan / Cluster Perumahan</label>
+                    <label for="cluster">Nama Jalan / Cluster Perumahan / No Tower</label>
                     <input type="text" class="form-control @error('cluster') is-invalid @enderror" id="cluster"
                         name="cluster"  autocomplete="off" value="-">
                     @error('cluster')
@@ -215,7 +217,7 @@
 
         $('#jenis_pm').on('change',function(){
             let selected = $(this).val();
-            if(selected == "ISP" || selected == "ISP CPE"){
+            if(selected == "ISP" || selected == "CPE PLN"){
                 $('#jenis_isp').css('display','block');
                 $('#jenis_osp').css('display','none');
             }else if(selected == "OSP"){

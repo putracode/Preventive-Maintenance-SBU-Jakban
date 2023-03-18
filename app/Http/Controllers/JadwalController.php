@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Pop;
 use App\Models\Jadwal;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use App\Models\Temuan;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class JadwalController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -291,14 +290,14 @@ class JadwalController extends Controller
         // }elseif($jenisPM == 'OSP'){
         //     $jenisPM = 'OSP';
         // }
-        $jenis = explode(' ',$jenisPM);
-        $pm = $jenis[0];
+        // $jenis = explode(' ',$jenisPM);
+        // $pm = $jenis[0];
 
-        $last = Jadwal::where('jenis_pm','LIKE','%'.$pm.'%')->orderBy('jadwal_id','desc')->first();
+        // $last = Jadwal::where('jenis_pm','LIKE','%'.$pm.'%')->orderBy('jadwal_id','desc')->first();
         
         // dd($last);
-        if($jenisPM == 'OSP'){
-
+                if($jenisPM == 'OSP'){
+            $last = Jadwal::where('jenis_pm','OSP')->orderBy('jadwal_id','desc')->first();
             if(!$last or date('Y', strtotime($last->created_at)) != date('Y')) {
                 return 'OSP/' . date('Y') . '/0001';
             }
@@ -310,7 +309,8 @@ class JadwalController extends Controller
                 return $part[0] . '/' . $part[1] . '/' . $result;
             }
 
-        }else if($jenisPM == 'ISP' || $jenisPM == 'ISP CPE'){
+        }else if($jenisPM == 'ISP' || $jenisPM == 'CPE PLN'){
+            $last = Jadwal::where('jenis_pm','ISP')->orWhere('jenis_pm','CPE PLN')->orderBy('jadwal_id','desc')->first();
             
             if(!$last or date('Y', strtotime($last->created_at)) != date('Y')) {
                 return 'ISP/' . date('Y') . '/0001';
@@ -324,4 +324,6 @@ class JadwalController extends Controller
             } 
         }
     }
+
+    
 }

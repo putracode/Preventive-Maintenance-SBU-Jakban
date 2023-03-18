@@ -31,7 +31,7 @@
                     <th>Area</th>
                     <th>Nama POP / CPE PLN</th>
                     <th class="hidden">Tipe POP</th>
-                    <th>Nama Jalan / Cluster</th>
+                    <th class="hidden">Nama Jalan / Cluster Perumahan / Segmen ADSS LS</th>
                     <th class="hidden">WO FSM+</th>
                     <th class="hidden">Link Sharepoint</th>
                     <th class="hidden">Temuan</th>
@@ -280,6 +280,7 @@ $color = 'bg-warning text-white';
                                 <option value="Rectifier">Rectifier</option>
                                 <option value="Perangkat">Perangkat</option>
                                 <option value="AC">AC</option>
+                                <option value="OLT">OLT</option>
                             </select>
                             @error('kategori_improvement')
                             <div class="invalid-feedback">

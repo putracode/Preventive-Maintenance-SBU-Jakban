@@ -11,53 +11,92 @@
 @section('content')
 
 <div class="row mb-3">
-
-    <div class="col-lg-3 col-6">
-    
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3 style="font-size: 28px">{{ $totalData }} PM<sup style="font-size: 20px"></sup></h3>
-    
-            <p>Total PM</p>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-calendar"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total PM</span>
+            <span class="info-box-number">
+              {{ $totalData }}
+              <small>PM</small>
+            </span>
           </div>
-          <div class="icon">
-            <i class="ion ion-stats-bars"></i>
-          </div>
-          <a href="/jadwal" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <div class="col-lg-3 col-6">
-    
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3 style="font-size: 28px">{{ $totalReal }} / {{ $totalData }} PM<sup style="font-size: 20px"></sup></h3>
-    
-            <p>Total Realisasi</p>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-check"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total Realisasi</span>
+            <span class="info-box-number">
+                {{ $totalReal }} / {{ $totalData }}
+              <small>PM</small>
+              <span style="float: right;">
+                {{ number_format($totalReal / $totalData * 100) }}%
+              </span>
+            </span>
           </div>
-          <div class="icon">
-            <i class="ion ion-stats-bars"></i>
-          </div>
-          <a href="/jadwal" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
-    <div class="col-lg-3 offset-3 float-right">
-        <div class="row d-flex align-items-start justify-content-end mb-4">
+</div>
+<div class="row">
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total OSP</span>
+            <span class="info-box-number">
+                {{ $totalOsp }} / {{ $totalData }}
+              <small>PM</small>
+              <span style="float: right;">
+                {{ number_format($totalOsp / $totalData * 100) }}%
+              </span>
+            </span>
+          </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total ISP</span>
+            <span class="info-box-number">
+                {{ $totalIsp }} / {{ $totalData }}
+              <small>PM</small>
+              <span style="float: right;">
+                {{ number_format($totalIsp / $totalData * 100) }}%
+              </span>
+            </span>
+          </div>
+        </div>
+    </div>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <div class="info-box">
+          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text">Total CPE PLN </span>
+            <span class="info-box-number">
+                {{ $totalCPEPLN }} / {{ $totalData }}
+              <small>PM</small>
+              <span style="float: right">
+                {{ number_format($totalCPEPLN / $totalData * 100) }}%
+              </span>
+            </span>
+          </div>
+        </div>
+    </div>
+</div>
+<div class="float-end">
+    <div class="row d-flex align-items-start justify-content-end mb-4">
 
-            <a href="/dashboard" class="btn btn-info btn-sm"><span class="d-flex justify-center align-items-center">Refresh
-            <ion-icon name="refresh-outline" class="ml-1"></ion-icon></span></a>
-    
-            <button type="button" class="btn btn-info btn-sm px-2 ml-2" data-toggle="modal"
-            data-target="#filter">
-                <span class="d-flex align-items-center justify-center">Date Filter<ion-icon name="calendar-outline"
-                class="ml-1"></ion-icon></span>
-            </button>   
-        </div>
-        {{-- <div class="row d-flex align-items-start justify-content-end">
-            <p>From : {{ request('dari') }}</p>
-        </div>
-        <div class="row d-flex align-items-start justify-content-end">
-            <p>To : {{ request('sampai') }}</p> 
-        </div> --}}
+        <a href="/dashboard" class="btn btn-info btn-sm"><span class="d-flex justify-center align-items-center">Refresh
+        <ion-icon name="refresh-outline" class="ml-1"></ion-icon></span></a>
+
+        <button type="button" class="btn btn-info btn-sm px-2 ml-2" data-toggle="modal"
+        data-target="#filter">
+            <span class="d-flex align-items-center justify-center">Date Filter<ion-icon name="calendar-outline"
+            class="ml-1"></ion-icon></span>
+        </button>   
     </div>
 </div>
 
@@ -303,7 +342,7 @@ $color = 'bg-label-success';
         type: 'bar'
     },
     title: {
-        text: 'Laporan Preventive Maintenance'
+        text: 'Pencapaian Preventive Maintenance Per Area'
     },
     xAxis: {
         categories: ['Bekasi Kabupaten','Bekasi Kota','Bogor Kabupaten','Bogor Kota','Depok Kota','Jakarta Barat','Jakarta Pusat','Jakarta Selatan','Jakarta Timur','Jakarta Utara','Tangerang Kabupaten','Tangerang Kota','Tangerang Selatan','Pandeglang Kabupaten','Serang Kabupaten','Serang Kota','Cilegon Kota','Lebak Kabupaten']

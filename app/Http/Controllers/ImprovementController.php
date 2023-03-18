@@ -47,6 +47,8 @@ class ImprovementController extends Controller
             'kategori_improvement' => ['required'],
             'pop_id' => ['required'],
             'cluster' => ['required'],
+            'hostname' => ['required'],
+            'catatan' => ['required'],
         ]);
 
         $validasi['status'] = "Plan Improve";
@@ -98,11 +100,13 @@ class ImprovementController extends Controller
             'jenis_improvement' => ['required'],
             'kategori_improvement' => ['required'],
             'pop_id' => ['required'],
-            'nam_cpe_pln' => ['required'],
+            // 'nam_cpe_pln' => ['required'],
             'cluster' => ['required'],
-            'status' => ['required'],
-            'realisasi' => ['required'],
-            'link_sharepoint' => ['required'],
+            // 'status' => ['required'],
+            // 'realisasi' => ['required'],
+            // 'link_sharepoint' => ['required'],
+            'hostname' => ['required'],
+            'catatan' => ['required'],
         ]);
 
         Improvement::where('id',$improvement->id)->update($validasi);

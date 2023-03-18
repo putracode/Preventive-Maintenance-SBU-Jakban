@@ -30,10 +30,12 @@
                     <th>ID Jadwal</th>
                     <th>Jenis Improvement</th>
                     <th>Kategori Improvement</th>
+                    <th>Hostname</th>
                     <th>Lokasi / POP</th>
                     <th>Nam Cpe PLN</th>
                     <th>Nama Jalan / Cluster</th>
                     <th class="hidden">Link Sharepoint</th>
+                    <th class="hidden">Catatan</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
@@ -112,6 +114,7 @@
                         <td>{{ $row->jadwal_id }}</td>
                         <td>{{ $row->jenis_improvement }}</td>
                         <td>{{ $row->kategori_improvement }}</td>
+                        <td>{{ $row->hostname }}</td>
                         @if ($row->pop_id == null)
                             <td>-</td>
                         @else
@@ -120,6 +123,7 @@
                         <td>{{ $row->nam_cpe_pln }}</td>
                         <td>{{ $row->cluster }}</td>
                         <td>{{ $row->link_sharepoint }}</td>
+                        <td>{{ $row->catatan }}</td>
                     </tr>
                     @endforeach
             </tbody>
@@ -161,9 +165,11 @@ $color = 'bg-warning text-white';
                         <div class="col-6 my-3"><span class="detail-title">Dasar Improvement :</span><span class="detail-value">{{ $row->dasar_improvement }}</span></div>
                         <div class="col-6 my-3"><span class="detail-title">Jenis Improvement :</span><span class="detail-value">{{ $row->jenis_improvement }}</span></div>
                         <div class="col-6 my-3"><span class="detail-title">Kategori Improvement :</span><span class="detail-value">{{ $row->kategori_improvement }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Hostname :</span><span class="detail-value">{{ $row->hostname }}</span></div>
                         <div class="col-6 my-3"><span class="detail-title">Nama POP / CPE PLN :</span><br><span class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else {{ $row->pop->nama_pop }} @endif</span></div>
                         <div class="col-6 my-3"><span class="detail-title">Nama Jalan / Cluster :</span><span class="detail-value">{{ $row->cluster }}</span></div>
                         <div class="col-6 my-3"><span class="detail-title">Link Sharepoint Laporan :</span><span class="detail-value">{{ $row->link_sharepoint }}</span></div>
+                        <div class="col-6 my-3"><span class="detail-title">Catatan :</span><span class="detail-value">{{ $row->catatan }}</span></div>
                         {{-- <div class="col-6 my-3">Plan : {{ $row->plan }}</div>
                         <div class="col-6 my-3">Realisasi : {{ $row->realisasi }}</div>
                         <div class="col-6 my-3">Status : <span class="badge {{ $color }} px-3">{{ $row->status }}</span>

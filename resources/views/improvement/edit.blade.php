@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
 @endsection
 @section('content')
-<div class="card card-secondary" style="margin-top: -20px; margin-bottom: 50px;">
+<div class="card card-info" style="margin-top: -20px; margin-bottom: 50px;">
     <div class="card-header">
         <h3 class="card-title">Edit Improvement</h3>
     </div>
@@ -12,10 +12,10 @@
         @csrf
         @method('put')
         <div class="card-body">
-            <input type="hidden" value="Plan" name="status">
+            {{-- <input type="hidden" value="Plan Improve" name="status">
             <input type="hidden" value="-" name="realisasi">
-            <input type="hidden" value="-" name="link_sharepoint">
-            <div class="form-group mb-4">
+            <input type="hidden" value="-" name="link_sharepoint"> --}}
+            <div class="form-group mb-5">
                 <label for="plan">Plan Improvement</label>
                 <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan',$improvement->plan) }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                 @error('plan')
@@ -24,7 +24,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="wilayah">Wilayah</label>
                 <select class="form-control select2 @error('wilayah') is-invalid @enderror" required
                     value="{{ old('wilayah') }}" id="wilayah" name="wilayah">
@@ -37,7 +37,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="area">Area</label>
                 <select class="form-control select2 @error('area') is-invalid @enderror" required value="{{ old('area') }}"
                     id="area" name="area">
@@ -66,7 +66,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="dasar_improvement">Dasar Improvement</label>
                 <select class="form-control select2 @error('dasar_improvement') is-invalid @enderror" required
                     value="{{ old('dasar_improvement') }}" id="dasar_improvement" name="dasar_improvement">
@@ -81,13 +81,13 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="jenis_improvement">Jenis Improvement</label>
                 <select class="form-control select2 @error('jenis_improvement') is-invalid @enderror" required
                     value="{{ old('jenis_improvement') }}" id="jenis_improvement" name="jenis_improvement">
                     <option value="ISP" {{ $improvement->jenis_improvement == 'ISP' ? 'selected' : '' }}>ISP</option>
                     <option value="OSP" {{ $improvement->jenis_improvement == 'OSP' ? 'selected' : '' }}>OSP</option>
-                    <option value="ISP CPE" {{ $improvement->jenis_improvement == 'ISP CPE' ? 'selected' : '' }}>ISP CPE</option>
+                    <option value="CPE PLN" {{ $improvement->jenis_improvement == 'CPE PLN' ? 'selected' : '' }}>CPE PLN</option>
                 </select>
                 @error('jenis_improvement')
                 <div class="invalid-feedback">
@@ -95,7 +95,7 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
+            <div class="form-group mb-5">
                 <label for="kategori_improvement">Kategori Improvement</label>
                 <select class="form-control select2 @error('kategori_improvement') is-invalid @enderror" required
                     value="{{ old('kategori_improvement') }}" id="kategori_improvement" name="kategori_improvement">
@@ -105,6 +105,7 @@
                     <option value="Rectifier" {{ $improvement->kategori_improvement == 'Rectifier' ? 'selected' : '' }}>Rectifier</option>
                     <option value="Perangkat" {{ $improvement->kategori_improvement == 'Perangkat' ? 'selected' : '' }}>Perangkat</option>
                     <option value="AC" {{ $improvement->kategori_improvement == 'AC' ? 'selected' : '' }}>AC</option>
+                    <option value="OLT" {{ $improvement->kategori_improvement == 'OLT' ? 'selected' : '' }}>OLT</option>
                 </select>
                 @error('kategori_improvement')
                 <div class="invalid-feedback">
@@ -112,8 +113,17 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
-                <label for="pop_id">Nama POP / Nam CPE PLN</label>
+            <div class="form-group mb-5" style="display: {{ $improvement->kategori_improvement == 'OLT' ? 'block' : 'none' }}" id="hostnamee">
+                <label for="hostname">Hostname</label>
+                <input type="text" class="form-control @error('hostname') is-invalid @enderror" id="hostname" name="hostname" required value="{{ old('hostname',$improvement->hostname) }}" autocomplete="off">
+                @error('hostname')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group mb-5">
+                <label for="pop_id">Nama POP / Nama CPE PLN</label>
                 <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                     value="{{ old('pop_id') }}" name="pop_id">
                     <option selected hidden disabled></option>
@@ -131,10 +141,20 @@
                 </div>
                 @enderror
             </div>
-            <div class="form-group mb-4">
-                <label for="cluster">Cluster</label>
+            <div class="form-group mb-5">
+                <label for="cluster">Nama Jalan / Cluster Perumahan / Segmen ADSS LS</label>
                 <input type="text" class="form-control @error('cluster') is-invalid @enderror" id="cluster" name="cluster" required value="{{ old('cluster',$improvement->cluster) }}" autocomplete="off">
                 @error('cluster')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group mb-5">
+                <label for="catatan">Catatan</label>
+                {{-- <input type="text" class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" required value="{{ old('catatan',$temuan->catatan) }}" autocomplete="off" readonly> --}}
+                <textarea name="catatan" id="catatan" rows="4" class="form-control @error('catatan') is-invalid @enderror" autocomplete="off">{{ old('catatan',$improvement->catatan) }}</textarea>
+                @error('catatan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -154,6 +174,13 @@
 <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
 <script>
     $('.select2').select2()
-
+    $('#kategori_improvement').on('change',function(){
+        let selected = $(this).val();
+        if(selected == "OLT"){
+            $('#hostnamee').css('display','block');
+        }else{
+            $('#hostnamee').css('display','none');
+        }
+    })
 </script>
 @endsection

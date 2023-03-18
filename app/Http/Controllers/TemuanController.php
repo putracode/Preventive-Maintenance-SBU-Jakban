@@ -34,6 +34,9 @@ class TemuanController extends Controller
             'jenis_improvement' => ['required'],
             'kategori_improvement' => ['required'],
             'pop_id' => ['required'],
+            'hostname' => ['required'],
+            'catatan' => ['required'],
+            'cluster' => ['required'],
         ]);
 
         if($validasi['pop_id'] == '-'){

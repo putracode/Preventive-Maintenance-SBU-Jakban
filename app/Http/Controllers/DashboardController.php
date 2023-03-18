@@ -12,6 +12,9 @@ class DashboardController extends Controller
         // dd(jadwal::all());
         $totalData = Jadwal::all()->count(); 
         $totalReal = Jadwal::where('status','Realisasi')->count(); 
+        $totalOsp = Jadwal::where('jenis_pm','OSP')->count(); 
+        $totalIsp = Jadwal::where('jenis_pm','ISP')->count(); 
+        $totalCPEPLN = Jadwal::where('jenis_pm','CPE PLN')->count(); 
 
         $plan1 = Jadwal::where('status','Plan')->where('area','Bekasi Kabupaten')->count();
         $realisasi1 = Jadwal::where('status','Realisasi')->where('area','Bekasi Kabupaten')->count();
@@ -70,7 +73,7 @@ class DashboardController extends Controller
 
 
 
-        return view('dashboard',['jadwal' => Jadwal::where('status','Plan')->get(), 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData]);
+        return view('dashboard',['jadwal' => Jadwal::where('status','Plan')->get(), 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData, 'totalOsp' => $totalOsp, 'totalIsp' => $totalIsp, 'totalCPEPLN' => $totalCPEPLN]);
     }
 
     public function filter(Request $request){
@@ -81,6 +84,9 @@ class DashboardController extends Controller
             $jadwal = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->latest()->get();
             $totalData = Jadwal::whereBetween('plan',[request('from'), $to])->count(); 
             $totalReal = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->count(); 
+            $totalOsp = Jadwal::whereBetween('plan',[request('from'), $to])->where('jenis_pm','OSP')->count(); 
+            $totalIsp = Jadwal::whereBetween('plan',[request('from'), $to])->where('jenis_pm','ISP')->count(); 
+            $totalCPEPLN = Jadwal::whereBetween('plan',[request('from'), $to])->where('jenis_pm','CPE PLN')->count(); 
 
             $plan1 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Bekasi Kabupaten')->count();
             $realisasi1 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Bekasi Kabupaten')->count();
@@ -196,6 +202,6 @@ class DashboardController extends Controller
             $jadwal = Jadwal::where('status','Plan')->latest()->get();
         }
 
-        return view('dashboard',['jadwal' => $jadwal, 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData]);
+        return view('dashboard',['jadwal' => $jadwal, 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData , 'totalOsp' => $totalOsp, 'totalIsp' => $totalIsp, 'totalCPEPLN' => $totalCPEPLN]);
     }
 }

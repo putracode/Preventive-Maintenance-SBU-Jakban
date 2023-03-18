@@ -22,12 +22,14 @@ return new class extends Migration
             $table->string('jadwal_id');
             $table->string('jenis_improvement');
             $table->string('kategori_improvement');
+            $table->string('hostname');
             $table->foreignId('pop_id')->nullable()->unsigned();
             // $table->string('nam_cpe_pln');
             $table->string('cluster');
             $table->string('status');
             $table->string('realisasi');
             $table->string('link_sharepoint');
+            $table->text('catatan');
             $table->timestamps();
         });
     }

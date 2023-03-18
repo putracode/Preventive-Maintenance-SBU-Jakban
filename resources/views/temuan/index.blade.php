@@ -36,6 +36,7 @@
                     <th class="hidden">Link Sharepoint</th>
                     <th class="hidden">Temuan</th>
                     <th class="hidden">Temuan Improvement</th>
+                    <th class="hidden">Catatan</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
@@ -138,6 +139,7 @@
                         <td>{{ $row->link_sharepoint }}</td>
                         <td>{{ $row->temuan }}</td>
                         <td>{{ $row->improvement }}</td>
+                        <td>{{ $row->catatan }}</td>
                     </tr>
                     @endforeach
             </tbody>

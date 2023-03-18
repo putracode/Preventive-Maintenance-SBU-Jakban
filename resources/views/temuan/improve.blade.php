@@ -117,7 +117,7 @@
                 <label for="jenis_improvement">Jenis Improvement</label>
                 <select class="form-control @error('jenis_improvement') is-invalid @enderror" style="width: 100%;" required value="{{ old('jenis_improvement') }}" id="jenis_improvement" name="jenis_improvement" disabled>
                     <option value="ISP" {{ $temuan->jenis_pm == 'ISP' ? 'selected' : '' }}>ISP</option>
-                    <option value="ISP CPE" {{ $temuan->jenis_pm == 'ISP CPE' ? 'selected' : '' }}>ISP CPE</option> 
+                    <option value="CPE PLN" {{ $temuan->jenis_pm == 'CPE PLN' ? 'selected' : '' }}>CPE PLN</option> 
                     <option value="OSP" {{ $temuan->jenis_pm == 'OSP' ? 'selected' : '' }}>OSP</option>
                 </select>
                 <input type="hidden" name="jenis_improvement" value="{{ $temuan->jenis_pm }}">
@@ -138,6 +138,7 @@
                     <option value="Rectifier" {{ $temuan->kategori_improvement == 'Rectifier' ? 'selected' : '' }}>Rectifier</option>
                     <option value="Perangkat" {{ $temuan->kategori_improvement == 'Perangkat' ? 'selected' : '' }}>Perangkat</option>
                     <option value="AC" {{ $temuan->kategori_improvement == 'AC' ? 'selected' : '' }}>AC</option>
+                    <option value="OLT" {{ $temuan->kategori_improvement == 'OLT' ? 'selected' : '' }}>OLT</option>
                     <input type="hidden" name="kategori_improvement" value="{{ $temuan->kategori_improvement }}">
                 </select>
                 @error('kategori_improvement')
@@ -146,8 +147,17 @@
                 </div>
                 @enderror
             </div>
+            <div class="form-group mb-5" style="display: none;" id="hostnamee">
+                <label for="hostname">Hostname</label>
+                <input type="text" class="form-control @error('hostname') is-invalid @enderror" id="hostname" name="hostname" required value="{{ old('hostname',$temuan->hostname) }}" autocomplete="off" readonly>
+                @error('hostname')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
             <div class="form-group mb-5">
-                <label for="pop_id">Nama Pop / Nam CPE PLN</label>
+                <label for="pop_id">Nama Pop / Nama CPE PLN</label>
                 <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                     value="{{ old('pop_id') }}" name="pop_id" disabled>
                     <option selected hidden value="-">-</option>
@@ -171,9 +181,19 @@
                 @enderror
             </div>
             <div class="form-group mb-5">
-                <label for="cluster">Cluster</label>
+                <label for="cluster">Nama Jalan / Cluster Perumahan / No Tower</label>
                 <input type="text" class="form-control @error('cluster') is-invalid @enderror" id="cluster" name="cluster" required value="{{ old('cluster',$temuan->cluster) }}" autocomplete="off" readonly>
                 @error('cluster')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group mb-5">
+                <label for="catatan">Catatan</label>
+                {{-- <input type="text" class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" required value="{{ old('catatan',$temuan->catatan) }}" autocomplete="off" readonly> --}}
+                <textarea name="catatan" id="catatan" rows="4" class="form-control @error('catatan') is-invalid @enderror" autocomplete="off">{{ old('catatan',$temuan->catatan) }}</textarea>
+                @error('catatan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -193,7 +213,13 @@
 <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
 <script>
     $('.select2').select2()
-
+    let selected = $('#kategori_improvement').val()
+    // console.log(selected);
+    if(selected == 'OLT'){
+        $('#hostnamee').css('display','block');
+    }else{
+        $('#hostnamee').css('display','none');
+    }
 </script>
 
 @endsection

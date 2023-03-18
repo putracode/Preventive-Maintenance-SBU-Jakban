@@ -13,7 +13,7 @@
         <div class="card-body">
             @if (auth()->user()->role == 'admin')
                 <div class="form-group mb-5">
-                    <label for="plan">Plan PM</label>
+                    <label for="plan">Plan Improvement</label>
                     <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off">
                     @error('plan')
                     <div class="invalid-feedback">
@@ -23,7 +23,7 @@
                 </div>
             @else
                 <div class="form-group mb-5">
-                    <label for="plan">Plan PM</label>
+                    <label for="plan">Plan Improvement</label>
                     <input type="date" class="form-control @error('plan') is-invalid @enderror" id="plan" name="plan" required value="{{ old('plan') }}" autocomplete="off" min="{{ \Carbon\Carbon::now()->subDays(2)->format('Y-m-d') }}">
                     @error('plan')
                     <div class="invalid-feedback">
@@ -97,8 +97,8 @@
                     value="{{ old('jenis_improvement') }}" id="jenis_improvement" name="jenis_improvement">
                     <option selected hidden disabled></option>
                     <option value="ISP">ISP</option>
+                    <option value="CPE PLN">CPE PLN</option>
                     <option value="OSP">OSP</option>
-                    <option value="ISP CPE">ISP CPE</option>
                 </select>
                 @error('jenis_improvement')
                 <div class="invalid-feedback">
@@ -117,6 +117,7 @@
                     <option value="Rectifier">Rectifier</option>
                     <option value="Perangkat">Perangkat</option>
                     <option value="AC">AC</option>
+                    <option value="OLT">OLT</option>
                 </select>
                 @error('kategori_improvement')
                 <div class="invalid-feedback">
@@ -124,8 +125,17 @@
                 </div>
                 @enderror
             </div>
+            <div class="form-group mb-5" style="display: none;" id="hostnamee">
+                <label for="hostname">Hostname</label>
+                <input type="text" class="form-control @error('hostname') is-invalid @enderror" id="hostname" name="hostname" required value="{{ old('hostname') }}" autocomplete="off">
+                @error('hostname')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
             <div class="form-group mb-5">
-                <label for="pop_id">Nama POP / Nam CPE PLN </label>
+                <label for="pop_id">Nama POP / Nama CPE PLN </label>
                 <select class="form-control select2 @error('pop_id') is-invalid @enderror" style="width: 100%"
                     value="{{ old('pop_id') }}" name="pop_id">
                     <option selected hidden disabled></option>
@@ -144,9 +154,19 @@
                 @enderror
             </div>
             <div class="form-group mb-5">
-                <label for="cluster">Cluster</label>
+                <label for="cluster">Nama Jalan / Cluster / Segmen ADSS LS</label>
                 <input type="text" class="form-control @error('cluster') is-invalid @enderror" id="cluster" name="cluster" required value="{{ old('cluster') }}" autocomplete="off">
                 @error('cluster')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group mb-5">
+                <label for="catatan">Catatan</label>
+                {{-- <input type="text" class="form-control @error('catatan') is-invalid @enderror" id="catatan" name="catatan" required value="{{ old('catatan',$temuan->catatan) }}" autocomplete="off" readonly> --}}
+                <textarea name="catatan" id="catatan" rows="4" class="form-control @error('catatan') is-invalid @enderror" autocomplete="off">{{ old('catatan') }}</textarea>
+                @error('catatan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -164,7 +184,14 @@
 <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
 <script>
     $('.select2').select2()
-
+    $('#kategori_improvement').on('change',function(){
+        let selected = $(this).val();
+        if(selected == "OLT"){
+            $('#hostnamee').css('display','block');
+        }else{
+            $('#hostnamee').css('display','none');
+        }
+    })
     function isiData() {
     var temuan = document.getElementById("temuan").value;
     var plan = document.getElementById("plan");
