@@ -32,7 +32,7 @@
                     <th>Kategori Improvement</th>
                     <th>Hostname</th>
                     <th>Lokasi / POP</th>
-                    <th>Nam Cpe PLN</th>
+                    {{-- <th>Nam Cpe PLN</th> --}}
                     <th>Nama Jalan / Cluster</th>
                     <th class="hidden">Link Sharepoint</th>
                     <th class="hidden">Catatan</th>
@@ -120,7 +120,7 @@
                         @else
                             <td>{{ $row->pop->nama_pop }}</td>
                         @endif
-                        <td>{{ $row->nam_cpe_pln }}</td>
+                        {{-- <td>{{ $row->nam_cpe_pln }}</td> --}}
                         <td>{{ $row->cluster }}</td>
                         <td>{{ $row->link_sharepoint }}</td>
                         <td>{{ $row->catatan }}</td>
@@ -204,7 +204,17 @@ $color = 'bg-warning text-white';
                 <div class="modal-body">
                     <form action="/improvement/{{ $row->id }}/realisasi" method="POST">
                         @csrf
-                        @if (auth()->user()->role == 'admin')
+                        <div class="form-group mt-1 mb-5">
+                            <label for="realisasi">Tanggal Realisasi</label>
+                            <input type="date" class="form-control" id="realisasi" name="realisasi" required
+                                value="{{ old('realisasi') }}" autocomplete="off">
+                            @error('realisasi')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        {{-- @if (auth()->user()->role == 'admin')
                         <div class="form-group mt-1 mb-5">
                             <label for="realisasi">Tanggal Realisasi</label>
                             <input type="date" class="form-control" id="realisasi" name="realisasi" required
@@ -227,7 +237,7 @@ $color = 'bg-warning text-white';
                             </div>
                             @enderror
                         </div>
-                        @endif
+                        @endif --}}
                         <div class="form-group mb-4">
                             <label for="link_sharepoint">Link Sharepoint Laporan</label>
                             <textarea class="form-control @error('link_sharepoint') is-invalid @enderror" rows="5"

@@ -31,7 +31,7 @@
                     <th>Area</th>
                     <th>Nama POP / CPE PLN</th>
                     <th class="hidden">Tipe POP</th>
-                    <th class="hidden">Nama Jalan / Cluster Perumahan / Segmen ADSS LS</th>
+                    <th class="hidden">Jalan/Cluster/ADSS LS</th>
                     <th class="hidden">WO FSM+</th>
                     <th class="hidden">Link Sharepoint</th>
                     <th class="hidden">Temuan</th>
@@ -124,12 +124,12 @@
                         @if ($row->pop_id == null)
                         <td>-</td>
                         @else
-                        <td>{{ $row->pop->nama_pop }}</td>
+                        <td>{{ $row->pop->nama_pop ?? '-' }}</td>
                         @endif
                         @if ($row->pop_id == null)
                         <td>-</td>
                         @else
-                        <td>{{ $row->pop->tipe_pop }}</td>
+                        <td>{{ $row->pop->tipe_pop ?? '-' }}</td>
                         @endif
                         <td>{{ $row->cluster }}</td>
                         <td>{{ $row->wo_fsm }}</td>
@@ -181,13 +181,14 @@ $color = 'bg-warning text-white';
                         <div class="col-4 my-3"><span class="detail-title">Segmen PM :</span><span class="detail-value">{{ $row->segmen }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Hostname :</span><span class="detail-value">{{ $row->hostname }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">ID FAT :</span><span class="detail-value">{{ $row->id_fat }}</span></div>
-                        <div class="col-4 my-3"><span class="detail-title">Nama POP / CPE PLN :</span><br><span class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else {{ $row->pop->nama_pop }} @endif</span></div>
-                        <div class="col-4 my-3"><span class="detail-title">Tipe POP :</span><span class="detail-value">@if ($row->pop_id == null) - @else {{ $row->pop->tipe_pop }} @endif</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Nama POP / CPE PLN :</span><br><span class="detail-value" style="margin-left: 0px">@if ($row->pop_id == null) - @else {{ $row->pop->nama_pop ?? '-' }} @endif</span></div>
+                        <div class="col-4 my-3"><span class="detail-title">Tipe POP :</span><span class="detail-value">@if ($row->pop_id == null) - @else {{ $row->pop->tipe_pop ?? '-' }} @endif</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Nama Jalan / Cluster Perumahan :</span><span class="detail-value" style="margin-left: 0px">{{ $row->cluster }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Link Sharepoint Laporan :</span><br><span class="detail-value" style="margin-left: 0px"><a href="{{ $row->link_sharepoint }}" target="_blank">{{ $row->link_sharepoint }}</a></span></div>
                         <div class="col-4 my-3"><span class="detail-title">Temuan :</span><span class="detail-value">{{ $row->temuan }}</span></div>
                         <div class="col-4 my-3"><span class="detail-title">Temuan Improvement :</span><span class="detail-value">{{ $row->improvement }}</span></div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -207,7 +208,17 @@ $color = 'bg-warning text-white';
                 <div class="modal-body">
                     <form action="/jadwal/{{ $row->id }}/realisasi" method="POST">
                         @csrf
-                        @if (auth()->user()->role == 'admin')
+                        <div class="form-group mt-1 mb-5">
+                            <label for="realisasi">Tanggal Realisasi</label>
+                            <input type="date" class="form-control" id="realisasi" name="realisasi" required
+                                value="{{ old('realisasi') }}" autocomplete="off">
+                            @error('realisasi')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        {{-- @if (auth()->user()->role == 'admin')
                         <div class="form-group mt-1 mb-5">
                             <label for="realisasi">Tanggal Realisasi</label>
                             <input type="date" class="form-control" id="realisasi" name="realisasi" required
@@ -230,7 +241,7 @@ $color = 'bg-warning text-white';
                             </div>
                             @enderror
                         </div>
-                        @endif
+                        @endif --}}
                         <div class="form-group mb-5">
                             <label for="link_sharepoint">Link Sharepoint Laporan</label>
                             <textarea class="form-control @error('link_sharepoint') is-invalid @enderror" rows="3"

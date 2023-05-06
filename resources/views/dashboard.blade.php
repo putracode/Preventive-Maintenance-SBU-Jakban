@@ -11,80 +11,90 @@
 @section('content')
 
 <div class="row mb-3">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="info-box">
-          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-calendar"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Total PM</span>
-            <span class="info-box-number">
-              {{ $totalData }}
-              <small>PM</small>
-            </span>
-          </div>
+    <div class="col-lg-3 col-xl-2">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="info-box">
+                  <span class="info-box-icon bg-info elevation-1"><i class="fas fa-calendar"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 14px">Total Plan PM</span>
+                    <span class="info-box-number">
+                      {{ $totalData }}
+                      <small>PM</small>
+                    </span>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="info-box">
-          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-check"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Total Realisasi</span>
-            <span class="info-box-number">
-                {{ $totalReal }} / {{ $totalData }}
-              <small>PM</small>
-              <span style="float: right;">
-                {{ number_format($totalReal / $totalData * 100) }}%
-              </span>
-            </span>
-          </div>
+    <div class="col-lg-9 col-xl-10">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                <div class="info-box">
+                  <span class="info-box-icon bg-info elevation-1"><i class="fas fa-check"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 14px">Total Realisasi</span>
+                    <span class="info-box-number">
+                        {{ $totalReal }} / {{ $totalData }}
+                      <small>PM</small>
+                      <span style="float: right;">
+                        {{ number_format($totalReal / $totalData * 100) }}%
+                      </span>
+                    </span>
+                  </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                <div class="info-box">
+                  <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 14px">Total OSP</span>
+                    <span class="info-box-number">
+                        {{ $totalOsp }} / {{ $totalReal }}
+                      <small>PM</small>
+                      <span style="float: right;">
+                        {{ number_format($totalOsp / $totalReal * 100) }}%
+                      </span>
+                    </span>
+                  </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                <div class="info-box">
+                  <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 14px">Total ISP</span>
+                    <span class="info-box-number">
+                        {{ $totalIsp }} / {{ $totalReal }}
+                      <small>PM</small>
+                      <span style="float: right;">
+                        {{ number_format($totalIsp / $totalReal * 100) }}%
+                      </span>
+                    </span>
+                  </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3">
+                <div class="info-box">
+                  <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
+                  <div class="info-box-content">
+                    <span class="info-box-text" style="font-size: 14px">Total CPE PLN </span>
+                    <span class="info-box-number">
+                        {{ $totalCPEPLN }} / {{ $totalReal }}
+                      <small>PM</small>
+                      <span style="float: right">
+                        {{ number_format($totalCPEPLN / $totalReal * 100) }}%
+                      </span>
+                    </span>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 <div class="row">
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="info-box">
-          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Total OSP</span>
-            <span class="info-box-number">
-                {{ $totalOsp }} / {{ $totalData }}
-              <small>PM</small>
-              <span style="float: right;">
-                {{ number_format($totalOsp / $totalData * 100) }}%
-              </span>
-            </span>
-          </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="info-box">
-          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Total ISP</span>
-            <span class="info-box-number">
-                {{ $totalIsp }} / {{ $totalData }}
-              <small>PM</small>
-              <span style="float: right;">
-                {{ number_format($totalIsp / $totalData * 100) }}%
-              </span>
-            </span>
-          </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="info-box">
-          <span class="info-box-icon bg-info elevation-1"><i class="fas fa-database"></i></span>
-          <div class="info-box-content">
-            <span class="info-box-text">Total CPE PLN </span>
-            <span class="info-box-number">
-                {{ $totalCPEPLN }} / {{ $totalData }}
-              <small>PM</small>
-              <span style="float: right">
-                {{ number_format($totalCPEPLN / $totalData * 100) }}%
-              </span>
-            </span>
-          </div>
-        </div>
-    </div>
+
 </div>
 <div class="float-end">
     <div class="row d-flex align-items-start justify-content-end mb-4">
@@ -156,7 +166,7 @@
                         @if ($row->pop_id == null)
                         <td>-</td>
                         @else
-                        <td>{{ $row->pop->nama_pop }}</td>
+                        <td>{{ $row->pop->nama_pop ?? '-' }}</td>
                         @endif
                         <td>{{ $row->cluster }}</td>
 

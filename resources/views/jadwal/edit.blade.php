@@ -51,7 +51,7 @@
             <div class="form-group mb-5">
                 <label for="wilayah">Wilayah</label>
                 <select class="form-control select2 @error('wilayah') is-invalid @enderror" required
-                    value="{{ old('wilayah') }}" id="wilayah" name="wilayah" disabled>
+                    id="wilayah" name="wilayah">
                     <option value="HAR BDB" {{ $jadwal->wilayah == 'HAR BDB' ? 'selected' : '' }}>HAR BDB</option>
                     <option value="HAR JAKARTA" {{ $jadwal->wilayah == 'HAR JAKARTA' ? 'selected' : '' }}>HAR JAKARTA</option>
                 </select>

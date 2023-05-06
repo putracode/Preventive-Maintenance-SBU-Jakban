@@ -86,8 +86,8 @@
                 <select class="form-control select2 @error('jenis_improvement') is-invalid @enderror" required
                     value="{{ old('jenis_improvement') }}" id="jenis_improvement" name="jenis_improvement">
                     <option value="ISP" {{ $improvement->jenis_improvement == 'ISP' ? 'selected' : '' }}>ISP</option>
-                    <option value="OSP" {{ $improvement->jenis_improvement == 'OSP' ? 'selected' : '' }}>OSP</option>
                     <option value="CPE PLN" {{ $improvement->jenis_improvement == 'CPE PLN' ? 'selected' : '' }}>CPE PLN</option>
+                    <option value="OSP" {{ $improvement->jenis_improvement == 'OSP' ? 'selected' : '' }}>OSP</option>
                 </select>
                 @error('jenis_improvement')
                 <div class="invalid-feedback">
@@ -99,13 +99,17 @@
                 <label for="kategori_improvement">Kategori Improvement</label>
                 <select class="form-control select2 @error('kategori_improvement') is-invalid @enderror" required
                     value="{{ old('kategori_improvement') }}" id="kategori_improvement" name="kategori_improvement">
-                    <option value="Jalur Kabel" {{ $improvement->kategori_improvement == 'Jalur Kabel' ? 'selected' : '' }}>Jalur Kabel</option>
-                    <option value="Utilitas (FDT,FAT,JB,dll)" {{ $improvement->kategori_improvement == 'Utilitas (FDT,FAT,JB,dll)' ? 'selected' : '' }}>Utilitas (FDT,FAT,JB,dll)</option>
-                    <option value="Batre" {{ $improvement->kategori_improvement == 'Batre' ? 'selected' : '' }}>Batre</option>
-                    <option value="Rectifier" {{ $improvement->kategori_improvement == 'Rectifier' ? 'selected' : '' }}>Rectifier</option>
-                    <option value="Perangkat" {{ $improvement->kategori_improvement == 'Perangkat' ? 'selected' : '' }}>Perangkat</option>
-                    <option value="AC" {{ $improvement->kategori_improvement == 'AC' ? 'selected' : '' }}>AC</option>
-                    <option value="OLT" {{ $improvement->kategori_improvement == 'OLT' ? 'selected' : '' }}>OLT</option>
+                    @if ($improvement->jenis_improvement == 'ISP' || $improvement->jenis_improvement == 'CPE PLN')
+                        <option value="Batre" {{ $improvement->kategori_improvement == 'Batre' ? 'selected' : '' }}>Batre</option>
+                        <option value="AC" {{ $improvement->kategori_improvement == 'AC' ? 'selected' : '' }}>AC</option>
+                        <option value="OLT" {{ $improvement->kategori_improvement == 'OLT' ? 'selected' : '' }}>OLT</option>
+                                                <option value="Rectifier" {{ $improvement->kategori_improvement == 'Rectifier' ? 'selected' : '' }}>Rectifier</option>
+                        <option value="Perangkat" {{ $improvement->kategori_improvement == 'Perangkat' ? 'selected' : '' }}>Perangkat</option>
+                    @endif
+                    @if ($improvement->jenis_improvement == 'OSP')
+                        <option value="Jalur Kabel" {{ $improvement->kategori_improvement == 'Jalur Kabel' ? 'selected' : '' }}>Jalur Kabel</option>
+                        <option value="Utilitas (FDT,FAT,JB,dll)" {{ $improvement->kategori_improvement == 'Utilitas (FDT,FAT,JB,dll)' ? 'selected' : '' }}>Utilitas (FDT,FAT,JB,dll)</option>
+                    @endif
                 </select>
                 @error('kategori_improvement')
                 <div class="invalid-feedback">
@@ -180,6 +184,20 @@
             $('#hostnamee').css('display','block');
         }else{
             $('#hostnamee').css('display','none');
+        }
+    })
+    $('#jenis_improvement').on('change',function(){
+        let selected = $(this).val();
+        if(selected == "ISP" || selected == "CPE PLN"){
+            $('#kategori_improvement').html('<option value="Batre" {{ $improvement->kategori_improvement == "Batre" ? "selected" : "" }}>Batre</option><option value="AC" {{ $improvement->kategori_improvement == "AC" ? "selected" : "" }}>AC</option><option value="OLT" {{ $improvement->kategori_improvement == "OLT" ? "selected" : "" }}>OLT</option><option value="Rectifier" {{ $improvement->kategori_improvement == "Rectifier" ? "selected" : "" }}>Rectifier</option><option value="Perangkat" {{ $improvement->kategori_improvement == "Perangkat" ? "selected" : "" }}>Perangkat</option>')
+            // $('#hostnamee').css('display','block');
+            // $('#kategori_isp').css('display','block');
+            // $('#kategori_osp').css('display','none');
+        }else if(selected == "OSP"){
+            $('#kategori_improvement').html('<option value="Jalur Kabel" {{ $improvement->kategori_improvement == "Jalur Kabel" ? "selected" : "" }}>Jalur Kabel</option><option value="Utilitas (FDT,FAT,JB,dll)" {{ $improvement->kategori_improvement == "Utilitas (FDT,FAT,JB,dll)" ? "selected" : "" }}>Utilitas (FDT,FAT,JB,dll)</option>')
+            $('#hostnamee').css('display','none');
+            // $('#kategori_osp').css('display','block');
+            // $('#kategori_isp').css('display','none');
         }
     })
 </script>

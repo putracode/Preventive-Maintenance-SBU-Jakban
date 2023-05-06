@@ -94,7 +94,7 @@
             <div class="form-group mb-5">
                 <label for="jenis_improvement">Jenis Improvement</label>
                 <select class="form-control select2 @error('jenis_improvement') is-invalid @enderror" required
-                    value="{{ old('jenis_improvement') }}" id="jenis_improvement" name="jenis_improvement">
+                    id="jenis_improvement" name="jenis_improvement">
                     <option selected hidden disabled></option>
                     <option value="ISP">ISP</option>
                     <option value="CPE PLN">CPE PLN</option>
@@ -111,13 +111,17 @@
                 <select class="form-control select2 @error('kategori_improvement') is-invalid @enderror" required
                     value="{{ old('kategori_improvement') }}" id="kategori_improvement" name="kategori_improvement">
                     <option selected hidden disabled></option>
-                    <option value="Jalur Kabel">Jalur Kabel</option>
-                    <option value="Utilitas (FDT,FAT,JB,dll)">Utilitas (FDT,FAT,JB,dll)</option>
-                    <option value="Batre">Batre</option>
-                    <option value="Rectifier">Rectifier</option>
-                    <option value="Perangkat">Perangkat</option>
-                    <option value="AC">AC</option>
-                    <option value="OLT">OLT</option>
+                    <div class="ISP" id="kategori_isp" style="display: none">
+                        <option value="Batre">Batre</option>
+                        <option value="AC">AC</option>
+                        <option value="OLT">OLT</option>
+                                                <option value="Rectifier">Rectifier</option>
+                        <option value="Perangkat">Perangkat</option>
+                    </div>
+                    <div class="OSP" id="kategori_osp" style="display: none">
+                        <option value="Jalur Kabel">Jalur Kabel</option>
+                        <option value="Utilitas (FDT,FAT,JB,dll)">Utilitas (FDT,FAT,JB,dll)</option>
+                    </div>
                 </select>
                 @error('kategori_improvement')
                 <div class="invalid-feedback">
@@ -127,7 +131,7 @@
             </div>
             <div class="form-group mb-5" style="display: none;" id="hostnamee">
                 <label for="hostname">Hostname</label>
-                <input type="text" class="form-control @error('hostname') is-invalid @enderror" id="hostname" name="hostname" required value="{{ old('hostname') }}" autocomplete="off">
+                <input type="text" class="form-control @error('hostname') is-invalid @enderror" id="hostname" name="hostname" value="{{ old('hostname') }}" autocomplete="off">
                 @error('hostname')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -192,26 +196,21 @@
             $('#hostnamee').css('display','none');
         }
     })
-    function isiData() {
-    var temuan = document.getElementById("temuan").value;
-    var plan = document.getElementById("plan");
-    var wilayah = document.getElementById("wilayah");
 
-        console.log(temuan)
-        $.ajax({
-        type: "GET",
-        url: "{{ url('get-data') }}",
-        data: { id: temuan },
-        success: function(data) {
-            plan.value = data.plan;
-            wilayah.value = data.wilayah;
-
-        },
-        error: function(data) {
-            console.log(data);
-        }});
-
-    }
+    $('#jenis_improvement').on('change',function(){
+        let selected = $(this).val();
+        if(selected == "ISP" || selected == "CPE PLN"){
+            $('#kategori_improvement').html('<option value="Batre">Batre</option><option value="AC">AC</option><option value="OLT">OLT</option><option value="Rectifier">Rectifier</option><option value="Perangkat">Perangkat</option>')
+            // $('#hostnamee').css('display','block');
+            // $('#kategori_isp').css('display','block');
+            // $('#kategori_osp').css('display','none');
+        }else if(selected == "OSP"){
+            $('#kategori_improvement').html('<option value="Jalur Kabel">Jalur Kabel</option><option value="Utilitas (FDT,FAT,JB,dll)">Utilitas (FDT,FAT,JB,dll)</option>')
+            $('#hostnamee').css('display','none');
+            // $('#kategori_osp').css('display','block');
+            // $('#kategori_isp').css('display','none');
+        }
+    })
 
 </script>
 @endsection

@@ -81,6 +81,10 @@ class JadwalController extends Controller
             $validasi['segmen'] = 'Retail'; 
         }elseif($request->kategori_pm == 'Jalur Kabel TR/TM'){
             $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'Cluster Perumahan'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'ADSS LS'){
+            $validasi['segmen'] = 'Non Retail';
         }
 
         if( $request->pop_id == '-'){
@@ -180,6 +184,10 @@ class JadwalController extends Controller
             $validasi['segmen'] = 'Retail'; 
         }elseif($request->kategori_pm == 'Jalur Kabel TR/TM'){
             $validasi['segmen'] = 'Non Retail'; 
+        }elseif($request->kategori_pm == 'Cluster Perumahan'){
+            $validasi['segmen'] = 'Retail'; 
+        }elseif($request->kategori_pm == 'ADSS LS'){
+            $validasi['segmen'] = 'Non Retail';
         }
         
         if( $request->jenis_pm == 'OSP'){

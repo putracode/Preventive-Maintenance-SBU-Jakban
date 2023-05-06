@@ -47,10 +47,15 @@ class ImprovementController extends Controller
             'kategori_improvement' => ['required'],
             'pop_id' => ['required'],
             'cluster' => ['required'],
-            'hostname' => ['required'],
+            // 'hostname' => ['required'],
             'catatan' => ['required'],
         ]);
 
+        if($request->hostname == null){
+            $validasi['hostname'] = "-";
+        }else{
+            $validasi['hostname'] = $request->hostname;
+        }
         $validasi['status'] = "Plan Improve";
         $validasi['realisasi'] = "-";
         $validasi['link_sharepoint'] = "-";
