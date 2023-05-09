@@ -34,6 +34,7 @@ Route::post('/logout',[AuthController::class,'logout']);
 Route::post('/user/password/{id}',[UserController::class,'password']);
 
 Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard-pop',[DashboardController::class,'dashboardpop']);
     Route::get('/dashboard',[DashboardController::class,'index']);
     Route::get('/filter',[DashboardController::class,'filter']);
     

@@ -25,7 +25,7 @@
   <style>
     *{
       font-family: 'Roboto', sans-serif;
-      
+      /* border: 1px solid; */
     }
     @media print{@page {size: auto},}
   </style>
@@ -127,10 +127,18 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="/dashboard" class="nav-link {{ Request::is('/dashboard') ? 'active' : '' }}" >
+            <a href="/dashboard" class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" >
                 <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Dashboard
+                Dashboard PM
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/dashboard-pop" class="nav-link {{ Request::is('dashboard-pop') ? 'active' : '' }}" >
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard POP
               </p>
             </a>
           </li>
@@ -260,6 +268,15 @@
 <script>
   $(function () {
     $("#example1").DataTable({
+      "responsive": true, 
+      "lengthChange": true, 
+      "autoWidth": false,
+      "buttons": ["excel", "print", "colvis"],  
+      "columnDefs": [
+        { "visible": false, "targets": 'hidden' }
+      ]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $(".example1").DataTable({
       "responsive": true, 
       "lengthChange": true, 
       "autoWidth": false,
