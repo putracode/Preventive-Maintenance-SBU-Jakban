@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jadwal;
 use App\Models\Pop;
+use App\Models\Jadwal;
+use App\Models\Kelistrikan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -209,5 +211,11 @@ class DashboardController extends Controller
 
     public function dashboardpop(){
         return view('dashboard-pop.index',['pop' => pop::all(),'popsb' => Pop::where('tipe_pop','POP-SB')->get(),'popb' => pop::where('tipe_pop','POP-B')->get(),'popd' => pop::where('tipe_pop','POP-D')->get(),'popa' => pop::where('tipe_pop','POP-A')->get(),'popc' => pop::where('tipe_pop','CPE-PLN')->get()]);
+    }
+
+    public function popdetail($id){
+        $pop = pop::where('id_pop',$id)->first();
+        $popid = $pop->id;
+        return view('dashboard-pop.detail',['pop' => pop::where('id_pop',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$popid)->first()]);
     }
 }

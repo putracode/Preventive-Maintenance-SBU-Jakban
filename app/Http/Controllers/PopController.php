@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelistrikan;
 use App\Models\Pop;
 use Illuminate\Http\Request;
 
@@ -114,5 +115,112 @@ class PopController extends Controller
     {
         pop::destroy($pop->id);
         return redirect('/pop')->with('success','Data successfully deleted!');
+    }
+
+    public function teknis($id){
+        // $pop = pop::where('id_pop',$id)->first();
+        // $popid = $pop->id;
+
+        return view('pop.teknis',['pop' => pop::where('id',$id)->first(), 'teknis' => Kelistrikan::where('pop_id',$id)->first() ,'kelistrikan' => Kelistrikan::all(), 'pop_id' => $id]);
+    }
+
+    public function createKelistrikan(Request $request){
+        $validasi = $this->validate($request,[
+            'pop_id' => ['required'],
+            'daya_listrik' => ['required'],
+            'jumlah_phasa' => ['required'],
+            'mcbr' => ['required'],
+            'mcbs' => ['required'],
+            'mcbt' => ['required'],
+            'beban_r' => ['required'],
+            'beban_s' => ['required'],
+            'beban_t' => ['required'],
+        ]);
+        // dd($validasi['pop_id']);
+        $utilr = $request->beban_r / $request->mcbr * 100;
+        $partr = explode('.',$utilr);
+        $validasi['utilitas_r'] = $partr[0] . '%';
+
+        $utils = $request->beban_s / $request->mcbs * 100;
+        $parts = explode('.',$utils);
+        $validasi['utilitas_s'] = $parts[0] . '%';
+
+        $utilt = $request->beban_t / $request->mcbt * 100;
+        $partt = explode('.',$utilt);
+        $validasi['utilitas_t'] = $partt[0] . '%';
+
+        $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
+        $avg = collect($average)->avg();
+        $ratarata = explode('.',$avg);
+
+        $health = '';
+        if($avg >= 91 && $avg <= 100){
+            $health = 'Lose Privillage';
+        }elseif($avg >= 81 && $avg <= 90){
+            $health = 'Critical';
+        }elseif($avg >= 71 && $avg <= 80){
+            $health = 'Health';
+        }elseif($avg >= 1 && $avg <= 70){
+            $health = 'Excellent';
+        }else{
+            $health = '0';
+        };
+        
+        $validasi['rata_rata'] = $ratarata[0] . '%';
+        $validasi['index_healthy'] = $health;
+        // dd($validasi['index_healthy']);
+        // if($validasi['rata_rata'] >= );
+        Kelistrikan::create($validasi);
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data added successfully');
+    }
+
+    public function updateKelistrikan(Request $request, $id){
+        $validasi = $this->validate($request,[
+            'pop_id' => ['required'],
+            'daya_listrik' => ['required'],
+            'jumlah_phasa' => ['required'],
+            'mcbr' => ['required'],
+            'mcbs' => ['required'],
+            'mcbt' => ['required'],
+            'beban_r' => ['required'],
+            'beban_s' => ['required'],
+            'beban_t' => ['required'],
+        ]);
+        // dd($validasi['pop_id']);
+        $utilr = $request->beban_r / $request->mcbr * 100;
+        $partr = explode('.',$utilr);
+        $validasi['utilitas_r'] = $partr[0] . '%';
+
+        $utils = $request->beban_s / $request->mcbs * 100;
+        $parts = explode('.',$utils);
+        $validasi['utilitas_s'] = $parts[0] . '%';
+
+        $utilt = $request->beban_t / $request->mcbt * 100;
+        $partt = explode('.',$utilt);
+        $validasi['utilitas_t'] = $partt[0] . '%';
+
+        $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
+        $avg = collect($average)->avg();
+        $ratarata = explode('.',$avg);
+
+        $health = '';
+        if($avg >= 91 && $avg <= 100){
+            $health = 'Lose Privillage';
+        }elseif($avg >= 81 && $avg <= 90){
+            $health = 'Critical';
+        }elseif($avg >= 71 && $avg <= 80){
+            $health = 'Health';
+        }elseif($avg >= 1 && $avg <= 70){
+            $health = 'Excellent';
+        }else{
+            $health = '0';
+        };
+        
+        $validasi['rata_rata'] = $ratarata[0] . '%';
+        $validasi['index_healthy'] = $health;
+        // dd($validasi['index_healthy']);
+        // if($validasi['rata_rata'] >= );
+        // Kelistrikan::where('id_pop',$id)->update($validasi);
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data added successfully');
     }
 }

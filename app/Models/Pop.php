@@ -23,4 +23,8 @@ class Pop extends Model
     protected function temuan(){
         return $this->hasMany(Temuan::class);
     }
+
+    protected function kelistrikan(){
+        return $this->hasMany(kelistrikan::class);
+    }
 }

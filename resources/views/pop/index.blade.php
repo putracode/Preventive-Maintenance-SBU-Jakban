@@ -64,6 +64,11 @@
                     </td> --}}
                     @can('admin')                        
                         <td>
+                            <a href="/pop/teknis/{{ $row->id }}">
+                                <button type="button" class="btn btn-icon bg-info">
+                                    <ion-icon name="cellular-outline" style="margin: auto"></ion-icon>
+                                </button>
+                            </a>
                             <a href="/pop/{{ $row->id }}/edit">
                                 <button type="button" class="btn btn-icon  btn-warning ">
                                     <svg xmlns="http://www.w3.org/2000/svg" role="img" width="1em" height="1em"

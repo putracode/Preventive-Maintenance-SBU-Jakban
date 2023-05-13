@@ -119,9 +119,9 @@
                     @foreach ($popsb as $row)
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
-                            <a href="#">
-                                <div style="width: 50px; height: 50px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-SB</div>
-                                <p style="font-size: 10px">{{ $row->nama_pop }}</p>
+                            <a href="/dashboard-pop/detail/{{ $row->id_pop }}">
+                                <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-SB</div>
+                                <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
                         </div>
                     </div>
@@ -134,8 +134,8 @@
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
                             <a href="#">
-                                <div style="width: 50px; height: 50px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-BB</div>
-                                <p style="font-size: 10px">{{ $row->nama_pop }}</p>
+                                <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-BB</div>
+                                <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
                         </div>
                     </div>
@@ -148,8 +148,8 @@
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
                             <a href="#">
-                                <div style="width: 50px; height: 50px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-D</div>
-                                <p style="font-size: 10px">{{ $row->nama_pop }}</p>
+                                <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-D</div>
+                                <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
                         </div>
                     </div>
@@ -162,8 +162,8 @@
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
                             <a href="#">
-                                <div style="width: 50px; height: 50px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-A</div>
-                                <p style="font-size: 10px">{{ $row->nama_pop }}</p>
+                                <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-A</div>
+                                <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
                         </div>
                     </div>
@@ -176,8 +176,8 @@
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
                             <a href="#">
-                                <div style="width: 50px; height: 50px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">CPE</div>
-                                <p style="font-size: 10px">{{ $row->nama_pop }}</p>
+                                <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">CPE</div>
+                                <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
                         </div>
                     </div>

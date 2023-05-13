@@ -35,6 +35,7 @@ Route::post('/user/password/{id}',[UserController::class,'password']);
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard-pop',[DashboardController::class,'dashboardpop']);
+    Route::get('/dashboard-pop/detail/{id}',[DashboardController::class,'popdetail']);
     Route::get('/dashboard',[DashboardController::class,'index']);
     Route::get('/filter',[DashboardController::class,'filter']);
     
@@ -45,6 +46,10 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/improvement/{id}/realisasi',[ImprovementController::class,'realisasi']);
 
     Route::resource('/pop', PopController::class);
+    Route::get('/pop/teknis/{id}',[PopController::class,'teknis']);
+    Route::post('/pop/teknis/{id}',[PopController::class,'updateKelistrikan']);
+    Route::post('/pop/teknis',[PopController::class,'createKelistrikan']);
+    // Route::get('/pop/teknis',[PopController::class,'createKelistrikan']);
     Route::resource('/user', UserController::class)->middleware('admin');
     Route::get('/temuan',[TemuanController::class,'index']);
     Route::post('/temuan',[TemuanController::class,'store']);
