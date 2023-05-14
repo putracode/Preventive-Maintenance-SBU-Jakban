@@ -43,7 +43,7 @@
                   </div>
                   <div class="form-group mb-5">
                       <label for="exampleSelectRounded0">Jumlah Phasa</label>
-                      <select class="custom-select rounded-0" id="exampleSelectRounded0" name="jumlah_phasa">
+                      <select class="custom-select rounded-0 createJumlahPhasa" id="exampleSelectRounded0" name="jumlah_phasa">
                           <option {{ $teknis->jumlah_phasa == '1' ? 'selected' : '' }}>1</option>
                           <option {{ $teknis->jumlah_phasa == '3' ? 'selected' : '' }}>3</option>
                       </select>
@@ -51,20 +51,20 @@
                   <div class="row">
                       <div class="col-4">
                           <div class="form-group mb-5">
-                              <label for="exampleInputPassword1">MCBR</label>
+                              <label for="exampleInputPassword1">MCBR (A)</label>
                               <input type="number" class="form-control" id="exampleInputPassword1" name="mcbr" value="{{ $teknis->mcbr }}">
                           </div>
                       </div>
                       <div class="col-4">
                           <div class="form-group mb-5">
-                              <label for="exampleInputPassword1">MCBS</label>
-                              <input type="number" class="form-control" id="exampleInputPassword1" name="mcbs" value="{{ $teknis->mcbs }}">
+                              <label for="exampleInputPassword1">MCBS (A)</label>
+                              <input type="number" class="form-control createMCBS" id="exampleInputPassword1" name="mcbs" value="{{ $teknis->mcbs }}">
                           </div>
                       </div>
                       <div class="col-4">
                           <div class="form-group mb-5">
-                              <label for="exampleInputPassword1">MCBT</label>
-                              <input type="number" class="form-control" id="exampleInputPassword1" name="mcbt" value="{{ $teknis->mcbt }}">
+                              <label for="exampleInputPassword1">MCBT (A)</label>
+                              <input type="number" class="form-control createMCBT" id="exampleInputPassword1" name="mcbt" value="{{ $teknis->mcbt }}">
                           </div>
                       </div>
                   </div>
@@ -78,13 +78,13 @@
                       <div class="col-4">
                           <div class="form-group mb-5">
                               <label for="exampleInputPassword1">Beban S</label>
-                              <input type="number" class="form-control" id="exampleInputPassword1" name="beban_s" value="{{ $teknis->beban_r }}">
+                              <input type="number" class="form-control createBebanS" id="exampleInputPassword1" name="beban_s" value="{{ $teknis->beban_r }}">
                           </div>
                       </div>
                       <div class="col-4">
                           <div class="form-group mb-5">
                               <label for="exampleInputPassword1">Beban T</label>
-                              <input type="number" class="form-control" id="exampleInputPassword1" name="beban_t" value="{{ $teknis->beban_r }}">
+                              <input type="number" class="form-control createBebanT" id="exampleInputPassword1" name="beban_t" value="{{ $teknis->beban_r }}">
                           </div>
                       </div>
                   </div>
@@ -143,28 +143,28 @@
                     </div>
                     <div class="form-group mb-5">
                         <label for="exampleSelectRounded0">Jumlah Phasa</label>
-                        <select class="custom-select rounded-0" id="exampleSelectRounded0" name="jumlah_phasa">
-                            <option>1</option>
+                        <select class="custom-select rounded-0 createJumlahPhasa" id="createJumlahPhasa" name="jumlah_phasa">
                             <option>3</option>
+                            <option>1</option>
                         </select>
                     </div>
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">MCBR</label>
+                                <label for="exampleInputPassword1">MCBR (A)</label>
                                 <input type="number" class="form-control" id="exampleInputPassword1" name="mcbr">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">MCBS</label>
-                                <input type="number" class="form-control" id="exampleInputPassword1" name="mcbs">
+                                <label for="createMCBS">MCBS (A)</label>
+                                <input type="number" class="form-control createMCBS" id="createMCBS" name="mcbs">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">MCBT</label>
-                                <input type="number" class="form-control" id="exampleInputPassword1" name="mcbt">
+                                <label for="createMCBT">MCBT (A)</label>
+                                <input type="number" class="form-control createMCBT" id="createMCBT" name="mcbt">
                             </div>
                         </div>
                     </div>
@@ -177,14 +177,14 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">Beban S</label>
-                                <input type="number" class="form-control" id="exampleInputPassword1" name="beban_s">
+                                <label for="createBebanS">Beban S</label>
+                                <input type="number" class="form-control createBebanS" id="createBebanS" name="beban_s">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">Beban T</label>
-                                <input type="number" class="form-control" id="exampleInputPassword1" name="beban_t">
+                                <label for="createBebanT">Beban T</label>
+                                <input type="number" class="form-control createBebanT" id="createBebanT" name="beban_t">
                             </div>
                         </div>
                     </div>
@@ -205,4 +205,32 @@
 
 @section('title')
 {{ $pop->nama_pop }}
+@endsection
+
+@section('script')
+<script>
+    $('.createJumlahPhasa').on('change',function(){
+        let selected = $(this).val();
+        console.log(selected);
+        if(selected == 1){
+            $('.createMCBS').val('0');
+            $('.createMCBT').val('0');
+            $('.createBebanS').val('0');
+            $('.createBebanT').val('0');
+            $('.createMCBS').attr('readonly',true);
+            $('.createMCBT').attr('readonly',true);
+            $('.createBebanS').attr('readonly',true);
+            $('.createBebanT').attr('readonly',true);
+        }else{
+            $('.createMCBS').val(<?php echo $teknis->mcbs ?? ''; ?>);
+            $('.createMCBT').val(<?php echo $teknis->mcbt ?? ''; ?>);
+            $('.createBebanS').val(<?php echo $teknis->beban_s ?? ''; ?>);
+            $('.createBebanT').val(<?php echo $teknis->beban_t ?? ''; ?>);
+            $('.createMCBS').attr('readonly',false);
+            $('.createMCBT').attr('readonly',false);
+            $('.createBebanS').attr('readonly',false);
+            $('.createBebanT').attr('readonly',false);
+        }
+    });
+</script>
 @endsection
