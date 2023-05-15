@@ -199,6 +199,47 @@
                     {{ $kelistrikan->updated_at ?? '' }}
                   </div>
                 </div>
+                <div class="card">
+                  <div class="card-header">
+                    Suhu Ruangan
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="row mb-2">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Suhu</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $suhu->suhu_ruangan ?? '' }}°">
+                          </div>
+                        </div>
+                        @php
+                          $indexSuhu = '';
+                          $adasuhu = $suhu->index_healthy ?? '';
+                          if($adasuhu == "Excellent"){
+                            $indexSuhu = 'bg-success';
+                          }elseif($adasuhu == "Health"){
+                            $indexSuhu = 'bg-warning';
+                          }elseif($adasuhu == "Critical"){
+                            $indexSuhu = 'bg-danger';
+                          }elseif($adasuhu == "Lose Privillage"){
+                            $indexSuhu = 'bg-dark';
+                          }else{
+                            $indexSuhu = '';
+                          }
+                        @endphp
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Index Healthy</label>
+                            <input type="email" class="form-control {{ $indexSuhu }}" id="exampleInputEmail1" disabled value="{{ $suhu->index_healthy ?? '' }}">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    {{ $suhu->updated_at ?? '' }}
+                  </div>
+                </div>
             </div>
             {{-- <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
                 <div class="row">

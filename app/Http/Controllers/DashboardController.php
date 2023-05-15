@@ -7,6 +7,7 @@ use App\Models\Jadwal;
 use App\Models\Kelistrikan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Suhu;
 
 class DashboardController extends Controller
 {
@@ -216,6 +217,6 @@ class DashboardController extends Controller
     public function popdetail($id){
         $pop = pop::where('id_pop',$id)->first();
         $popid = $pop->id;
-        return view('dashboard-pop.detail',['pop' => pop::where('id_pop',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$popid)->first()]);
+        return view('dashboard-pop.detail',['pop' => pop::where('id_pop',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$popid)->first(), 'suhu' => Suhu::where('pop_id',$popid)->first()]);
     }
 }

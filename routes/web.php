@@ -47,8 +47,10 @@ Route::middleware(['auth'])->group(function(){
 
     Route::resource('/pop', PopController::class);
     Route::get('/pop/teknis/{id}',[PopController::class,'teknis']);
-    Route::post('/pop/teknis/{id}',[PopController::class,'updateKelistrikan']);
-    Route::post('/pop/teknis',[PopController::class,'createKelistrikan']);
+    Route::post('/pop/teknis/listrik/{id}',[PopController::class,'updateKelistrikan']);
+    Route::post('/pop/teknis/listrik',[PopController::class,'createKelistrikan']);
+    Route::post('/pop/teknis/suhu/{id}',[PopController::class,'updateSuhu']);
+    Route::post('/pop/teknis/suhu',[PopController::class,'createSuhu']);
     // Route::get('/pop/teknis',[PopController::class,'createKelistrikan']);
     Route::resource('/user', UserController::class)->middleware('admin');
     Route::get('/temuan',[TemuanController::class,'index']);

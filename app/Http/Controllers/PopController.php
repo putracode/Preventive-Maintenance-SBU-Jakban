@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelistrikan;
 use App\Models\Pop;
+use App\Models\Suhu;
 use Illuminate\Http\Request;
 
 class PopController extends Controller
@@ -121,7 +122,7 @@ class PopController extends Controller
         // $pop = pop::where('id_pop',$id)->first();
         // $popid = $pop->id;
 
-        return view('pop.teknis',['pop' => pop::where('id',$id)->first(), 'teknis' => Kelistrikan::where('pop_id',$id)->first() ,'kelistrikan' => Kelistrikan::all(), 'pop_id' => $id]);
+        return view('pop.teknis',['pop' => pop::where('id',$id)->first(), 'listrik' => Kelistrikan::where('pop_id',$id)->first(), 'pop_id' => $id, 'suhu' => Suhu::where('pop_id',$id)->first()]);
     }
 
     public function createKelistrikan(Request $request){
@@ -221,6 +222,52 @@ class PopController extends Controller
         // dd($validasi['index_healthy']);
         // if($validasi['rata_rata'] >= );
         // Kelistrikan::where('id_pop',$id)->update($validasi);
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data update successfully');
+    }
+
+    public function createSuhu(Request $request){
+        $validasi = $this->validate($request,[
+            'pop_id' => ['required'],
+            'suhu_ruangan' => ['required'],
+        ]);
+        
+        $health = '';
+        if($request->suhu_ruangan >= 25 && $request->suhu_ruangan <= 100){
+            $health = 'Lose Privillage';
+        }elseif($request->suhu_ruangan >= 21 && $request->suhu_ruangan <= 24){
+            $health = 'Critical';
+        }elseif($request->suhu_ruangan >= 18 && $request->suhu_ruangan <= 20){
+            $health = 'Health';
+        }elseif($request->suhu_ruangan >= 1 && $request->suhu_ruangan <= 17){
+            $health = 'Excellent';
+        }
+
+        $validasi['index_healthy'] = $health;
+
+        Suhu::create($validasi);
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data added successfully');
+    }
+
+    public function updateSuhu(Request $request, $id){
+        $validasi = $this->validate($request,[
+            'pop_id' => ['required'],
+            'suhu_ruangan' => ['required'],
+        ]);
+        
+        $health = '';
+        if($request->suhu_ruangan >= 25 && $request->suhu_ruangan <= 100){
+            $health = 'Lose Privillage';
+        }elseif($request->suhu_ruangan >= 21 && $request->suhu_ruangan <= 24){
+            $health = 'Critical';
+        }elseif($request->suhu_ruangan >= 18 && $request->suhu_ruangan <= 20){
+            $health = 'Health';
+        }elseif($request->suhu_ruangan >= 1 && $request->suhu_ruangan <= 17){
+            $health = 'Excellent';
+        }
+
+        $validasi['index_healthy'] = $health;
+
+        Suhu::where('pop_id',$id)->update($validasi);
         return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data added successfully');
     }
 }
