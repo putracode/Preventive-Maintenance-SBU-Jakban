@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genset;
 use App\Models\Kelistrikan;
 use App\Models\Pop;
 use App\Models\Suhu;
@@ -122,7 +123,7 @@ class PopController extends Controller
         // $pop = pop::where('id_pop',$id)->first();
         // $popid = $pop->id;
 
-        return view('pop.teknis',['pop' => pop::where('id',$id)->first(), 'listrik' => Kelistrikan::where('pop_id',$id)->first(), 'pop_id' => $id, 'suhu' => Suhu::where('pop_id',$id)->first()]);
+        return view('pop.teknis',['pop' => pop::where('id',$id)->first(), 'listrik' => Kelistrikan::where('pop_id',$id)->first(), 'pop_id' => $id, 'suhu' => Suhu::where('pop_id',$id)->first(), 'genset' => Genset::where('pop_id',$id)->first()]);
     }
 
     public function createKelistrikan(Request $request){
@@ -189,20 +190,20 @@ class PopController extends Controller
         ]);
         // dd($validasi['pop_id']);
         $utilr = $request->beban_r / $request->mcbr * 100;
-        $partr = explode('.',$utilr);
-        $validasi['utilitas_r'] = $partr[0] . '%';
+        $partr = round($utilr);
+        $validasi['utilitas_r'] = $partr . '%';
 
         $utils = $request->beban_s / $request->mcbs * 100;
-        $parts = explode('.',$utils);
-        $validasi['utilitas_s'] = $parts[0] . '%';
+        $parts = round($utils);
+        $validasi['utilitas_s'] = $parts . '%';
 
         $utilt = $request->beban_t / $request->mcbt * 100;
-        $partt = explode('.',$utilt);
-        $validasi['utilitas_t'] = $partt[0] . '%';
+        $partt = round($utilt);
+        $validasi['utilitas_t'] = $partt . '%';
 
         $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
         $avg = collect($average)->avg();
-        $ratarata = explode('.',$avg);
+        $ratarata = round($avg);
 
         $health = '';
         if($avg >= 91 && $avg <= 100){
@@ -217,11 +218,10 @@ class PopController extends Controller
             $health = '0';
         };
         
-        $validasi['rata_rata'] = $ratarata[0] . '%';
+        $validasi['rata_rata'] = $ratarata . '%';
         $validasi['index_healthy'] = $health;
-        // dd($validasi['index_healthy']);
-        // if($validasi['rata_rata'] >= );
-        // Kelistrikan::where('id_pop',$id)->update($validasi);
+
+        Kelistrikan::where('pop_id',$id)->update($validasi);
         return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data update successfully');
     }
 
@@ -268,6 +268,70 @@ class PopController extends Controller
         $validasi['index_healthy'] = $health;
 
         Suhu::where('pop_id',$id)->update($validasi);
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data updated successfully');
+    }
+
+    public function createGenset(Request $request){
+        $validasi = $this->validate($request,[
+            'pop_id' => ['required'],
+            'merk_type' => ['required'],
+            'sn' => ['required'],
+            'daya_listrik' => ['required'],
+            'jumlah_phasa' => ['required'],
+            'kapasitas' => ['required'],
+        ]);
+        
+        $kemampuan = $request->kapasitas / $request->daya_listrik * 100;
+        $average = round($kemampuan);
+
+        $health = '';
+        if($average >= 151 && $average <= 200){
+            $health = 'Excellent';
+        }elseif($average >= 101 && $average <= 150){
+            $health = 'Health';
+        }elseif($average >= 99 && $average <= 100){
+            $health = 'Critical';
+        }elseif($average >= 1 && $average <= 98){
+            $health = 'Lose Privillage';
+        }else{
+            $health = 'Over';
+        }
+
+        $validasi['index_healthy'] = $health;
+        $validasi['kemampuan_genset'] = $average . '%';
+
+        Genset::create($validasi);
         return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data added successfully');
+    }
+
+    public function updateGenset(Request $request, $id){
+        $validasi = $this->validate($request,[
+            'pop_id' => ['required'],
+            'merk_type' => ['required'],
+            'sn' => ['required'],
+            'daya_listrik' => ['required'],
+            'jumlah_phasa' => ['required'],
+            'kapasitas' => ['required'],
+        ]);
+        
+        $kemampuan = $request->kapasitas / $request->daya_listrik * 100;
+        $average = round($kemampuan);
+
+        $health = '';
+        if($average >= 151 && $average <= 200){
+            $health = 'Excellent';
+        }elseif($average >= 101 && $average <= 150){
+            $health = 'Health';
+        }elseif($average >= 99 && $average <= 100){
+            $health = 'Critical';
+        }elseif($average >= 1 && $average <= 98){
+            $health = 'Lose Privillage';
+        }
+
+        $validasi['index_healthy'] = $health;
+        $validasi['kemampuan_genset'] = $average . '%';
+
+        Genset::where('pop_id',$id)->update($validasi);
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data updated successfully');
     }
 }

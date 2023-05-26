@@ -119,7 +119,7 @@
                     @foreach ($popsb as $row)
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
-                            <a href="/dashboard-pop/detail/{{ $row->id_pop }}">
+                            <a href="/dashboard-pop/detail/{{ $row->id }}">
                                 <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-SB</div>
                                 <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
@@ -133,7 +133,7 @@
                     @foreach ($popb as $row)
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
-                            <a href="#">
+                            <a href="/dashboard-pop/detail/{{ $row->id }}">
                                 <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-BB</div>
                                 <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
@@ -147,7 +147,7 @@
                     @foreach ($popd as $row)
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
-                            <a href="#">
+                            <a href="/dashboard-pop/detail/{{ $row->id }}">
                                 <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-D</div>
                                 <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
@@ -161,7 +161,7 @@
                     @foreach ($popa as $row)
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
-                            <a href="#">
+                            <a href="/dashboard-pop/detail/{{ $row->id }}">
                                 <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">P-A</div>
                                 <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>
@@ -175,7 +175,7 @@
                     @foreach ($popc as $row)
                     <div class="col-md-3 d-flex justify-content-center align-items-center mt-5">
                         <div class="bungkus">
-                            <a href="#">
+                            <a href="/dashboard-pop/detail/{{ $row->id }}">
                                 <div style="width: 75px; height: 75px; margin: auto" class="d-flex justify-content-center align-items-center bg-success rounded-circle mb-3">CPE</div>
                                 <p style="font-size: 14px">{{ $row->nama_pop }}</p>
                             </a>

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pop;
+use App\Models\Suhu;
+use App\Models\Genset;
 use App\Models\Jadwal;
 use App\Models\Kelistrikan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Suhu;
+
 
 class DashboardController extends Controller
 {
@@ -215,8 +217,11 @@ class DashboardController extends Controller
     }
 
     public function popdetail($id){
-        $pop = pop::where('id_pop',$id)->first();
-        $popid = $pop->id;
-        return view('dashboard-pop.detail',['pop' => pop::where('id_pop',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$popid)->first(), 'suhu' => Suhu::where('pop_id',$popid)->first()]);
+        // $pop = pop::where('id_pop',$id)->first();
+        // $popid = $pop->id;
+
+        // return view('dashboard-pop.detail',['pop' => pop::where('id_pop',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$popid)->first(), 'suhu' => Suhu::where('pop_id',$popid)->first(), 'genset' => Genset::where('pop_id',$popid)->first()]);
+        // dd($id);
+        return view('dashboard-pop.detail',['pop' => pop::where('id',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$id)->first(), 'suhu' => Suhu::where('pop_id',$id)->first(), 'genset' => Genset::where('pop_id',$id)->first()]);
     }
 }

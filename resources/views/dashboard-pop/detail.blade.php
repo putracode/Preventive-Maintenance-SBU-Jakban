@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-12">
       <div class="card card-info card-tabs">
-        <div class="card-header p-0 pt-1">
+        <div class="card-header bg-info p-0 pt-1">
           <ul class="nav nav-tabs justify-content-around" id="custom-tabs-one-tab" role="tablist">
             <li class="nav-item">
               <a class="nav-link active px-5" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">INFORMASI UMUM</a>
@@ -209,7 +209,7 @@
                         <div class="col-6">
                           <div class="form-group">
                             <label for="exampleInputEmail1">Suhu</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $suhu->suhu_ruangan ?? '' }}°">
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $suhu->suhu_ruangan ?? '' }}">
                           </div>
                         </div>
                         @php
@@ -238,6 +238,65 @@
                   </div>
                   <div class="card-footer">
                     {{ $suhu->updated_at ?? '' }}
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    Genset
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <div class="row mb-2">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Merk Type</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $genset->merk_type ?? '' }}">
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">SN</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $genset->sn ?? '' }}">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-2">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Kapasitas</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $genset->kapasitas ?? '' }}">
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Kemampuan Genset</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $genset->kemampuan_genset ?? '' }}">
+                          </div>
+                        </div>
+                      </div>
+                      @php
+                      $indexgenset = '';
+                      $adagenset = $genset->index_healthy ?? '';
+                      if($adagenset == "Excellent"){
+                        $indexgenset = 'bg-success';
+                      }elseif($adagenset == "Health"){
+                        $indexgenset = 'bg-warning';
+                      }elseif($adagenset == "Critical"){
+                        $indexgenset = 'bg-danger';
+                      }elseif($adagenset == "Lose Privillage"){
+                        $indexgenset = 'bg-dark';
+                      }else{
+                        $indexgenset = '';
+                      }
+                      @endphp
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Index Healthy</label>
+                        <input type="email" class="form-control {{ $indexgenset }}" id="exampleInputEmail1" disabled value="{{ $genset->index_healthy ?? '' }}">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    {{ $genset->updated_at ?? '' }}
                   </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
             <div class="card-header">
                 <h3 class="card-title">Kelistrikan</h3>
             </div>
-            <form action="/pop/teknis/{{ $pop_id }}" method="POST">
+            <form action="/pop/teknis/listrik/{{ $pop_id }}" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="form-group mb-5">
@@ -75,23 +75,23 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">Beban R</label>
+                                <label for="exampleInputPassword1">Beban R (A)</label>
                                 <input type="number" class="form-control" id="exampleInputPassword1" name="beban_r"
                                     value="{{ $listrik->beban_r }}">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">Beban S</label>
+                                <label for="exampleInputPassword1">Beban S (A)</label>
                                 <input type="number" class="form-control createBebanS" id="exampleInputPassword1"
-                                    name="beban_s" value="{{ $listrik->beban_r }}">
+                                    name="beban_s" value="{{ $listrik->beban_s }}">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">Beban T</label>
+                                <label for="exampleInputPassword1">Beban T (A)</label>
                                 <input type="number" class="form-control createBebanT" id="exampleInputPassword1"
-                                    name="beban_t" value="{{ $listrik->beban_r }}">
+                                    name="beban_t" value="{{ $listrik->beban_t }}">
                             </div>
                         </div>
                     </div>
@@ -106,14 +106,153 @@
         </div>
     </div>
 </div>
+
+@if (!empty($genset))
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Genset</h3>
+            </div>
+            <form action="/pop/teknis/genset/{{ $pop_id }}" method="POST">
+                @csrf
+                <input type="hidden" name="pop_id" value="{{ $pop_id }}">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-5">
+                                <label for="daya_listrik">Daya Listrik</label>
+                                <input type="number" class="form-control" id="daya_listrik" name="daya_listrik" value="{{ $listrik->daya_listrik ?? '' }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-5">
+                                <label for="jumlah_phasa">Jumlah Phasa</label>
+                                <input type="number" class="form-control" id="jumlah_phasa" name="jumlah_phasa" value="{{ $listrik->jumlah_phasa ?? '' }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="merk_type">Merk dan Type</label>
+                        <input type="text" class="form-control" id="merk_type" name="merk_type" value="{{ $genset->merk_type ?? '' }}">
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="sn">SN</label>
+                        <input type="text" class="form-control" id="sn" name="sn" value="{{ $genset->sn ?? '' }}">
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="kapasitas">Kapasitas Genset (Watt)</label>
+                        <input type="text" class="form-control" id="kapasitas" name="kapasitas" value="{{ $genset->kapasitas ?? '' }}">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right px-5">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @else
 <div class="row">
     <div class="col-md-12">
         <div class="card card-primary">
             <div class="card-header">
-                <h3 class="card-title">Kelistrikann</h3>
+                <h3 class="card-title">Genset</h3>
             </div>
-            <form action="/pop/teknis" method="POST">
+            <form action="/pop/teknis/genset" method="POST">
+                @csrf
+                <input type="hidden" name="pop_id" value="{{ $pop_id }}">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group mb-5">
+                                <label for="daya_listrik">Daya Listrik</label>
+                                <input type="number" class="form-control" id="daya_listrik" name="daya_listrik" value="{{ $listrik->daya_listrik ?? '' }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group mb-5">
+                                <label for="jumlah_phasa">Jumlah Phasa</label>
+                                <input type="number" class="form-control" id="jumlah_phasa" name="jumlah_phasa" value="{{ $listrik->jumlah_phasa ?? '' }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="merk_type">Merk dan Type</label>
+                        <input type="text" class="form-control" id="merk_type" name="merk_type">
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="sn">SN</label>
+                        <input type="text" class="form-control" id="sn" name="sn">
+                    </div>
+                    <div class="form-group mb-5">
+                        <label for="kapasitas">Kapasitas Genset (Watt)</label>
+                        <input type="text" class="form-control" id="kapasitas" name="kapasitas" autocomplete="off">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right px-5">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
+@if (!empty($suhu))
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Suhu Ruangan</h3>
+            </div>
+            <form action="/pop/teknis/suhu/{{ $pop_id }}" method="POST">
+                @csrf
+                <input type="hidden" name="pop_id" value="{{ $pop_id }}">
+                <div class="card-body">
+                    <div class="form-group mb-5">
+                        <label for="suhu">Suhu°</label>
+                        <input type="number" class="form-control suhu" id="suhu" name="suhu_ruangan" value="{{ $suhu->suhu_ruangan ?? '' }}">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right px-5">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@else
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Suhu Ruangan</h3>
+            </div>
+            <form action="/pop/teknis/suhu" method="POST">
+                @csrf
+                <input type="hidden" name="pop_id" value="{{ $pop_id }}">
+                <div class="card-body">
+                    <div class="form-group mb-5">
+                        <label for="suhu">Suhu</label>
+                        <input type="number" class="form-control suhu" id="suhu" name="suhu_ruangan">
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-right px-5">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
+@else
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Kelistrikan</h3>
+            </div>
+            <form action="/pop/teknis/listrik" method="POST">
                 @csrf
                 <div class="card-body">
                     <div class="form-group mb-5">
@@ -208,53 +347,9 @@
 </div>
 @endif
 
-@if (!empty($suhu))
-<div class="row">
-    <div class="col-md-12">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Suhu Ruangan</h3>
-            </div>
-            <form action="/pop/teknis/suhu/{{ $pop_id }}" method="POST">
-                @csrf
-                <input type="hidden" name="pop_id" value="{{ $pop_id }}">
-                <div class="card-body">
-                    <div class="form-group mb-5">
-                        <label for="suhu">Suhu°</label>
-                        <input type="number" class="form-control suhu" id="suhu" name="suhu_ruangan" value="{{ $suhu->suhu_ruangan ?? '' }}">
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-right px-5">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@else
-<div class="row">
-    <div class="col-md-12">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h3 class="card-title">Suhu Ruangan</h3>
-            </div>
-            <form action="/pop/teknis/suhu" method="POST">
-                @csrf
-                <input type="hidden" name="pop_id" value="{{ $pop_id }}">
-                <div class="card-body">
-                    <div class="form-group mb-5">
-                        <label for="suhu">Suhu°</label>
-                        <input type="number" class="form-control suhu" id="suhu" name="suhu_ruangan">
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary float-right px-5">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-@endif
+
+
+
 @endsection
 
 
@@ -278,10 +373,10 @@
                 $('.createBebanS').attr('readonly', true);
                 $('.createBebanT').attr('readonly', true);
             } else {
-                $('.createMCBS').val( < ? php echo $listrik - > mcbs ? ? ''; ? > );
-                $('.createMCBT').val( < ? php echo $listrik - > mcbt ? ? ''; ? > );
-                $('.createBebanS').val( < ? php echo $listrik - > beban_s ? ? ''; ? > );
-                $('.createBebanT').val( < ? php echo $listrik - > beban_t ? ? ''; ? > );
+                $('.createMCBS').val(<?php echo $listrik->mcbs ?? ''; ?>);
+                $('.createMCBT').val(<?php echo $listrik->mcbt ?? ''; ?>);
+                $('.createBebanS').val(<?php echo $listrik->beban_s ?? ''; ?>);
+                $('.createBebanT').val(<?php echo $listrik->beban_t ?? ''; ?>);
                 $('.createMCBS').attr('readonly', false);
                 $('.createMCBT').attr('readonly', false);
                 $('.createBebanS').attr('readonly', false);

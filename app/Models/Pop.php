@@ -31,4 +31,8 @@ class Pop extends Model
     protected function suhu(){
         return $this->hasMany(suhu::class);
     }
+
+    protected function genset(){
+        return $this->hasMany(genset::class);
+    }
 }
