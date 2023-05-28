@@ -76,9 +76,36 @@ class DashboardController extends Controller
         $realisasi18 = Jadwal::where('status','Realisasi')->where('area','Lebak Kabupaten')->count();
 
 
+        $RealisasiPM = jadwal::where('status','Realisasi')->get();
+        $id = [];
+        foreach($RealisasiPM as $pm){
+            if($pm->pop_id != null){
+                $id[] = $pm->pop_id;
+            }
+        }
 
+        $RealisasiPOP = Pop::whereIn('id',$id)->get();
+        $poprsb = [];
+        $poprb = [];
+        $poprd = [];
+        $popra = [];
+        $poprc = [];
 
-        return view('dashboard',['jadwal' => Jadwal::where('status','Plan')->get(), 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData, 'totalOsp' => $totalOsp, 'totalIsp' => $totalIsp, 'totalCPEPLN' => $totalCPEPLN]);
+        foreach($RealisasiPOP as $pop){
+            if($pop->tipe_pop == 'POP-SB'){
+                $poprsb[] = $pop;
+            }elseif($pop->tipe_pop == 'POP-B'){
+                $poprb[] = $pop;
+            }elseif($pop->tipe_pop == 'POP-D'){
+                $poprd[] = $pop;
+            }elseif($pop->tipe_pop == 'POP-A'){
+                $popra[] = $pop;
+            }elseif($pop->tipe_pop == 'CPE-PLN'){
+                $poprc[] = $pop;
+            }
+        }
+
+        return view('dashboard',['jadwal' => Jadwal::where('status','Plan')->get(), 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData, 'totalOsp' => $totalOsp, 'totalIsp' => $totalIsp, 'totalCPEPLN' => $totalCPEPLN, 'pop' => pop::all(),'popsb' => Pop::where('tipe_pop','POP-SB')->get(),'popb' => pop::where('tipe_pop','POP-B')->get(),'popd' => pop::where('tipe_pop','POP-D')->get(),'popa' => pop::where('tipe_pop','POP-A')->get(),'popc' => pop::where('tipe_pop','CPE-PLN')->get(),'poprsb' => $poprsb,'poprb' => $poprb,'poprd' => $poprd,'popra' => $popra,'poprc' => $poprc,]);
     }
 
     public function filter(Request $request){
@@ -146,6 +173,36 @@ class DashboardController extends Controller
 
             $plan18 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Plan')->where('area','Lebak Kabupaten')->count();
             $realisasi18 = Jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->where('area','Lebak Kabupaten')->count();
+
+            
+            $RealisasiPM = jadwal::whereBetween('plan',[request('from'), $to])->where('status','Realisasi')->get();
+            $id = [];
+            foreach($RealisasiPM as $pm){
+                if($pm->pop_id != null){
+                    $id[] = $pm->pop_id;
+                }
+            }
+    
+            $RealisasiPOP = Pop::whereIn('id',$id)->get();
+            $poprsb = [];
+            $poprb = [];
+            $poprd = [];
+            $popra = [];
+            $poprc = [];
+    
+            foreach($RealisasiPOP as $pop){
+                if($pop->tipe_pop == 'POP-SB'){
+                    $poprsb[] = $pop;
+                }elseif($pop->tipe_pop == 'POP-B'){
+                    $poprb[] = $pop;
+                }elseif($pop->tipe_pop == 'POP-D'){
+                    $poprd[] = $pop;
+                }elseif($pop->tipe_pop == 'POP-A'){
+                    $popra[] = $pop;
+                }elseif($pop->tipe_pop == 'CPE-PLN'){
+                    $poprc[] = $pop;
+                }
+            }
         } else {
             $totalData = Jadwal::all()->count(); 
             $totalReal = Jadwal::where('status','Realisasi')->count(); 
@@ -207,7 +264,7 @@ class DashboardController extends Controller
             $jadwal = Jadwal::where('status','Plan')->latest()->get();
         }
 
-        return view('dashboard',['jadwal' => $jadwal, 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData , 'totalOsp' => $totalOsp, 'totalIsp' => $totalIsp, 'totalCPEPLN' => $totalCPEPLN]);
+        return view('dashboard',['jadwal' => $jadwal, 'plan1' => $plan1, 'plan2' => $plan2, 'plan3' => $plan3, 'plan4' => $plan4, 'plan5' => $plan5, 'plan6' => $plan6, 'plan7' => $plan7, 'plan8' => $plan8, 'plan9' => $plan9, 'plan10' => $plan10, 'plan11' => $plan11, 'plan12' => $plan12, 'plan13' => $plan13, 'plan14' => $plan14, 'plan15' => $plan15, 'plan16' => $plan16, 'plan17' => $plan17, 'plan18' => $plan18, 'realisasi1' => $realisasi1, 'realisasi2' => $realisasi2, 'realisasi3' => $realisasi3, 'realisasi4' => $realisasi4, 'realisasi5' => $realisasi5, 'realisasi6' => $realisasi6, 'realisasi7' => $realisasi7, 'realisasi8' => $realisasi8, 'realisasi9' => $realisasi9, 'realisasi10' => $realisasi10, 'realisasi11' => $realisasi11, 'realisasi12' => $realisasi12, 'realisasi13' => $realisasi13, 'realisasi14' => $realisasi14, 'realisasi15' => $realisasi15, 'realisasi16' => $realisasi16, 'realisasi17' => $realisasi17, 'realisasi18' => $realisasi18, 'totalReal' => $totalReal, 'totalData' => $totalData , 'totalOsp' => $totalOsp, 'totalIsp' => $totalIsp, 'totalCPEPLN' => $totalCPEPLN, 'pop' => pop::all(),'popsb' => Pop::where('tipe_pop','POP-SB')->get(),'popb' => pop::where('tipe_pop','POP-B')->get(),'popd' => pop::where('tipe_pop','POP-D')->get(),'popa' => pop::where('tipe_pop','POP-A')->get(),'popc' => pop::where('tipe_pop','CPE-PLN')->get(),'poprsb' => $poprsb,'poprb' => $poprb,'poprd' => $poprd,'popra' => $popra,'poprc' => $poprc,]);
     }
 
     // POP

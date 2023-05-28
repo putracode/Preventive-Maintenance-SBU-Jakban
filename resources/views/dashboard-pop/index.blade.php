@@ -7,85 +7,75 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP S-BACKBONE</p> 
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popsb) }}</div>
                             <p style="font-size: 10px">TOTAL POP</p>
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle">{{ count($popsb) }}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <p class="bg-info d-flex justify-content-center align-items-center py-1">POP S-BACKBONE</p>
             </div>
         </div>
     </div>
     <div class="col">
         <div class="card">
             <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP BACKBONE</p> 
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popb) }}</div>
                             <p style="font-size: 10px">TOTAL POP</p>
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle">{{ count($popb) }}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <p class="bg-info d-flex justify-content-center align-items-center py-1">POP BACKBONE</p>
             </div>
         </div>
     </div>
     <div class="col">
         <div class="card">
             <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP DISTRIBUSI</p> 
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popd) }}</div>
                             <p style="font-size: 10px">TOTAL POP</p>
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle">{{ count($popd) }}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <p class="bg-info d-flex justify-content-center align-items-center py-1">POP DISTRIBUSI</p>
             </div>
         </div>
     </div>
     <div class="col">
         <div class="card">
             <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP AKSES</p> 
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popa) }}</div>
                             <p style="font-size: 10px">TOTAL POP</p>
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle">{{ count($popa) }}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <p class="bg-info d-flex justify-content-center align-items-center py-1">POP AKSES</p>
             </div>
         </div>
     </div>
     <div class="col">
         <div class="card">
             <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">CPE PLN</p> 
                 <div class="row">
                     <div class="col-md-12 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popc) }}</div>
                             <p style="font-size: 10px">TOTAL POP</p>
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle">{{ count($popc) }}</div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <p class="bg-info d-flex justify-content-center align-items-center py-1">CPE PLN</p>
             </div>
         </div>
     </div>

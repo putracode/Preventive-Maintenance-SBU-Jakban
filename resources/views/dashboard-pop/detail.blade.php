@@ -18,12 +18,12 @@
     <div class="col-12">
       <div class="card card-info card-tabs">
         <div class="card-header bg-info p-0 pt-1">
-          <ul class="nav nav-tabs justify-content-around" id="custom-tabs-one-tab" role="tablist">
+          <ul class="nav nav-tabs justify-content-start" id="custom-tabs-one-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active px-5" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">INFORMASI UMUM</a>
+              <a class="nav-link active px-5" id="informasi-umum-tab" data-toggle="pill" href="#informasi-umum" role="tab" aria-controls="informasi-umum" aria-selected="true">INFORMASI UMUM</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link px-5" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">SARPENTEL</a>
+              <a class="nav-link px-5" id="sarpentel-tab" data-toggle="pill" href="#sarpentel" role="tab" aria-controls="sarpentel" aria-selected="false">SARPENTEL</a>
             </li>
             {{-- <li class="nav-item">
               <a class="nav-link px-5" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">POP DISTRIBUSI</a>
@@ -38,7 +38,7 @@
         </div>
         <div class="card-body">
           <div class="tab-content" id="custom-tabs-one-tabContent">
-            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+            <div class="tab-pane fade show active" id="informasi-umum" role="tabpanel">
                 <dl>
                   <div class="row">
                     @foreach ($pop as $row)
@@ -82,15 +82,17 @@
                   </div>
                 </dl>
             </div>
-            <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+            <div class="tab-pane fade" id="sarpentel" role="tabpanel">
                 <div class="card">
-                  <div class="card-header">
-                    Kelistrikan
+                  <div class="card-header bg-info">
+                    <div class="card-title">
+                      Kelistrikan
+                    </div>
                   </div>
                   <div class="card-body">
                     <div class="form-group">
                       <div class="form-group row mb-5">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Daya Listrik :</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Daya Listrik (Watt) :</label>
                         <div class="col-sm-4">
                           <input type="email" class="form-control" id="inputEmail3" disabled value="{{ $kelistrikan->daya_listrik ?? '' }}">
                         </div>
@@ -104,19 +106,19 @@
                       <div class="row mb-2">
                         <div class="col-4">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">MCB - Phasa R</label>
+                            <label for="exampleInputEmail1">MCB - Phasa R (A)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $kelistrikan->mcbr ?? '' }}">
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">MCB - Phasa S</label>
+                            <label for="exampleInputEmail1">MCB - Phasa S (A)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $kelistrikan->mcbs ?? '' }}">
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">MCB - Phasa T</label>
+                            <label for="exampleInputEmail1">MCB - Phasa T (A)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $kelistrikan->mcbt ?? '' }}">
                           </div>
                         </div>
@@ -125,19 +127,19 @@
                       <div class="row mb-2">
                         <div class="col-4">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Beban - Phasa R</label>
+                            <label for="exampleInputEmail1">Beban - Phasa R (A)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $kelistrikan->beban_r ?? '' }}">
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Beban - Phasa S</label>
+                            <label for="exampleInputEmail1">Beban - Phasa S (A)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $kelistrikan->beban_s ?? '' }}">
                           </div>
                         </div>
                         <div class="col-4">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Beban - Phasa T</label>
+                            <label for="exampleInputEmail1">Beban - Phasa T (A)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $kelistrikan->beban_t ?? '' }}">
                           </div>
                         </div>
@@ -200,15 +202,17 @@
                   </div>
                 </div>
                 <div class="card">
-                  <div class="card-header">
-                    Suhu Ruangan
+                  <div class="card-header bg-info">
+                    <div class="card-title">
+                      Suhu Ruangan
+                    </div>
                   </div>
                   <div class="card-body">
                     <div class="form-group">
                       <div class="row mb-2">
                         <div class="col-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Suhu</label>
+                            <label for="exampleInputEmail1">Suhu (*C)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $suhu->suhu_ruangan ?? '' }}">
                           </div>
                         </div>
@@ -241,8 +245,10 @@
                   </div>
                 </div>
                 <div class="card">
-                  <div class="card-header">
-                    Genset
+                  <div class="card-header bg-info">
+                    <div class="card-title">
+                      Genset
+                    </div>
                   </div>
                   <div class="card-body">
                     <div class="form-group">
@@ -263,7 +269,7 @@
                       <div class="row mb-2">
                         <div class="col-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Kapasitas</label>
+                            <label for="exampleInputEmail1">Kapasitas (Watt)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $genset->kapasitas ?? '' }}">
                           </div>
                         </div>

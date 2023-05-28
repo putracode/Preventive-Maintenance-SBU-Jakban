@@ -13,7 +13,7 @@
                 <div class="card-body">
                     <div class="form-group mb-5">
                         <input type="hidden" name="pop_id" value="{{ $pop_id }}">
-                        <label for="exampleSelectRounded0">Daya Listrik</label>
+                        <label for="exampleSelectRounded0">Daya Listrik (Watt)</label>
                         <select class="custom-select rounded-0" id="exampleSelectRounded0" name="daya_listrik">
                             <option {{ $listrik->daya_listrik == '450' ? 'selected' : '' }}>450</option>
                             <option {{ $listrik->daya_listrik == '900' ? 'selected' : '' }}>900</option>
@@ -121,7 +121,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group mb-5">
-                                <label for="daya_listrik">Daya Listrik</label>
+                                <label for="daya_listrik">Daya Listrik (Watt)</label>
                                 <input type="number" class="form-control" id="daya_listrik" name="daya_listrik" value="{{ $listrik->daya_listrik ?? '' }}" readonly>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group mb-5">
-                                <label for="daya_listrik">Daya Listrik</label>
+                                <label for="daya_listrik">Daya Listrik (Watt)</label>
                                 <input type="number" class="form-control" id="daya_listrik" name="daya_listrik" value="{{ $listrik->daya_listrik ?? '' }}" readonly>
                             </div>
                         </div>
@@ -210,7 +210,7 @@
                 <input type="hidden" name="pop_id" value="{{ $pop_id }}">
                 <div class="card-body">
                     <div class="form-group mb-5">
-                        <label for="suhu">Suhu°</label>
+                        <label for="suhu">Suhu (*C)</label>
                         <input type="number" class="form-control suhu" id="suhu" name="suhu_ruangan" value="{{ $suhu->suhu_ruangan ?? '' }}">
                     </div>
                 </div>
@@ -233,7 +233,7 @@
                 <input type="hidden" name="pop_id" value="{{ $pop_id }}">
                 <div class="card-body">
                     <div class="form-group mb-5">
-                        <label for="suhu">Suhu</label>
+                        <label for="suhu">Suhu (*C)</label>
                         <input type="number" class="form-control suhu" id="suhu" name="suhu_ruangan">
                     </div>
                 </div>
@@ -257,7 +257,7 @@
                 <div class="card-body">
                     <div class="form-group mb-5">
                         <input type="hidden" name="pop_id" value="{{ $pop_id }}">
-                        <label for="exampleSelectRounded0">Daya Listrik</label>
+                        <label for="exampleSelectRounded0">Daya Listrik (Watt)</label>
                         <select class="custom-select rounded-0" id="exampleSelectRounded0" name="daya_listrik">
                             <option>450</option>
                             <option>900</option>
@@ -297,19 +297,19 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">MCBR </label>
+                                <label for="exampleInputPassword1">MCBR (A)</label>
                                 <input type="number" class="form-control" id="exampleInputPassword1" name="mcbr">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="createMCBS">MCBS </label>
+                                <label for="createMCBS">MCBS (A)</label>
                                 <input type="number" class="form-control createMCBS" id="createMCBS" name="mcbs">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="createMCBT">MCBT </label>
+                                <label for="createMCBT">MCBT (A)</label>
                                 <input type="number" class="form-control createMCBT" id="createMCBT" name="mcbt">
                             </div>
                         </div>
@@ -317,19 +317,19 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="exampleInputPassword1">Beban R</label>
+                                <label for="exampleInputPassword1">Beban R (A)</label>
                                 <input type="number" class="form-control" id="exampleInputPassword1" name="beban_r">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="createBebanS">Beban S</label>
+                                <label for="createBebanS">Beban S (A)</label>
                                 <input type="number" class="form-control createBebanS" id="createBebanS" name="beban_s">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group mb-5">
-                                <label for="createBebanT">Beban T</label>
+                                <label for="createBebanT">Beban T (A)</label>
                                 <input type="number" class="form-control createBebanT" id="createBebanT" name="beban_t">
                             </div>
                         </div>

@@ -94,7 +94,166 @@
 
 </div>
 <div class="row">
-
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP S-BACKBONE</p> 
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popsb) }}</div>
+                            <p style="font-size: 10px; text-align: center">TOTAL</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popsb) * 4 }}</div>
+                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($poprsb) }}</div>
+                            <p style="font-size: 10px; text-align: center">REALISASI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <b>
+                    Persentase : {{ round(count($poprsb) * 100 / (count($popsb) * 4)) }} %
+                </b>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP BACKBONE</p> 
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popb) }}</div>
+                            <p style="font-size: 10px; text-align: center">TOTAL</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popb) * 2 }}</div>
+                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($poprb) }}</div>
+                            <p style="font-size: 10px; text-align: center">REALISASI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <b>
+                    Persentase : {{ round(count($poprb) * 100 / (count($popb) * 2)) }} %
+                </b>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP DISTRIK</p> 
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popd) }}</div>
+                            <p style="font-size: 10px; text-align: center">TOTAL</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popd) * 1 }}</div>
+                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($poprd) }}</div>
+                            <p style="font-size: 10px; text-align: center">REALISASI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <b>
+                    Persentase : {{ round(count($poprd) * 100 / (count($popd) * 1)) }} %
+                </b>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP AKSES</p> 
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popa) }}</div>
+                            <p style="font-size: 10px; text-align: center">TOTAL</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popa) * 1 }}</div>
+                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popra) }}</div>
+                            <p style="font-size: 10px; text-align: center">REALISASI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <b>
+                    Persentase : {{ round(count($popra) * 100 / (count($popa) * 1)) }} %
+                </b>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">CPE PLN</p> 
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popc) }}</div>
+                            <p style="font-size: 10px; text-align: center">TOTAL</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popc) * 1 }}</div>
+                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="bungkus">
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($poprc) }}</div>
+                            <p style="font-size: 10px; text-align: center">REALISASI</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <b>
+                    Persentase : {{ round(count($poprc) * 100 / (count($popc) * 1)) }} %
+                </b>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="float-end">
     <div class="row d-flex align-items-start justify-content-end mb-4">
@@ -106,7 +265,13 @@
         data-target="#filter">
             <span class="d-flex align-items-center justify-center">Date Filter<ion-icon name="calendar-outline"
             class="ml-1"></ion-icon></span>
-        </button>   
+        </button>
+
+        {{-- <button type="button" class="btn btn-info btn-sm px-2 ml-2" data-toggle="modal"
+        data-target="#filterMonth">
+            <span class="d-flex align-items-center justify-center">Month Filter<ion-icon name="calendar-outline"
+            class="ml-1"></ion-icon></span>
+        </button>    --}}
     </div>
 </div>
 
@@ -263,9 +428,9 @@ $color = 'bg-label-success';
 </div>
 @endforeach
 <div class="modal fade" id="filter">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-info">
                 <h4 class="modal-title" style="font-size: 20px">Date Filter</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -296,7 +461,42 @@ $color = 'bg-label-success';
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
+
+<div class="modal fade" id="filterMonth">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title" style="font-size: 20px">Month Filter</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/filter" method="GET">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">From</label>
+                            <input type="month" class="form-control date-picker" id="exampleInputEmail1"
+                                placeholder="Dari Tanggal" name="from" value="{{ request('from') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">To</label>
+                            <input type="month" class="form-control datepicker" id="exampleInputPassword1"
+                                placeholder="Sampai Tanggal" name="to" value="{{ request('to') }}" required>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-danger px-5 btn-sm" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary px-5 btn-sm">Filter</button>
+            </div>
+            </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 @endsection
 
 @section('script')
