@@ -49,10 +49,16 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/pop/teknis/{id}',[PopController::class,'teknis']);
     Route::post('/pop/teknis/listrik/{id}',[PopController::class,'updateKelistrikan']);
     Route::post('/pop/teknis/listrik',[PopController::class,'createKelistrikan']);
+    Route::get('/pop/teknis/listrik/{id}',[PopController::class,'indexKelistrikan']);
     Route::post('/pop/teknis/suhu/{id}',[PopController::class,'updateSuhu']);
     Route::post('/pop/teknis/suhu',[PopController::class,'createSuhu']);
+    Route::get('/pop/teknis/suhu/{id}',[PopController::class,'indexSuhu']);
     Route::post('/pop/teknis/genset/{id}',[PopController::class,'updateGenset']);
     Route::post('/pop/teknis/genset',[PopController::class,'createGenset']);
+    Route::get('/pop/teknis/genset/{id}',[PopController::class,'indexGenset']);
+    Route::post('/pop/teknis/recti-battere/{id}',[PopController::class,'updateRectiBattere']);
+    Route::post('/pop/teknis/recti-battere',[PopController::class,'createRectiBattere']);
+    Route::get('/pop/teknis/recti-battere/{id}',[PopController::class,'indexRectiBattere']);
     // Route::get('/pop/teknis',[PopController::class,'createKelistrikan']);
     Route::resource('/user', UserController::class)->middleware('admin');
     Route::get('/temuan',[TemuanController::class,'index']);

@@ -93,12 +93,26 @@
     </div>
 
 </div>
+
+<div class="row mb-3">
+    <div class="col-6">
+        <div class="col-12 rounded bg-info d-flex justify-content-center align-items-center" style="height: 35px">
+            <p class="text-center mb-0">Jumlah POP : {{ count($popsb) + count($popb) + count($popd) + count($popa) }}</p>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="col-12 rounded bg-info d-flex justify-content-center align-items-center" style="height: 35px">
+            <p class="text-center mb-0">Jumlah CPE PLN : {{ count($popc) }}</p>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col">
         <div class="card">
             <div class="card-body">
                 <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP S-BACKBONE</p> 
-                <div class="row">
+                <div class="row d-flex justify-content-center align-items-center">
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
                             <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popsb) }}</div>
@@ -107,8 +121,8 @@
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popsb) * 4 }}</div>
-                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info m-auto rounded-circle">{{ count($popsb) * 4 }}</div>
+                            <p style="font-size: 10px; text-align: center" class="mt-3">TARGET PERTAHUN</p>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
@@ -139,8 +153,8 @@
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popb) * 2 }}</div>
-                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info m-auto rounded-circle">{{ count($popb) * 2 }}</div>
+                            <p style="font-size: 10px; text-align: center" class="mt-3">TARGET PERTAHUN</p>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
@@ -161,7 +175,7 @@
     <div class="col">
         <div class="card">
             <div class="card-body">
-                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP DISTRIK</p> 
+                <p class="bg-info d-flex justify-content-center align-items-center py-1 mb-4">POP DISTRIBUSI</p> 
                 <div class="row">
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
@@ -171,8 +185,8 @@
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popd) * 1 }}</div>
-                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info m-auto rounded-circle">{{ count($popd) * 1 }}</div>
+                            <p style="font-size: 10px; text-align: center" class="mt-3">TARGET PERTAHUN</p>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
@@ -203,8 +217,8 @@
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popa) * 1 }}</div>
-                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info m-auto rounded-circle">{{ count($popa) * 1 }}</div>
+                            <p style="font-size: 10px; text-align: center" class="mt-3">TARGET PERTAHUN</p>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
@@ -235,8 +249,8 @@
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">
                         <div class="bungkus">
-                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info rounded-circle mb-3">{{ count($popc) * 1 }}</div>
-                            <p style="font-size: 10px; text-align: center">TARGET</p>
+                            <div style="width: 50px; height: 50px;" class="d-flex justify-content-center align-items-center bg-info m-auto rounded-circle">{{ count($popc) * 1 }}</div>
+                            <p style="font-size: 10px; text-align: center" class="mt-3">TARGET PERTAHUN</p>
                         </div>
                     </div>
                     <div class="col-md-4 d-flex justify-content-center align-items-center">

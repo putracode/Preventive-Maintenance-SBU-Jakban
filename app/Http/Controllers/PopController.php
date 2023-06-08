@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Genset;
-use App\Models\Kelistrikan;
 use App\Models\Pop;
 use App\Models\Suhu;
+use App\Models\Recti;
+use App\Models\Genset;
+use App\Models\Battere;
+use App\Models\Kelistrikan;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PopController extends Controller
 {
@@ -123,7 +126,11 @@ class PopController extends Controller
         // $pop = pop::where('id_pop',$id)->first();
         // $popid = $pop->id;
 
-        return view('pop.teknis',['pop' => pop::where('id',$id)->first(), 'listrik' => Kelistrikan::where('pop_id',$id)->first(), 'pop_id' => $id, 'suhu' => Suhu::where('pop_id',$id)->first(), 'genset' => Genset::where('pop_id',$id)->first()]);
+        return view('pop.teknis',['pop' => pop::where('id',$id)->first(), 'id' => $id, 'listrik' => Kelistrikan::where('pop_id',$id)->first(), 'pop_id' => $id, 'suhu' => Suhu::where('pop_id',$id)->first(), 'genset' => Genset::where('pop_id',$id)->first(),'recti' => Recti::where('pop_id',$id)->first(), 'battere' => Battere::where('pop_id',$id)->first(), 'allBattere' => battere::all()]);
+    }
+
+    public function indexKelistrikan($id){
+        return view('pop.teknis.kelistrikan',['pop' => pop::where('id',$id)->first(), 'listrik' => Kelistrikan::where('pop_id',$id)->first(), 'id' => $id]);
     }
 
     public function createKelistrikan(Request $request){
@@ -139,37 +146,67 @@ class PopController extends Controller
             'beban_t' => ['required'],
         ]);
         // dd($validasi['pop_id']);
-        $utilr = $request->beban_r / $request->mcbr * 100;
-        $partr = explode('.',$utilr);
-        $validasi['utilitas_r'] = $partr[0] . '%';
+        if($request->jumlah_phasa == 1){
+            $utilr = $request->beban_r / $request->mcbr * 100;
+            $partr = explode('.',$utilr);
+            $validasi['utilitas_r'] = $partr[0] . '%';
 
-        $utils = $request->beban_s / $request->mcbs * 100;
-        $parts = explode('.',$utils);
-        $validasi['utilitas_s'] = $parts[0] . '%';
+            $validasi['utilitas_s'] = 0 . '%';
+            $validasi['utilitas_t'] = 0 . '%';
 
-        $utilt = $request->beban_t / $request->mcbt * 100;
-        $partt = explode('.',$utilt);
-        $validasi['utilitas_t'] = $partt[0] . '%';
+            $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
+            $avg = collect($average)->avg();
+            $ratarata = explode('.',$avg);
+    
+            $health = '';
+            if($avg >= 91 && $avg <= 100){
+                $health = 'Lose Privillage';
+            }elseif($avg >= 81 && $avg <= 90){
+                $health = 'Critical';
+            }elseif($avg >= 71 && $avg <= 80){
+                $health = 'Health';
+            }elseif($avg >= 1 && $avg <= 70){
+                $health = 'Excellent';
+            }else{
+                $health = '0';
+            };
 
-        $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
-        $avg = collect($average)->avg();
-        $ratarata = explode('.',$avg);
-
-        $health = '';
-        if($avg >= 91 && $avg <= 100){
-            $health = 'Lose Privillage';
-        }elseif($avg >= 81 && $avg <= 90){
-            $health = 'Critical';
-        }elseif($avg >= 71 && $avg <= 80){
-            $health = 'Health';
-        }elseif($avg >= 1 && $avg <= 70){
-            $health = 'Excellent';
+            $validasi['index_healthy'] = $health;
+            $validasi['rata_rata'] = $validasi['utilitas_r'];
         }else{
-            $health = '0';
-        };
-        
-        $validasi['rata_rata'] = $ratarata[0] . '%';
-        $validasi['index_healthy'] = $health;
+
+            $utilr = $request->beban_r / $request->mcbr * 100;
+            $partr = explode('.',$utilr);
+            $validasi['utilitas_r'] = $partr[0] . '%';
+    
+            $utils = $request->beban_s / $request->mcbs * 100;
+            $parts = explode('.',$utils);
+            $validasi['utilitas_s'] = $parts[0] . '%';
+    
+            $utilt = $request->beban_t / $request->mcbt * 100;
+            $partt = explode('.',$utilt);
+            $validasi['utilitas_t'] = $partt[0] . '%';
+    
+            $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
+            $avg = collect($average)->avg();
+            $ratarata = explode('.',$avg);
+    
+            $health = '';
+            if($avg >= 91 && $avg <= 100){
+                $health = 'Lose Privillage';
+            }elseif($avg >= 81 && $avg <= 90){
+                $health = 'Critical';
+            }elseif($avg >= 71 && $avg <= 80){
+                $health = 'Health';
+            }elseif($avg >= 1 && $avg <= 70){
+                $health = 'Excellent';
+            }else{
+                $health = '0';
+            };
+            
+            $validasi['rata_rata'] = $ratarata[0] . '%';
+            $validasi['index_healthy'] = $health;
+        }
         // dd($validasi['index_healthy']);
         // if($validasi['rata_rata'] >= );
         Kelistrikan::create($validasi);
@@ -189,40 +226,75 @@ class PopController extends Controller
             'beban_t' => ['required'],
         ]);
         // dd($validasi['pop_id']);
-        $utilr = $request->beban_r / $request->mcbr * 100;
-        $partr = round($utilr);
-        $validasi['utilitas_r'] = $partr . '%';
+        if($request->jumlah_phasa == 1){
+            $utilr = $request->beban_r / $request->mcbr * 100;
+            $partr = explode('.',$utilr);
+            $validasi['utilitas_r'] = $partr[0] . '%';
 
-        $utils = $request->beban_s / $request->mcbs * 100;
-        $parts = round($utils);
-        $validasi['utilitas_s'] = $parts . '%';
+            $validasi['utilitas_s'] = 0 . '%';
+            $validasi['utilitas_t'] = 0 . '%';
 
-        $utilt = $request->beban_t / $request->mcbt * 100;
-        $partt = round($utilt);
-        $validasi['utilitas_t'] = $partt . '%';
+            $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
+            $avg = collect($average)->avg();
+            $ratarata = explode('.',$avg);
+    
+            $health = '';
+            if($avg >= 91 && $avg <= 100){
+                $health = 'Lose Privillage';
+            }elseif($avg >= 81 && $avg <= 90){
+                $health = 'Critical';
+            }elseif($avg >= 71 && $avg <= 80){
+                $health = 'Health';
+            }elseif($avg >= 1 && $avg <= 70){
+                $health = 'Excellent';
+            }else{
+                $health = '0';
+            };
 
-        $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
-        $avg = collect($average)->avg();
-        $ratarata = round($avg);
-
-        $health = '';
-        if($avg >= 91 && $avg <= 100){
-            $health = 'Lose Privillage';
-        }elseif($avg >= 81 && $avg <= 90){
-            $health = 'Critical';
-        }elseif($avg >= 71 && $avg <= 80){
-            $health = 'Health';
-        }elseif($avg >= 1 && $avg <= 70){
-            $health = 'Excellent';
+            $validasi['index_healthy'] = $health;
+            $validasi['rata_rata'] = $validasi['utilitas_r'];
         }else{
-            $health = '0';
-        };
-        
-        $validasi['rata_rata'] = $ratarata . '%';
-        $validasi['index_healthy'] = $health;
+
+            $utilr = $request->beban_r / $request->mcbr * 100;
+            $partr = explode('.',$utilr);
+            $validasi['utilitas_r'] = $partr[0] . '%';
+    
+            $utils = $request->beban_s / $request->mcbs * 100;
+            $parts = explode('.',$utils);
+            $validasi['utilitas_s'] = $parts[0] . '%';
+    
+            $utilt = $request->beban_t / $request->mcbt * 100;
+            $partt = explode('.',$utilt);
+            $validasi['utilitas_t'] = $partt[0] . '%';
+    
+            $average = [(int)$validasi['utilitas_r'],(int)$validasi['utilitas_s'],(int)$validasi['utilitas_t']];
+            $avg = collect($average)->avg();
+            $ratarata = explode('.',$avg);
+    
+            $health = '';
+            if($avg >= 91 && $avg <= 100){
+                $health = 'Lose Privillage';
+            }elseif($avg >= 81 && $avg <= 90){
+                $health = 'Critical';
+            }elseif($avg >= 71 && $avg <= 80){
+                $health = 'Health';
+            }elseif($avg >= 1 && $avg <= 70){
+                $health = 'Excellent';
+            }else{
+                $health = '0';
+            };
+            
+            $validasi['rata_rata'] = $ratarata[0] . '%';
+            $validasi['index_healthy'] = $health;
+        }
+
 
         Kelistrikan::where('pop_id',$id)->update($validasi);
         return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data update successfully');
+    }
+
+    public function indexSuhu($id){
+        return view('pop.teknis.suhu',['pop' => pop::where('id',$id)->first(), 'suhu' => Suhu::where('pop_id',$id)->first(), 'id' => $id]);
     }
 
     public function createSuhu(Request $request){
@@ -269,6 +341,10 @@ class PopController extends Controller
 
         Suhu::where('pop_id',$id)->update($validasi);
         return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data updated successfully');
+    }
+
+    public function indexGenset($id){
+        return view('pop.teknis.genset',['pop' => pop::where('id',$id)->first(), 'genset' => genset::where('pop_id',$id)->first(), 'id' => $id, 'listrik' => Kelistrikan::where('pop_id',$id)->first()]);
     }
 
     public function createGenset(Request $request){
@@ -332,6 +408,73 @@ class PopController extends Controller
         $validasi['kemampuan_genset'] = $average . '%';
 
         Genset::where('pop_id',$id)->update($validasi);
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data updated successfully');
+    }
+
+    public function indexRectiBattere($id){
+
+        return view('pop.teknis.recti-battere',['pop' => pop::where('id',$id)->first(), 'recti' => recti::where('pop_id',$id)->first(), 'battere' => battere::where('pop_id',$id)->first(), 'id' => $id,'allBattere' => battere::where('pop_id',$id)->get(),'allRecti' => recti::where('pop_id',$id)->get()]);
+    }
+
+    public function createRectiBattere(Request $request){
+        $validasirecti = $this->validate($request,[
+            'pop_id' => ['required'],
+            'recti_ke' => ['required'],
+            // 'merk_recti' => ['required'],
+            'beban' => ['required'],
+            // 'kapasitas_recti' => ['required'],
+        ]);
+
+        $validasibattere = $this->validate($request,[
+            'pop_id' => ['required'],
+            'recti_ke' => ['required'],
+            'bank_ke' => ['required'],
+            // 'merk_battere' => ['required'],
+            'type' => ['required'],
+            // 'kapasitas_battere' => ['required'],
+            'hasil_uji' => ['required'],
+        ]);
+        
+        $validasirecti['merk'] = $request->merk_recti;
+        $validasirecti['kapasitas'] = $request->kapasitas_recti;
+        
+        $validasibattere['merk'] = $request->merk_battere;
+        $validasibattere['kapasitas'] = $request->kapasitas_battere;
+
+        recti::create($validasirecti);
+        Battere::create($validasibattere);
+
+        return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data added successfully');
+    }
+
+    public function updateRectiBattere(Request $request, $id){
+        $validasirecti = $this->validate($request,[
+            'pop_id' => ['required'],
+            'recti_ke' => ['required'],
+            // 'merk_recti' => ['required'],
+            'beban' => ['required'],
+            // 'kapasitas_recti' => ['required'],
+        ]);
+
+        $validasibattere = $this->validate($request,[
+            'pop_id' => ['required'],
+            'recti_ke' => ['required'],
+            'bank_ke' => ['required'],
+            // 'merk_battere' => ['required'],
+            'type' => ['required'],
+            // 'kapasitas_battere' => ['required'],
+            'hasil_uji' => ['required'],
+        ]);
+        
+        $validasirecti['merk'] = $request->merk_recti;
+        $validasirecti['kapasitas'] = $request->kapasitas_recti;
+        
+        $validasibattere['merk'] = $request->merk_battere;
+        $validasibattere['kapasitas'] = $request->kapasitas_battere;
+
+        recti::where('id',$request->id)->update($validasirecti);
+        Battere::where('id',$request->id)->update($validasibattere);
+
         return redirect('/pop/teknis/' . $request->pop_id)->with('success','Data updated successfully');
     }
 }

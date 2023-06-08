@@ -6,8 +6,9 @@
     <div class="index d-flex justify-content-center align-items-center">
         <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">AMPERE KWH POP > BEBAN AKTUAL</p>
         <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">BACK UP TIME PERANGKAT > 8 JAM</p>
-        <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">FAILOVER PLN TO BATTERE</p>
-        <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">FAILOVER PLN TO GENSET</p>
+        {{-- <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">FAILOVER PLN TO BATTERE</p>
+        <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">FAILOVER PLN TO GENSET</p> --}}
+        <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">KEMAMPUAN GENSET >= KWH POP</p>
         <p style="font-size: 14px" class="mx-2 px-2 rounded bg-success">SUHU < 25 C</p>
     </div>
     {{-- <a href="{{ url()->previous() }}" class="pb-2 pl-2" style="font-size: 13px">< kembali</a> --}}
@@ -92,7 +93,7 @@
                   <div class="card-body">
                     <div class="form-group">
                       <div class="form-group row mb-5">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Daya Listrik (Watt) :</label>
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Daya Listrik PLN (Watt) :</label>
                         <div class="col-sm-4">
                           <input type="email" class="form-control" id="inputEmail3" disabled value="{{ $kelistrikan->daya_listrik ?? '' }}">
                         </div>
@@ -275,7 +276,7 @@
                         </div>
                         <div class="col-6">
                           <div class="form-group">
-                            <label for="exampleInputEmail1">Kemampuan Genset</label>
+                            <label for="exampleInputEmail1">Kemampuan Genset (Watt)</label>
                             <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $genset->kemampuan_genset ?? '' }}">
                           </div>
                         </div>
@@ -305,6 +306,175 @@
                     {{ $genset->updated_at ?? '' }}
                   </div>
                 </div>
+                @if (empty($battere))
+                  <div class="card">
+                    <div class="card-header bg-info">
+                      <div class="card-title">
+                        Recti & Battere
+                      </div>
+                    </div>
+                    <div class="card-body">                        
+                        <div class="form-group">
+                          <div class="row mb-2">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Recti Ke</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Merk</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Kapasitas (A)</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Beban</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Bank Ke</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                          </div>
+                          <div class="row">
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Merk</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Type</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Kapasitas (AH)</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Hasil Uji</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                      {{ $genset->updated_at ?? '' }}
+                    </div>
+                  </div>
+                @else
+                  <div class="card">
+                    <div class="card-header bg-info">
+                      <div class="card-title">
+                        Recti & Battere
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      @foreach ($allBattere as $key => $battere)                        
+                        <div class="form-group">
+                          <div class="row mb-2">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Recti Ke</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $allRecti[$key]->recti_ke ?? '' }}">
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Merk</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $allRecti[$key]->merk ?? '' }}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row mb-2">
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Kapasitas (A)</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $allRecti[$key]->kapasitas ?? '' }}">
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Beban</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $allRecti[$key]->beban ?? '' }}">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Bank Ke</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $battere->bank_ke ?? '' }}">
+                          </div>
+                          <div class="row">
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Merk</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $battere->merk ?? '' }}">
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Type</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $battere->type ?? '' }}">
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Kapasitas (AH)</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $battere->kapasitas ?? '' }}">
+                              </div>
+                            </div>
+                            <div class="col-3">
+                              <div class="form-group">
+                                <label for="exampleInputEmail1">Hasil Uji</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" disabled value="{{ $battere->hasil_uji ?? '' }}">
+                              </div>
+                            </div>
+                          </div>
+                          {{-- @php
+                          $indexgenset = '';
+                          $adagenset = $genset->index_healthy ?? '';
+                          if($adagenset == "Excellent"){
+                            $indexgenset = 'bg-success';
+                          }elseif($adagenset == "Health"){
+                            $indexgenset = 'bg-warning';
+                          }elseif($adagenset == "Critical"){
+                            $indexgenset = 'bg-danger';
+                          }elseif($adagenset == "Lose Privillage"){
+                            $indexgenset = 'bg-dark';
+                          }else{
+                            $indexgenset = '';
+                          }
+                          @endphp
+                          <div class="form-group">
+                            <label for="exampleInputEmail1">Index Healthy</label>
+                            <input type="email" class="form-control {{ $indexgenset }}" id="exampleInputEmail1" disabled value="{{ $genset->index_healthy ?? '' }}">
+                          </div> --}}
+                        </div>
+                        <hr style="height:0.5px;border:none;color:#333;background-color:#333;">
+                      @endforeach
+                    </div>
+                    <div class="card-footer">
+                      {{ $battere->updated_at ?? '' }}
+                    </div>
+                  </div>
+                @endif
             </div>
             {{-- <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
                 <div class="row">

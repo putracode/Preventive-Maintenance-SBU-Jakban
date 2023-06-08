@@ -35,4 +35,12 @@ class Pop extends Model
     protected function genset(){
         return $this->hasMany(genset::class);
     }
+
+    protected function recti(){
+        return $this->hasMany(recti::class);
+    }
+
+    protected function battere(){
+        return $this->hasMany(battere::class);
+    }
 }

@@ -6,6 +6,8 @@ use App\Models\Pop;
 use App\Models\Suhu;
 use App\Models\Genset;
 use App\Models\Jadwal;
+use App\Models\Recti;
+use App\Models\Battere;
 use App\Models\Kelistrikan;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -278,7 +280,6 @@ class DashboardController extends Controller
         // $popid = $pop->id;
 
         // return view('dashboard-pop.detail',['pop' => pop::where('id_pop',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$popid)->first(), 'suhu' => Suhu::where('pop_id',$popid)->first(), 'genset' => Genset::where('pop_id',$popid)->first()]);
-        // dd($id);
-        return view('dashboard-pop.detail',['pop' => pop::where('id',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$id)->first(), 'suhu' => Suhu::where('pop_id',$id)->first(), 'genset' => Genset::where('pop_id',$id)->first()]);
+        return view('dashboard-pop.detail',['pop' => pop::where('id',$id)->get(), 'kelistrikan' => Kelistrikan::where('pop_id',$id)->first(), 'suhu' => Suhu::where('pop_id',$id)->first(), 'genset' => Genset::where('pop_id',$id)->first(),'battere' => Battere::where('pop_id',$id)->orderBy('updated_at','desc')->first(),'allBattere' => battere::where('pop_id',$id)->get(),'allRecti' => recti::where('pop_id',$id)->get()]);
     }
 }
